@@ -1,0 +1,32 @@
+name: Supabase Keep-Alive
+
+# Mantiene el proyecto de Supabase despierto para que no se pause
+# por inactividad (el plan gratuito se pausa tras 7 dias sin peticiones).
+
+on:
+  schedule:
+    # Se ejecuta cada dia a las 06:00 UTC (08:00 en Espana peninsular en verano).
+    # Formato cron: minuto hora dia-mes mes dia-semana
+    - cron: '0 6 * * *'
+  # Permite lanzarlo manualmente desde la pestana "Actions" de GitHub.
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping a la base de datos de Supabase
+        run: |
+          echo "Enviando ping a Supabase para mantener el proyecto activo..."
+          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
+            "${{ secrets.SUPABASE_URL }}/rest/v1/profiles?select=id&limit=1" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}")
+          echo "Codigo de respuesta HTTP: $HTTP_CODE"
+          # 200 (ok) o 206 (contenido parcial) significan que el proyecto respondio.
+          if [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "206" ]; then
+            echo "Ping correcto: el proyecto esta activo."
+          else
+            echo "Aviso: respuesta inesperada ($HTTP_CODE). Revisa el estado del proyecto en Supabase."
+            exit 1
+          fi
