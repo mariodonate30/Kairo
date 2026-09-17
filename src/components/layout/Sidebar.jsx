@@ -8,7 +8,6 @@ import {
   LogOut,
   Settings,
   ShieldCheck,
-  Sparkles,
   Target,
   Timer,
   TrendingUp,
@@ -108,9 +107,7 @@ export default function Sidebar({ isOpen, onClose }) {
       >
         <div className="flex items-center justify-between px-5 py-5">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-violet-600 text-white">
-              <Sparkles className="h-5 w-5" />
-            </div>
+            <img src="/logo.png" alt="Kairo" className="h-9 w-9 rounded-xl" />
             <span className="text-lg font-bold text-slate-900">Kairo</span>
           </div>
           <button

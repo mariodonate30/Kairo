@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Eye, EyeOff, Lock, Mail, Sparkles } from 'lucide-react'
+import { Eye, EyeOff, Lock, Mail } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
 
 const ERROR_MESSAGES = {
@@ -41,9 +41,7 @@ export default function Login() {
     <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-violet-50 via-white to-emerald-50 px-4 py-12">
       <div className="w-full max-w-sm">
         <div className="mb-8 flex flex-col items-center gap-2 text-center">
-          <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-600 text-white shadow-lg shadow-violet-200">
-            <Sparkles className="h-6 w-6" />
-          </div>
+          <img src="/logo.png" alt="Kairo" className="h-16 w-16 rounded-2xl shadow-lg shadow-emerald-200" />
           <h1 className="text-2xl font-bold text-slate-900">Kairo</h1>
           <p className="text-sm text-slate-500">Tu momento para cuidarte cada día</p>
         </div>

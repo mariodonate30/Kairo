@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import { Menu, Sparkles } from 'lucide-react'
+import { Menu } from 'lucide-react'
 import { useCheckin } from '../../hooks/useCheckin'
 
 // Aviso compacto de check-in pendiente, siempre visible en la cabecera móvil
@@ -36,9 +36,7 @@ export default function MobileNav({ onMenuClick }) {
         <Menu className="h-5 w-5" />
       </button>
       <div className="flex items-center gap-2">
-        <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-violet-600 text-white">
-          <Sparkles className="h-4 w-4" />
-        </div>
+        <img src="/logo.png" alt="Kairo" className="h-7 w-7 rounded-lg" />
         <span className="text-base font-bold text-slate-900">Kairo</span>
       </div>
       <MobilePendingBadge />
