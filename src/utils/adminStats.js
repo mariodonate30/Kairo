@@ -12,6 +12,40 @@ export function shortLabel(dateStr) {
   return `${date.getDate()}/${date.getMonth() + 1}`
 }
 
+// Cuenta los estudiantes (no admins) por género declarado en su perfil.
+export function countByGender(profiles, genderById) {
+  const counts = { chico: 0, chica: 0, none: 0 }
+  for (const profile of profiles) {
+    if (profile.role === 'admin') continue
+    const gender = genderById.get(profile.id)
+    if (gender === 'chico') counts.chico += 1
+    else if (gender === 'chica') counts.chica += 1
+    else counts.none += 1
+  }
+  counts.total = counts.chico + counts.chica + counts.none
+  return counts
+}
+
+// Devuelve una copia de los datos del panel filtrada a un solo sexo. Con
+// gender = 'all' devuelve los datos sin tocar (vista conjunta). Filtra tanto los
+// perfiles (para que los porcentajes de retención usen el total de ese sexo)
+// como todas las tablas de actividad por su user_id.
+export function filterDataByGender(data, genderById, gender) {
+  if (gender !== 'chico' && gender !== 'chica') return data
+
+  const keep = (userId) => genderById.get(userId) === gender
+
+  return {
+    ...data,
+    profiles: data.profiles.filter((p) => genderById.get(p.id) === gender),
+    checkins: data.checkins.filter((r) => keep(r.user_id)),
+    surveys: data.surveys.filter((r) => keep(r.user_id)),
+    goals: data.goals.filter((r) => keep(r.user_id)),
+    focusSessions: data.focusSessions.filter((r) => keep(r.user_id)),
+    meditationSessions: data.meditationSessions.filter((r) => keep(r.user_id)),
+  }
+}
+
 // Genera un evento { userId, date } por cada actividad del usuario en la app.
 // Sirve para medir usuarios activos, retención y uso de secciones. Las encuestas
 // cuentan por su fecha de completado (o el inicio de semana si no la hay).

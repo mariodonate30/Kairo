@@ -4,6 +4,10 @@ import { downloadCsv } from '../../utils/exportCsv'
 
 const yesNo = (value) => (value ? 'sí' : 'no')
 
+// Género declarado del usuario (vacío si no lo indicó). Se añade a cada fila
+// exportada para poder analizar los resultados separados por sexo.
+const genderOf = (genderById, userId) => genderById.get(userId) || ''
+
 // Definición de cada conjunto exportable. Cada uno declara sus columnas y una
 // función que produce las filas ANONIMIZADAS a partir de los datos crudos, el
 // mapa de anonimización (user_id → nº) y el rango de fechas [from, to].
@@ -15,6 +19,7 @@ const DATASETS = [
     filename: 'kairo_checkins',
     columns: [
       { key: 'id', label: 'id' },
+      { key: 'genero', label: 'genero' },
       { key: 'date', label: 'fecha' },
       { key: 'mood', label: 'animo' },
       { key: 'sleep_hours', label: 'horas_sueno' },
@@ -26,11 +31,12 @@ const DATASETS = [
       { key: 'study_minutes', label: 'minutos_estudio' },
       { key: 'exercised', label: 'ejercicio' },
     ],
-    build: (data, anonIds, inRange) =>
+    build: (data, anonIds, inRange, questions, genderById) =>
       data.checkins
         .filter((r) => inRange(r.date))
         .map((r) => ({
           id: anonIds.get(r.user_id) ?? '?',
+          genero: genderOf(genderById, r.user_id),
           date: r.date,
           mood: r.mood,
           sleep_hours: r.sleep_hours,
@@ -51,12 +57,13 @@ const DATASETS = [
     // Formato largo: una fila por (encuesta, respuesta). Fácil de analizar.
     columns: [
       { key: 'id', label: 'id' },
+      { key: 'genero', label: 'genero' },
       { key: 'week_start', label: 'inicio_semana' },
       { key: 'category', label: 'categoria' },
       { key: 'question_id', label: 'pregunta_id' },
       { key: 'value', label: 'valor' },
     ],
-    build: (data, anonIds, inRange, questions) => {
+    build: (data, anonIds, inRange, questions, genderById) => {
       const categoryById = new Map(questions.map((q) => [q.id, q.category]))
       const rows = []
       for (const survey of data.surveys) {
@@ -65,6 +72,7 @@ const DATASETS = [
         for (const [questionId, value] of Object.entries(survey.responses || {})) {
           rows.push({
             id: anonIds.get(survey.user_id) ?? '?',
+            genero: genderOf(genderById, survey.user_id),
             week_start: survey.week_start,
             category: categoryById.get(questionId) || '',
             question_id: questionId,
@@ -81,14 +89,16 @@ const DATASETS = [
     filename: 'kairo_objetivos',
     columns: [
       { key: 'id', label: 'id' },
+      { key: 'genero', label: 'genero' },
       { key: 'date', label: 'fecha' },
       { key: 'completed', label: 'completado' },
     ],
-    build: (data, anonIds, inRange) =>
+    build: (data, anonIds, inRange, questions, genderById) =>
       data.goals
         .filter((r) => inRange(r.date))
         .map((r) => ({
           id: anonIds.get(r.user_id) ?? '?',
+          genero: genderOf(genderById, r.user_id),
           date: r.date,
           completed: yesNo(r.completed),
         }))
@@ -100,15 +110,17 @@ const DATASETS = [
     filename: 'kairo_enfoque',
     columns: [
       { key: 'id', label: 'id' },
+      { key: 'genero', label: 'genero' },
       { key: 'date', label: 'fecha' },
       { key: 'actual_minutes', label: 'minutos_reales' },
       { key: 'completed', label: 'completada' },
     ],
-    build: (data, anonIds, inRange) =>
+    build: (data, anonIds, inRange, questions, genderById) =>
       data.focusSessions
         .filter((r) => inRange(r.date))
         .map((r) => ({
           id: anonIds.get(r.user_id) ?? '?',
+          genero: genderOf(genderById, r.user_id),
           date: r.date,
           actual_minutes: r.actual_minutes,
           completed: yesNo(r.completed),
@@ -121,14 +133,16 @@ const DATASETS = [
     filename: 'kairo_meditacion',
     columns: [
       { key: 'id', label: 'id' },
+      { key: 'genero', label: 'genero' },
       { key: 'date', label: 'fecha' },
       { key: 'duration_minutes', label: 'minutos' },
     ],
-    build: (data, anonIds, inRange) =>
+    build: (data, anonIds, inRange, questions, genderById) =>
       data.meditationSessions
         .filter((r) => inRange(r.date))
         .map((r) => ({
           id: anonIds.get(r.user_id) ?? '?',
+          genero: genderOf(genderById, r.user_id),
           date: r.date,
           duration_minutes: r.duration_minutes,
         }))
@@ -136,7 +150,7 @@ const DATASETS = [
   },
 ]
 
-export default function DataExport({ data, anonIds, questions }) {
+export default function DataExport({ data, anonIds, questions, genderById }) {
   const [datasetKey, setDatasetKey] = useState('checkins')
   const [from, setFrom] = useState('')
   const [to, setTo] = useState('')
@@ -155,8 +169,8 @@ export default function DataExport({ data, anonIds, questions }) {
   }, [from, to])
 
   const rows = useMemo(
-    () => dataset.build(data, anonIds, inRange, questions),
-    [dataset, data, anonIds, inRange, questions],
+    () => dataset.build(data, anonIds, inRange, questions, genderById),
+    [dataset, data, anonIds, inRange, questions, genderById],
   )
 
   function handleDownload() {

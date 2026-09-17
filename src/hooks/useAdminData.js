@@ -32,7 +32,7 @@ export function useAdminData() {
       meditationRes,
       questionsRes,
     ] = await Promise.all([
-      supabase.from('profiles').select('id, role, created_at'),
+      supabase.from('profiles').select('id, role, created_at, gender'),
       supabase
         .from('daily_checkins')
         .select(
@@ -97,6 +97,18 @@ export function useAdminData() {
     return map
   }, [profiles])
 
+  // Mapa user_id → género ('chico' | 'chica'), para poder separar los datos
+  // agregados por sexo. Los usuarios sin género declarado no entran en el mapa.
+  const genderById = useMemo(() => {
+    const map = new Map()
+    for (const profile of profiles) {
+      if (profile.gender === 'chico' || profile.gender === 'chica') {
+        map.set(profile.id, profile.gender)
+      }
+    }
+    return map
+  }, [profiles])
+
   // ---- Gestión de preguntas de encuesta (solo admins pueden mutar por RLS) ----
 
   async function createQuestion({ questionText, category, sortOrder }) {
@@ -155,6 +167,7 @@ export function useAdminData() {
     meditationSessions,
     questions,
     anonIds,
+    genderById,
     loading,
     error,
     refresh: load,
