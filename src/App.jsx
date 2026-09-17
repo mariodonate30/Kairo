@@ -2,11 +2,13 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
 import { AuthProvider } from './contexts/AuthContext'
 import { AchievementsProvider } from './contexts/AchievementsContext'
 import ProtectedRoute from './components/auth/ProtectedRoute'
+import RequireInitialTest from './components/auth/RequireInitialTest'
 import AdminRoute from './components/auth/AdminRoute'
 import GuestRoute from './components/auth/GuestRoute'
 import AppLayout from './components/layout/AppLayout'
 import Login from './pages/Login'
 import Register from './pages/Register'
+import InitialTest from './pages/InitialTest'
 import Checkin from './pages/Checkin'
 import Surveys from './pages/Surveys'
 import Goals from './pages/Goals'
@@ -31,6 +33,9 @@ export default function App() {
           </Route>
 
           <Route element={<ProtectedRoute />}>
+            <Route path="/test-inicial" element={<InitialTest />} />
+
+            <Route element={<RequireInitialTest />}>
             <Route element={<AppLayout />}>
               <Route path="/" element={<Checkin />} />
               <Route path="/encuestas" element={<Surveys />} />
@@ -46,6 +51,7 @@ export default function App() {
               <Route element={<AdminRoute />}>
                 <Route path="/admin" element={<Admin />} />
               </Route>
+            </Route>
             </Route>
           </Route>
 

@@ -6,6 +6,8 @@ export const AuthContext = createContext(undefined)
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null)
   const [profile, setProfile] = useState(null)
+  // null = todavía sin comprobar; true/false una vez cargado.
+  const [initialTestCompleted, setInitialTestCompleted] = useState(null)
   const [loading, setLoading] = useState(true)
 
   async function loadProfile(userId) {
@@ -24,6 +26,23 @@ export function AuthProvider({ children }) {
     setProfile(data)
   }
 
+  // Comprueba si el usuario ya ha completado el test inicial (baseline).
+  async function loadInitialTest(userId) {
+    const { data, error } = await supabase
+      .from('initial_test')
+      .select('completed_at')
+      .eq('user_id', userId)
+      .maybeSingle()
+
+    if (error) {
+      console.error('Error cargando el test inicial:', error.message)
+      setInitialTestCompleted(false)
+      return
+    }
+
+    setInitialTestCompleted(Boolean(data?.completed_at))
+  }
+
   useEffect(() => {
     let isMounted = true
 
@@ -31,7 +50,10 @@ export function AuthProvider({ children }) {
       if (!isMounted) return
       setUser(session?.user ?? null)
       if (session?.user) {
-        loadProfile(session.user.id).finally(() => setLoading(false))
+        Promise.all([
+          loadProfile(session.user.id),
+          loadInitialTest(session.user.id),
+        ]).finally(() => setLoading(false))
       } else {
         setLoading(false)
       }
@@ -43,8 +65,10 @@ export function AuthProvider({ children }) {
       setUser(session?.user ?? null)
       if (session?.user) {
         loadProfile(session.user.id)
+        loadInitialTest(session.user.id)
       } else {
         setProfile(null)
+        setInitialTestCompleted(null)
       }
     })
 
@@ -57,6 +81,12 @@ export function AuthProvider({ children }) {
   async function refreshProfile() {
     if (user) {
       await loadProfile(user.id)
+    }
+  }
+
+  async function refreshInitialTest() {
+    if (user) {
+      await loadInitialTest(user.id)
     }
   }
 
@@ -88,8 +118,10 @@ export function AuthProvider({ children }) {
     user,
     profile,
     loading,
+    initialTestCompleted,
     isAdmin: profile?.role === 'admin',
     refreshProfile,
+    refreshInitialTest,
     signUp,
     signIn,
     signOut,

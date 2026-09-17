@@ -46,7 +46,6 @@ set search_path = public
 as $$
 declare
   admin_emails text[] := array[
-    'mario.donate@inscanroca.com',
     'mariodonate30@gmail.com',
     'lara.martos@inscanroca.com',
     'ainoa.titos@inscanroca.com'
