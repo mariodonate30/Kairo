@@ -12,6 +12,7 @@ import InitialTest from './pages/InitialTest'
 import Checkin from './pages/Checkin'
 import Surveys from './pages/Surveys'
 import Goals from './pages/Goals'
+import Tasks from './pages/Tasks'
 import FocusTimer from './pages/FocusTimer'
 import Meditation from './pages/Meditation'
 import Progress from './pages/Progress'
@@ -40,6 +41,7 @@ export default function App() {
               <Route path="/" element={<Checkin />} />
               <Route path="/encuestas" element={<Surveys />} />
               <Route path="/objetivos" element={<Goals />} />
+              <Route path="/calendario" element={<Tasks />} />
               <Route path="/enfoque" element={<FocusTimer />} />
               <Route path="/meditacion" element={<Meditation />} />
               <Route path="/progreso" element={<Progress />} />

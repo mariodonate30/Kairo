@@ -1,6 +1,7 @@
 import { NavLink, useNavigate } from 'react-router-dom'
 import {
   BookOpen,
+  CalendarDays,
   Check,
   ClipboardCheck,
   ClipboardList,
@@ -22,6 +23,7 @@ const mainNavItems = [
   { to: '/', label: 'Check-in diario', icon: ClipboardCheck, end: true },
   { to: '/encuestas', label: 'Encuestas semanales', icon: ClipboardList },
   { to: '/objetivos', label: 'Mis objetivos', icon: Target },
+  { to: '/calendario', label: 'Calendario de tareas', icon: CalendarDays },
   { to: '/enfoque', label: 'Temporizador de enfoque', icon: Timer },
   { to: '/meditacion', label: 'Meditación', icon: Wind },
   { to: '/progreso', label: 'Mi progresión', icon: TrendingUp },
