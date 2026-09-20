@@ -10,11 +10,16 @@ import {
   GRADE_OPTIONS,
   INITIAL_TEST_BLOCKS,
   REQUIRED_KEYS,
-  SCALE_DIGITS,
   SCALE_HIGH_LABEL,
   SCALE_LOW_LABEL,
   SOCIAL_HOURS_OPTIONS,
 } from '../utils/initialTest'
+
+// Construye los dígitos de la escala (['1','2','3','4'] o hasta 5) según la
+// pregunta. Rosenberg usa 1-4; el resto del test, 1-5.
+function scaleDigits(max = 5) {
+  return Array.from({ length: max }, (_, index) => String(index + 1))
+}
 
 // Selector de opciones en "píldoras" (género, nota media, horas en redes).
 function OptionPills({ options, value, onChange }) {
@@ -53,7 +58,7 @@ function Question({ question, value, onChange }) {
         label={question.text}
         value={value ?? null}
         onChange={onChange}
-        emojis={SCALE_DIGITS}
+        emojis={scaleDigits(question.scaleMax)}
         lowLabel={SCALE_LOW_LABEL}
         highLabel={SCALE_HIGH_LABEL}
       />
@@ -142,7 +147,7 @@ export default function InitialTest() {
             {firstName ? `¡Bienvenido/a, ${firstName}!` : '¡Bienvenido/a!'}
           </h1>
           <p className="max-w-md text-sm text-slate-500">
-            Antes de empezar, responde este cuestionario inicial (unos 3 minutos). Nos da un
+            Antes de empezar, responde este cuestionario inicial (unos 5 minutos). Nos da un
             punto de partida para entender cómo evolucionas. No hay respuestas correctas ni
             incorrectas: contesta con sinceridad.
           </p>
