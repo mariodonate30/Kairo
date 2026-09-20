@@ -17,6 +17,8 @@ export function useAdminData() {
   const [meditationSessions, setMeditationSessions] = useState([])
   const [questions, setQuestions] = useState([])
   const [initialTests, setInitialTests] = useState([])
+  const [finalTests, setFinalTests] = useState([])
+  const [finalTestActive, setFinalTestActiveState] = useState(false)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
@@ -33,6 +35,8 @@ export function useAdminData() {
       meditationRes,
       questionsRes,
       initialTestsRes,
+      finalTestsRes,
+      settingsRes,
     ] = await Promise.all([
       supabase.from('profiles').select('id, role, created_at, gender'),
       supabase
@@ -53,6 +57,8 @@ export function useAdminData() {
         .select('*')
         .order('sort_order', { ascending: true }),
       supabase.from('initial_test').select('user_id, responses, completed_at'),
+      supabase.from('final_test').select('user_id, responses, completed_at'),
+      supabase.from('app_settings').select('value').eq('key', 'final_test_active').maybeSingle(),
     ])
 
     const firstError =
@@ -63,7 +69,9 @@ export function useAdminData() {
       focusRes.error ||
       meditationRes.error ||
       questionsRes.error ||
-      initialTestsRes.error
+      initialTestsRes.error ||
+      finalTestsRes.error ||
+      settingsRes.error
 
     if (firstError) {
       setError('No se han podido cargar los datos de administración.')
@@ -76,6 +84,8 @@ export function useAdminData() {
       setMeditationSessions(meditationRes.data || [])
       setQuestions(questionsRes.data || [])
       setInitialTests(initialTestsRes.data || [])
+      setFinalTests(finalTestsRes.data || [])
+      setFinalTestActiveState(settingsRes.data?.value === true)
     }
 
     setLoading(false)
@@ -163,6 +173,16 @@ export function useAdminData() {
     return updateQuestion(id, { active })
   }
 
+  // Activa o desactiva la encuesta final para todos los alumnos (app_settings).
+  async function setFinalTestActive(active) {
+    const { error: err } = await supabase.from('app_settings').upsert(
+      { key: 'final_test_active', value: active, updated_at: new Date().toISOString() },
+      { onConflict: 'key' },
+    )
+    if (!err) setFinalTestActiveState(active)
+    return { error: err }
+  }
+
   return {
     profiles,
     checkins,
@@ -172,6 +192,8 @@ export function useAdminData() {
     meditationSessions,
     questions,
     initialTests,
+    finalTests,
+    finalTestActive,
     anonIds,
     genderById,
     loading,
@@ -180,5 +202,6 @@ export function useAdminData() {
     createQuestion,
     updateQuestion,
     toggleQuestion,
+    setFinalTestActive,
   }
 }

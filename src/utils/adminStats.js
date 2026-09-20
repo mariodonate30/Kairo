@@ -76,6 +76,60 @@ export function buildSelfEsteemStats(initialTests, genderById) {
   }
 }
 
+// Evolución por alumno: empareja test inicial y final por user_id y devuelve una
+// fila por alumno que hizo la encuesta final, con su autoestima inicial y final
+// (y la diferencia), la nota base y la del examen, y sus respuestas de la app.
+// La identidad es siempre el nº anónimo (anonIds), nunca el nombre.
+export function buildEvolution(initialTests, finalTests, genderById, anonIds) {
+  const initialByUser = new Map(initialTests.map((t) => [t.user_id, t]))
+
+  const rows = finalTests.map((finalTest) => {
+    const initialTest = initialByUser.get(finalTest.user_id)
+    const initialScore = initialTest ? rosenbergScore(initialTest.responses) : null
+    const finalScore = rosenbergScore(finalTest.responses)
+    const delta =
+      initialScore != null && finalScore != null ? finalScore - initialScore : null
+
+    return {
+      anonId: anonIds.get(finalTest.user_id) ?? '?',
+      gender: genderById.get(finalTest.user_id) || '',
+      initialScore,
+      finalScore,
+      delta,
+      gradeBaseline: initialTest?.responses?.grade_last_year ?? '',
+      gradeExam: finalTest.responses?.final_grade ?? '',
+      tool: finalTest.responses?.most_useful_tool ?? '',
+      improvement: finalTest.responses?.perceived_improvement ?? '',
+      comment: finalTest.responses?.experience_comment ?? '',
+    }
+  })
+
+  return rows.sort((a, b) => {
+    if (typeof a.anonId === 'number' && typeof b.anonId === 'number') return a.anonId - b.anonId
+    return String(a.anonId).localeCompare(String(b.anonId))
+  })
+}
+
+// Impacto de la app declarado en la encuesta final: reparto de la herramienta
+// más útil (H3.1) y de la mejora percibida (H3.2).
+export function buildFinalImpact(finalTests) {
+  const tools = new Map()
+  const improvement = { Sí: 0, 'Un poco': 0, No: 0 }
+
+  for (const test of finalTests) {
+    const tool = test.responses?.most_useful_tool
+    if (tool) tools.set(tool, (tools.get(tool) || 0) + 1)
+    const imp = test.responses?.perceived_improvement
+    if (imp && imp in improvement) improvement[imp] += 1
+  }
+
+  const toolRows = Array.from(tools.entries())
+    .map(([tool, count]) => ({ tool, count }))
+    .sort((a, b) => b.count - a.count)
+
+  return { toolRows, improvement }
+}
+
 // Etiqueta compacta "día/mes" para los ejes X de los gráficos temporales.
 export function shortLabel(dateStr) {
   const date = parseDate(dateStr)

@@ -3,12 +3,14 @@ import { AuthProvider } from './contexts/AuthContext'
 import { AchievementsProvider } from './contexts/AchievementsContext'
 import ProtectedRoute from './components/auth/ProtectedRoute'
 import RequireInitialTest from './components/auth/RequireInitialTest'
+import RequireFinalTest from './components/auth/RequireFinalTest'
 import AdminRoute from './components/auth/AdminRoute'
 import GuestRoute from './components/auth/GuestRoute'
 import AppLayout from './components/layout/AppLayout'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import InitialTest from './pages/InitialTest'
+import FinalTest from './pages/FinalTest'
 import Checkin from './pages/Checkin'
 import Surveys from './pages/Surveys'
 import Goals from './pages/Goals'
@@ -37,6 +39,9 @@ export default function App() {
             <Route path="/test-inicial" element={<InitialTest />} />
 
             <Route element={<RequireInitialTest />}>
+            <Route path="/test-final" element={<FinalTest />} />
+
+            <Route element={<RequireFinalTest />}>
             <Route element={<AppLayout />}>
               <Route path="/" element={<Checkin />} />
               <Route path="/encuestas" element={<Surveys />} />
@@ -53,6 +58,7 @@ export default function App() {
               <Route element={<AdminRoute />}>
                 <Route path="/admin" element={<Admin />} />
               </Route>
+            </Route>
             </Route>
             </Route>
           </Route>

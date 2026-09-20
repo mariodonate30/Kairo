@@ -276,3 +276,11 @@ export const INITIAL_TEST_QUESTIONS = INITIAL_TEST_BLOCKS.flatMap((block) =>
 export const REQUIRED_KEYS = INITIAL_TEST_QUESTIONS.filter((q) => !q.optional).map(
   (q) => q.key,
 )
+
+// Devuelve las preguntas del test inicial correspondientes a unas claves, en ese
+// orden. Lo usa la encuesta final para reutilizar preguntas IDÉNTICAS (mismo
+// texto, escala e inversión) y poder comparar inicial ↔ final sin desajustes.
+export function pickQuestions(keys) {
+  const byKey = new Map(INITIAL_TEST_QUESTIONS.map((q) => [q.key, q]))
+  return keys.map((key) => byKey.get(key)).filter(Boolean)
+}

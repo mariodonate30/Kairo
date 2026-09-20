@@ -8,6 +8,9 @@ export function AuthProvider({ children }) {
   const [profile, setProfile] = useState(null)
   // null = todavía sin comprobar; true/false una vez cargado.
   const [initialTestCompleted, setInitialTestCompleted] = useState(null)
+  const [finalTestCompleted, setFinalTestCompleted] = useState(null)
+  // Si la encuesta final está activada globalmente (app_settings). null = cargando.
+  const [finalTestActive, setFinalTestActive] = useState(null)
   const [loading, setLoading] = useState(true)
 
   async function loadProfile(userId) {
@@ -43,6 +46,40 @@ export function AuthProvider({ children }) {
     setInitialTestCompleted(Boolean(data?.completed_at))
   }
 
+  // Comprueba si el usuario ya ha completado la encuesta final.
+  async function loadFinalTest(userId) {
+    const { data, error } = await supabase
+      .from('final_test')
+      .select('completed_at')
+      .eq('user_id', userId)
+      .maybeSingle()
+
+    if (error) {
+      console.error('Error cargando la encuesta final:', error.message)
+      setFinalTestCompleted(false)
+      return
+    }
+
+    setFinalTestCompleted(Boolean(data?.completed_at))
+  }
+
+  // Lee del ajuste global si la encuesta final está activada.
+  async function loadFinalTestActive() {
+    const { data, error } = await supabase
+      .from('app_settings')
+      .select('value')
+      .eq('key', 'final_test_active')
+      .maybeSingle()
+
+    if (error) {
+      console.error('Error cargando la configuración:', error.message)
+      setFinalTestActive(false)
+      return
+    }
+
+    setFinalTestActive(data?.value === true)
+  }
+
   useEffect(() => {
     let isMounted = true
 
@@ -53,6 +90,8 @@ export function AuthProvider({ children }) {
         Promise.all([
           loadProfile(session.user.id),
           loadInitialTest(session.user.id),
+          loadFinalTest(session.user.id),
+          loadFinalTestActive(),
         ]).finally(() => setLoading(false))
       } else {
         setLoading(false)
@@ -66,9 +105,13 @@ export function AuthProvider({ children }) {
       if (session?.user) {
         loadProfile(session.user.id)
         loadInitialTest(session.user.id)
+        loadFinalTest(session.user.id)
+        loadFinalTestActive()
       } else {
         setProfile(null)
         setInitialTestCompleted(null)
+        setFinalTestCompleted(null)
+        setFinalTestActive(null)
       }
     })
 
@@ -88,6 +131,13 @@ export function AuthProvider({ children }) {
     if (user) {
       await loadInitialTest(user.id)
     }
+  }
+
+  async function refreshFinalTest() {
+    if (user) {
+      await loadFinalTest(user.id)
+    }
+    await loadFinalTestActive()
   }
 
   async function signUp(email, password, fullName) {
@@ -119,9 +169,12 @@ export function AuthProvider({ children }) {
     profile,
     loading,
     initialTestCompleted,
+    finalTestCompleted,
+    finalTestActive,
     isAdmin: profile?.role === 'admin',
     refreshProfile,
     refreshInitialTest,
+    refreshFinalTest,
     signUp,
     signIn,
     signOut,

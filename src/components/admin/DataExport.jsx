@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Download } from 'lucide-react'
 import { downloadCsv } from '../../utils/exportCsv'
+import { buildEvolution } from '../../utils/adminStats'
 
 const yesNo = (value) => (value ? 'sí' : 'no')
 
@@ -147,6 +148,36 @@ const DATASETS = [
           duration_minutes: r.duration_minutes,
         }))
         .sort((a, b) => (a.date < b.date ? -1 : 1)),
+  },
+  {
+    key: 'evolution',
+    label: 'Evolución (inicial→final)',
+    filename: 'kairo_evolucion',
+    // Una fila por alumno que completó la encuesta final, emparejada con su test
+    // inicial. No depende de fechas: ignora el filtro de rango.
+    columns: [
+      { key: 'id', label: 'id' },
+      { key: 'genero', label: 'genero' },
+      { key: 'autoestima_inicial', label: 'autoestima_inicial' },
+      { key: 'autoestima_final', label: 'autoestima_final' },
+      { key: 'variacion', label: 'variacion' },
+      { key: 'nota_base', label: 'nota_base' },
+      { key: 'nota_examen', label: 'nota_examen' },
+      { key: 'herramienta_util', label: 'herramienta_util' },
+      { key: 'mejora_percibida', label: 'mejora_percibida' },
+    ],
+    build: (data, anonIds, inRange, questions, genderById) =>
+      buildEvolution(data.initialTests, data.finalTests, genderById, anonIds).map((r) => ({
+        id: r.anonId,
+        genero: r.gender || '',
+        autoestima_inicial: r.initialScore ?? '',
+        autoestima_final: r.finalScore ?? '',
+        variacion: r.delta ?? '',
+        nota_base: r.gradeBaseline || '',
+        nota_examen: r.gradeExam || '',
+        herramienta_util: r.tool || '',
+        mejora_percibida: r.improvement || '',
+      })),
   },
 ]
 

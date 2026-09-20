@@ -1,10 +1,12 @@
 import { useMemo, useState } from 'react'
-import { BarChart3, ClipboardList, Database, HeartPulse } from 'lucide-react'
+import { BarChart3, ClipboardList, Database, HeartPulse, TrendingUp } from 'lucide-react'
 import { useAdminData } from '../hooks/useAdminData'
 import { daysAgo } from '../utils/dateHelpers'
 import {
   buildCategoryDistribution,
   buildDailyAverages,
+  buildEvolution,
+  buildFinalImpact,
   buildRetention,
   buildSectionUsage,
   buildSelfEsteemStats,
@@ -16,6 +18,7 @@ import LoadingSpinner from '../components/ui/LoadingSpinner'
 import AdminDashboard from '../components/admin/AdminDashboard'
 import AggregateCharts from '../components/admin/AggregateCharts'
 import InitialTestStats from '../components/admin/InitialTestStats'
+import EvolutionPanel from '../components/admin/EvolutionPanel'
 import SurveyManager from '../components/admin/SurveyManager'
 import DataExport from '../components/admin/DataExport'
 
@@ -29,6 +32,7 @@ const RANGES = [
 const TABS = [
   { key: 'overview', label: 'Datos agregados', icon: BarChart3 },
   { key: 'initial', label: 'Test inicial', icon: HeartPulse },
+  { key: 'final', label: 'Encuesta final', icon: TrendingUp },
   { key: 'surveys', label: 'Encuestas', icon: ClipboardList },
   { key: 'export', label: 'Exportar', icon: Database },
 ]
@@ -41,9 +45,11 @@ export default function Admin() {
     questions,
     anonIds,
     genderById,
+    finalTestActive,
     createQuestion,
     updateQuestion,
     toggleQuestion,
+    setFinalTestActive,
   } = admin
 
   const [tab, setTab] = useState('overview')
@@ -64,6 +70,18 @@ export default function Admin() {
     () => buildSelfEsteemStats(admin.initialTests, genderById),
     [admin.initialTests, genderById],
   )
+
+  const finalSelfEsteemStats = useMemo(
+    () => buildSelfEsteemStats(admin.finalTests, genderById),
+    [admin.finalTests, genderById],
+  )
+
+  const evolution = useMemo(
+    () => buildEvolution(admin.initialTests, admin.finalTests, genderById, anonIds),
+    [admin.initialTests, admin.finalTests, genderById, anonIds],
+  )
+
+  const finalImpact = useMemo(() => buildFinalImpact(admin.finalTests), [admin.finalTests])
 
   // Opciones del filtro por sexo. La vista conjunta ('all') muestra a todos.
   const GENDER_FILTERS = [
@@ -190,6 +208,17 @@ export default function Admin() {
       )}
 
       {tab === 'initial' && <InitialTestStats stats={selfEsteemStats} />}
+
+      {tab === 'final' && (
+        <EvolutionPanel
+          active={finalTestActive}
+          onToggle={setFinalTestActive}
+          initialStats={selfEsteemStats}
+          finalStats={finalSelfEsteemStats}
+          evolution={evolution}
+          impact={finalImpact}
+        />
+      )}
 
       {tab === 'surveys' && (
         <SurveyManager
