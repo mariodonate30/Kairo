@@ -5,6 +5,76 @@
 
 import { parseDate, todayDate, startOfWeek } from './dateHelpers'
 import { SURVEY_CATEGORIES } from '../hooks/useSurveys'
+import { INITIAL_TEST_QUESTIONS } from './initialTest'
+
+// ---- Autoestima: escala de Rosenberg del test inicial ----
+// Los 10 ítems del bloque de autoestima. Cada uno trae su escala (scaleMax = 4)
+// y si es inverso (reverse). La puntuación total va del mínimo (10) al máximo (40).
+const ROSENBERG_ITEMS = INITIAL_TEST_QUESTIONS.filter((q) => q.block === 'autoestima')
+export const ROSENBERG_MIN = ROSENBERG_ITEMS.length
+export const ROSENBERG_MAX = ROSENBERG_ITEMS.reduce((sum, q) => sum + (q.scaleMax || 5), 0)
+
+// Puntuación de autoestima de un alumno a partir de sus respuestas del test
+// inicial. Invierte los ítems marcados como `reverse` (max+1 − valor) y suma
+// todos. Devuelve null si falta alguna respuesta (test incompleto).
+export function rosenbergScore(responses) {
+  if (!responses) return null
+  let total = 0
+  for (const item of ROSENBERG_ITEMS) {
+    const raw = Number(responses[item.key])
+    if (!raw || Number.isNaN(raw)) return null
+    const max = item.scaleMax || 5
+    total += item.reverse ? max + 1 - raw : raw
+  }
+  return total
+}
+
+// Nivel orientativo de autoestima según la puntuación total (10-40).
+// Umbrales aproximados: los usamos solo como referencia visual, no como
+// diagnóstico. <26 baja · 26-29 media · ≥30 alta.
+export function rosenbergLevel(score) {
+  if (score == null) return null
+  if (score < 26) return 'baja'
+  if (score < 30) return 'media'
+  return 'alta'
+}
+
+// Resumen de una lista de puntuaciones: nº, media (/40) y media normalizada 0-100.
+function summarizeScores(scores) {
+  const count = scores.length
+  if (!count) return { count: 0, mean: null, meanPct: null }
+  const mean = scores.reduce((a, b) => a + b, 0) / count
+  const span = ROSENBERG_MAX - ROSENBERG_MIN
+  const meanPct = span > 0 ? Math.round(((mean - ROSENBERG_MIN) / span) * 100) : null
+  return { count, mean: Number(mean.toFixed(1)), meanPct }
+}
+
+// Agregado de autoestima del instituto a partir de los tests iniciales.
+// Devuelve medias en conjunto y separadas por sexo, más la distribución por
+// nivel (baja/media/alta) del total de alumnos.
+export function buildSelfEsteemStats(initialTests, genderById) {
+  const groups = { all: [], chico: [], chica: [] }
+  const levels = { baja: 0, media: 0, alta: 0 }
+
+  for (const test of initialTests) {
+    const score = rosenbergScore(test.responses)
+    if (score == null) continue
+    groups.all.push(score)
+    levels[rosenbergLevel(score)] += 1
+    const gender = genderById.get(test.user_id)
+    if (gender === 'chico') groups.chico.push(score)
+    else if (gender === 'chica') groups.chica.push(score)
+  }
+
+  return {
+    min: ROSENBERG_MIN,
+    max: ROSENBERG_MAX,
+    all: summarizeScores(groups.all),
+    chico: summarizeScores(groups.chico),
+    chica: summarizeScores(groups.chica),
+    levels,
+  }
+}
 
 // Etiqueta compacta "día/mes" para los ejes X de los gráficos temporales.
 export function shortLabel(dateStr) {

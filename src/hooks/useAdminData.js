@@ -16,6 +16,7 @@ export function useAdminData() {
   const [focusSessions, setFocusSessions] = useState([])
   const [meditationSessions, setMeditationSessions] = useState([])
   const [questions, setQuestions] = useState([])
+  const [initialTests, setInitialTests] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
@@ -31,6 +32,7 @@ export function useAdminData() {
       focusRes,
       meditationRes,
       questionsRes,
+      initialTestsRes,
     ] = await Promise.all([
       supabase.from('profiles').select('id, role, created_at, gender'),
       supabase
@@ -50,6 +52,7 @@ export function useAdminData() {
         .from('survey_questions')
         .select('*')
         .order('sort_order', { ascending: true }),
+      supabase.from('initial_test').select('user_id, responses, completed_at'),
     ])
 
     const firstError =
@@ -59,7 +62,8 @@ export function useAdminData() {
       goalsRes.error ||
       focusRes.error ||
       meditationRes.error ||
-      questionsRes.error
+      questionsRes.error ||
+      initialTestsRes.error
 
     if (firstError) {
       setError('No se han podido cargar los datos de administración.')
@@ -71,6 +75,7 @@ export function useAdminData() {
       setFocusSessions(focusRes.data || [])
       setMeditationSessions(meditationRes.data || [])
       setQuestions(questionsRes.data || [])
+      setInitialTests(initialTestsRes.data || [])
     }
 
     setLoading(false)
@@ -166,6 +171,7 @@ export function useAdminData() {
     focusSessions,
     meditationSessions,
     questions,
+    initialTests,
     anonIds,
     genderById,
     loading,

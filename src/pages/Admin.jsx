@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { BarChart3, ClipboardList, Database } from 'lucide-react'
+import { BarChart3, ClipboardList, Database, HeartPulse } from 'lucide-react'
 import { useAdminData } from '../hooks/useAdminData'
 import { daysAgo } from '../utils/dateHelpers'
 import {
@@ -7,6 +7,7 @@ import {
   buildDailyAverages,
   buildRetention,
   buildSectionUsage,
+  buildSelfEsteemStats,
   computeDashboardStats,
   countByGender,
   filterDataByGender,
@@ -14,6 +15,7 @@ import {
 import LoadingSpinner from '../components/ui/LoadingSpinner'
 import AdminDashboard from '../components/admin/AdminDashboard'
 import AggregateCharts from '../components/admin/AggregateCharts'
+import InitialTestStats from '../components/admin/InitialTestStats'
 import SurveyManager from '../components/admin/SurveyManager'
 import DataExport from '../components/admin/DataExport'
 
@@ -26,6 +28,7 @@ const RANGES = [
 
 const TABS = [
   { key: 'overview', label: 'Datos agregados', icon: BarChart3 },
+  { key: 'initial', label: 'Test inicial', icon: HeartPulse },
   { key: 'surveys', label: 'Encuestas', icon: ClipboardList },
   { key: 'export', label: 'Exportar', icon: Database },
 ]
@@ -55,6 +58,11 @@ export default function Admin() {
   const genderCounts = useMemo(
     () => countByGender(admin.profiles, genderById),
     [admin.profiles, genderById],
+  )
+
+  const selfEsteemStats = useMemo(
+    () => buildSelfEsteemStats(admin.initialTests, genderById),
+    [admin.initialTests, genderById],
   )
 
   // Opciones del filtro por sexo. La vista conjunta ('all') muestra a todos.
@@ -180,6 +188,8 @@ export default function Admin() {
           />
         </div>
       )}
+
+      {tab === 'initial' && <InitialTestStats stats={selfEsteemStats} />}
 
       {tab === 'surveys' && (
         <SurveyManager
