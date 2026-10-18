@@ -11,6 +11,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import InitialTest from './pages/InitialTest'
 import FinalTest from './pages/FinalTest'
+import StudyClosed from './pages/StudyClosed'
 import Checkin from './pages/Checkin'
 import Surveys from './pages/Surveys'
 import Goals from './pages/Goals'
@@ -37,6 +38,7 @@ export default function App() {
 
           <Route element={<ProtectedRoute />}>
             <Route path="/test-inicial" element={<InitialTest />} />
+            <Route path="/estudio-cerrado" element={<StudyClosed />} />
 
             <Route element={<RequireInitialTest />}>
             <Route path="/test-final" element={<FinalTest />} />

@@ -81,7 +81,7 @@ function Question({ question, value, onChange }) {
 }
 
 export default function InitialTest() {
-  const { initialTestCompleted, profile } = useAuth()
+  const { initialTestCompleted, finalTestActive, isAdmin, profile } = useAuth()
   const { submit } = useInitialTest()
   const firstName = profile?.full_name?.split(' ')[0]
 
@@ -96,7 +96,7 @@ export default function InitialTest() {
   const allAnswered = answeredRequired === REQUIRED_KEYS.length
 
   // Estados de carga / ya completado (evita rellenarlo dos veces).
-  if (initialTestCompleted === null) {
+  if (initialTestCompleted === null || finalTestActive === null) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-violet-50 via-white to-emerald-50">
         <LoadingSpinner label="Cargando…" />
@@ -106,6 +106,12 @@ export default function InitialTest() {
 
   if (initialTestCompleted) {
     return <Navigate to="/" replace />
+  }
+
+  // Con el estudio terminado (encuesta final activada) ya no se admiten tests
+  // iniciales nuevos: sin él no hay evolución que comparar.
+  if (finalTestActive && !isAdmin) {
+    return <Navigate to="/estudio-cerrado" replace />
   }
 
   function setAnswer(key) {
