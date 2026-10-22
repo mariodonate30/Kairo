@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { BarChart3, ClipboardList, Database, HeartPulse, TrendingUp } from 'lucide-react'
+import { BarChart3, ClipboardList, Database, HeartPulse, Lightbulb, TrendingUp } from 'lucide-react'
 import { useAdminData } from '../hooks/useAdminData'
 import { daysAgo } from '../utils/dateHelpers'
 import {
@@ -14,6 +14,7 @@ import {
   countByGender,
   filterDataByGender,
 } from '../utils/adminStats'
+import { buildHypothesisResults } from '../utils/hypotheses'
 import LoadingSpinner from '../components/ui/LoadingSpinner'
 import AdminDashboard from '../components/admin/AdminDashboard'
 import AggregateCharts from '../components/admin/AggregateCharts'
@@ -21,6 +22,7 @@ import InitialTestStats from '../components/admin/InitialTestStats'
 import EvolutionPanel from '../components/admin/EvolutionPanel'
 import SurveyManager from '../components/admin/SurveyManager'
 import DataExport from '../components/admin/DataExport'
+import HypothesesPanel from '../components/admin/HypothesesPanel'
 
 // Rangos temporales para los gráficos agregados. `days` a null = todo el historial.
 const RANGES = [
@@ -33,6 +35,7 @@ const TABS = [
   { key: 'overview', label: 'Datos agregados', icon: BarChart3 },
   { key: 'initial', label: 'Test inicial', icon: HeartPulse },
   { key: 'final', label: 'Encuesta final', icon: TrendingUp },
+  { key: 'hypotheses', label: 'Hipòtesis i conclusions', icon: Lightbulb },
   { key: 'surveys', label: 'Encuestas', icon: ClipboardList },
   { key: 'export', label: 'Exportar', icon: Database },
 ]
@@ -82,6 +85,11 @@ export default function Admin() {
   )
 
   const finalImpact = useMemo(() => buildFinalImpact(admin.finalTests), [admin.finalTests])
+
+  const hypotheses = useMemo(
+    () => buildHypothesisResults(admin.initialTests, admin.finalTests),
+    [admin.initialTests, admin.finalTests],
+  )
 
   // Opciones del filtro por sexo. La vista conjunta ('all') muestra a todos.
   const GENDER_FILTERS = [
@@ -219,6 +227,8 @@ export default function Admin() {
           impact={finalImpact}
         />
       )}
+
+      {tab === 'hypotheses' && <HypothesesPanel data={hypotheses} />}
 
       {tab === 'surveys' && (
         <SurveyManager
