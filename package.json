@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "panel": "vite --config panel-local/vite.config.js",
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview"
