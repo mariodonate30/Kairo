@@ -4,15 +4,38 @@
     {
       "name": "kairo-dev",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev", "--", "--port", "5183", "--strictPort"],
+      "runtimeArgs": [
+        "run",
+        "dev",
+        "--",
+        "--port",
+        "5183",
+        "--strictPort"
+      ],
       "port": 5183,
       "autoPort": true
     },
     {
       "name": "panel-hipotesis",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "panel", "--", "--strictPort"],
+      "runtimeArgs": [
+        "run",
+        "panel",
+        "--",
+        "--strictPort"
+      ],
       "port": 5184
+    },
+    {
+      "name": "public-panel",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "run",
+        "public-panel",
+        "--",
+        "--strictPort"
+      ],
+      "port": 5185
     }
   ]
 }

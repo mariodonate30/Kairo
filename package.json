@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "vite",
     "panel": "vite --config panel-local/vite.config.js",
+    "public-panel": "vite --config public-panel/vite.config.js",
     "build": "vite build",
+    "build:public": "vite build --config public-panel/vite.config.js",
     "lint": "oxlint",
     "preview": "vite preview"
   },

@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react'
-import { BarChart3, ClipboardList, Database, HeartPulse, TrendingUp, Users } from 'lucide-react'
+import { BarChart3, ClipboardList, Database, Download, HeartPulse, TrendingUp, Users } from 'lucide-react'
 import { useAdminData } from '../hooks/useAdminData'
 import { daysAgo } from '../utils/dateHelpers'
+import { buildPublicSnapshot, buildStudentRecords, downloadJson } from '../utils/studentResponses'
 import {
   buildCategoryDistribution,
   buildDailyAverages,
@@ -81,6 +82,11 @@ export default function Admin() {
   const evolution = useMemo(
     () => buildEvolution(admin.initialTests, admin.finalTests, genderById, anonIds),
     [admin.initialTests, admin.finalTests, genderById, anonIds],
+  )
+
+  const studentRecords = useMemo(
+    () => buildStudentRecords(admin.initialTests, admin.finalTests, anonIds, genderById),
+    [admin.initialTests, admin.finalTests, anonIds, genderById],
   )
 
   const finalImpact = useMemo(() => buildFinalImpact(admin.finalTests), [admin.finalTests])
@@ -224,10 +230,19 @@ export default function Admin() {
 
       {tab === 'students' && (
         <StudentResponses
-          initialTests={admin.initialTests}
-          finalTests={admin.finalTests}
-          anonIds={anonIds}
-          genderById={genderById}
+          students={studentRecords}
+          actions={
+            <button
+              type="button"
+              onClick={() =>
+                downloadJson(buildPublicSnapshot(studentRecords), 'kairo-respuestas-publicas.json')
+              }
+              className="inline-flex items-center justify-center gap-2 rounded-xl bg-violet-600 px-3 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-violet-700"
+            >
+              <Download className="h-4 w-4" />
+              Exportar copia pública
+            </button>
+          }
         />
       )}
 

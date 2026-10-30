@@ -272,6 +272,22 @@ export const INITIAL_TEST_QUESTIONS = INITIAL_TEST_BLOCKS.flatMap((block) =>
   block.questions.map((question) => ({ ...question, block: block.key })),
 )
 
+// Puntuación de autoestima (Rosenberg) a partir de unas respuestas. Invierte
+// los ítems marcados como `reverse` (max+1 − valor) y suma todos. Devuelve null
+// si falta alguna respuesta (test incompleto).
+export function rosenbergScore(responses) {
+  if (!responses) return null
+  let total = 0
+  for (const item of INITIAL_TEST_QUESTIONS) {
+    if (item.block !== 'autoestima') continue
+    const raw = Number(responses[item.key])
+    if (!raw || Number.isNaN(raw)) return null
+    const max = item.scaleMax || 5
+    total += item.reverse ? max + 1 - raw : raw
+  }
+  return total
+}
+
 // Claves de las preguntas obligatorias (todas menos las marcadas como opcionales).
 export const REQUIRED_KEYS = INITIAL_TEST_QUESTIONS.filter((q) => !q.optional).map(
   (q) => q.key,

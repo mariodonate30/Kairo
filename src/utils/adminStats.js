@@ -5,7 +5,7 @@
 
 import { parseDate, todayDate, startOfWeek } from './dateHelpers'
 import { SURVEY_CATEGORIES } from '../hooks/useSurveys'
-import { INITIAL_TEST_QUESTIONS } from './initialTest'
+import { INITIAL_TEST_QUESTIONS, rosenbergScore } from './initialTest'
 
 // ---- Autoestima: escala de Rosenberg del test inicial ----
 // Los 10 ítems del bloque de autoestima. Cada uno trae su escala (scaleMax = 4)
@@ -14,20 +14,9 @@ const ROSENBERG_ITEMS = INITIAL_TEST_QUESTIONS.filter((q) => q.block === 'autoes
 export const ROSENBERG_MIN = ROSENBERG_ITEMS.length
 export const ROSENBERG_MAX = ROSENBERG_ITEMS.reduce((sum, q) => sum + (q.scaleMax || 5), 0)
 
-// Puntuación de autoestima de un alumno a partir de sus respuestas del test
-// inicial. Invierte los ítems marcados como `reverse` (max+1 − valor) y suma
-// todos. Devuelve null si falta alguna respuesta (test incompleto).
-export function rosenbergScore(responses) {
-  if (!responses) return null
-  let total = 0
-  for (const item of ROSENBERG_ITEMS) {
-    const raw = Number(responses[item.key])
-    if (!raw || Number.isNaN(raw)) return null
-    const max = item.scaleMax || 5
-    total += item.reverse ? max + 1 - raw : raw
-  }
-  return total
-}
+// Puntuación de autoestima: vive en initialTest.js (sin dependencias de
+// Supabase, para que la web pública pueda usarla) y se reexporta aquí.
+export { rosenbergScore }
 
 // Nivel orientativo de autoestima según la puntuación total (10-40).
 // Umbrales aproximados: los usamos solo como referencia visual, no como

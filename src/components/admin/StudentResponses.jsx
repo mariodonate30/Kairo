@@ -1,8 +1,7 @@
 import { useMemo, useState } from 'react'
 import { ChevronLeft, ChevronRight, Search, UserRound } from 'lucide-react'
-import { GENDER_OPTIONS, INITIAL_TEST_BLOCKS } from '../../utils/initialTest'
+import { GENDER_OPTIONS, INITIAL_TEST_BLOCKS, rosenbergScore } from '../../utils/initialTest'
 import { FINAL_TEST_BLOCKS } from '../../utils/finalTest'
-import { rosenbergScore } from '../../utils/adminStats'
 
 const FILTERS = [
   { key: 'all', label: 'Todos' },
@@ -25,7 +24,7 @@ const SECTIONS = [
     key: `f_${block.key}`,
     title: `${block.title} (solo encuesta final)`,
     questions: block.questions.filter((q) => !INITIAL_KEYS.has(q.key)),
-  })).filter((section) => section.questions.length > 0),
+  })),
 ]
 
 // Convierte una respuesta guardada en texto legible según el tipo de pregunta.
@@ -53,36 +52,23 @@ function AnswerCell({ question, value, asked }) {
   return <span className="font-semibold text-slate-800">{text}</span>
 }
 
-export default function StudentResponses({ initialTests, finalTests, anonIds, genderById }) {
+// Respuestas individuales del test inicial y la encuesta final, alumno a alumno.
+// `students` sale de buildStudentRecords (utils/studentResponses). `hiddenKeys`
+// oculta preguntas (la web pública quita el comentario libre). `actions` se
+// pinta encima de la lista (p. ej. el botón de exportar del admin).
+export default function StudentResponses({ students, hiddenKeys = [], actions = null }) {
   const [filter, setFilter] = useState('all')
   const [query, setQuery] = useState('')
   const [selectedId, setSelectedId] = useState(null)
 
-  // Un registro por alumno que haya hecho al menos uno de los dos tests.
-  const students = useMemo(() => {
-    const initialByUser = new Map(initialTests.map((t) => [t.user_id, t]))
-    const finalByUser = new Map(finalTests.map((t) => [t.user_id, t]))
-    const userIds = new Set([...initialByUser.keys(), ...finalByUser.keys()])
-
-    return Array.from(userIds)
-      .map((userId) => {
-        const initial = initialByUser.get(userId) || null
-        const final = finalByUser.get(userId) || null
-        return {
-          userId,
-          anonId: anonIds.get(userId) ?? '?',
-          gender: genderById.get(userId) || '',
-          initial,
-          final,
-          initialScore: initial ? rosenbergScore(initial.responses) : null,
-          finalScore: final ? rosenbergScore(final.responses) : null,
-        }
-      })
-      .sort((a, b) => {
-        if (typeof a.anonId === 'number' && typeof b.anonId === 'number') return a.anonId - b.anonId
-        return String(a.anonId).localeCompare(String(b.anonId))
-      })
-  }, [initialTests, finalTests, anonIds, genderById])
+  const sections = useMemo(
+    () =>
+      SECTIONS.map((section) => ({
+        ...section,
+        questions: section.questions.filter((q) => !hiddenKeys.includes(q.key)),
+      })).filter((section) => section.questions.length > 0),
+    [hiddenKeys],
+  )
 
   const visible = students.filter((s) => {
     if (filter === 'both' && !(s.initial && s.final)) return false
@@ -91,9 +77,10 @@ export default function StudentResponses({ initialTests, finalTests, anonIds, ge
     return true
   })
 
-  const selected =
-    visible.find((s) => s.userId === selectedId) || visible[0] || null
+  const selected = visible.find((s) => s.anonId === selectedId) || visible[0] || null
   const index = selected ? visible.indexOf(selected) : -1
+  const initialScore = selected?.initial ? rosenbergScore(selected.initial.responses) : null
+  const finalScore = selected?.final ? rosenbergScore(selected.final.responses) : null
 
   if (students.length === 0) {
     return (
@@ -107,6 +94,8 @@ export default function StudentResponses({ initialTests, finalTests, anonIds, ge
     <div className="grid grid-cols-1 gap-4 lg:grid-cols-[260px_1fr]">
       {/* Lista de alumnos */}
       <section className="flex flex-col gap-3 rounded-3xl border border-slate-100 bg-white p-4 shadow-sm lg:max-h-[75vh]">
+        {actions}
+
         <div className="relative">
           <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
           <input
@@ -141,13 +130,13 @@ export default function StudentResponses({ initialTests, finalTests, anonIds, ge
 
         <ul className="flex max-h-72 flex-col gap-1 overflow-y-auto lg:max-h-none lg:flex-1">
           {visible.map((s) => (
-            <li key={s.userId}>
+            <li key={s.anonId}>
               <button
                 type="button"
-                onClick={() => setSelectedId(s.userId)}
+                onClick={() => setSelectedId(s.anonId)}
                 className={[
                   'flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-sm transition',
-                  selected?.userId === s.userId
+                  selected?.anonId === s.anonId
                     ? 'bg-violet-50 font-semibold text-violet-700'
                     : 'text-slate-700 hover:bg-slate-50',
                 ].join(' ')}
@@ -181,7 +170,7 @@ export default function StudentResponses({ initialTests, finalTests, anonIds, ge
           Ningún alumno coincide con el filtro.
         </section>
       ) : (
-        <section className="flex flex-col gap-5 rounded-3xl border border-slate-100 bg-white p-5 shadow-sm sm:p-6">
+        <section className="flex min-w-0 flex-col gap-5 rounded-3xl border border-slate-100 bg-white p-5 shadow-sm sm:p-6">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-2.5">
               <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-violet-50 text-violet-600">
@@ -201,7 +190,7 @@ export default function StudentResponses({ initialTests, finalTests, anonIds, ge
               <button
                 type="button"
                 disabled={index <= 0}
-                onClick={() => setSelectedId(visible[index - 1].userId)}
+                onClick={() => setSelectedId(visible[index - 1].anonId)}
                 className="rounded-xl border border-slate-200 p-2 text-slate-500 transition hover:bg-slate-50 disabled:opacity-40"
                 aria-label="Alumno anterior"
               >
@@ -210,7 +199,7 @@ export default function StudentResponses({ initialTests, finalTests, anonIds, ge
               <button
                 type="button"
                 disabled={index >= visible.length - 1}
-                onClick={() => setSelectedId(visible[index + 1].userId)}
+                onClick={() => setSelectedId(visible[index + 1].anonId)}
                 className="rounded-xl border border-slate-200 p-2 text-slate-500 transition hover:bg-slate-50 disabled:opacity-40"
                 aria-label="Alumno siguiente"
               >
@@ -222,23 +211,23 @@ export default function StudentResponses({ initialTests, finalTests, anonIds, ge
           <div className="grid grid-cols-3 gap-3">
             <div className="rounded-2xl bg-sky-50 p-3">
               <p className="text-xs font-medium uppercase tracking-wide text-sky-600">Autoestima inicial</p>
-              <p className="mt-1 text-xl font-bold text-slate-900">{selected.initialScore ?? '—'}</p>
+              <p className="mt-1 text-xl font-bold text-slate-900">{initialScore ?? '—'}</p>
             </div>
             <div className="rounded-2xl bg-emerald-50 p-3">
               <p className="text-xs font-medium uppercase tracking-wide text-emerald-600">Autoestima final</p>
-              <p className="mt-1 text-xl font-bold text-slate-900">{selected.finalScore ?? '—'}</p>
+              <p className="mt-1 text-xl font-bold text-slate-900">{finalScore ?? '—'}</p>
             </div>
             <div className="rounded-2xl bg-slate-50 p-3">
               <p className="text-xs font-medium uppercase tracking-wide text-slate-500">Variación</p>
               <p className="mt-1 text-xl font-bold text-slate-900">
-                {selected.initialScore != null && selected.finalScore != null
-                  ? `${selected.finalScore - selected.initialScore > 0 ? '+' : ''}${selected.finalScore - selected.initialScore}`
+                {initialScore != null && finalScore != null
+                  ? `${finalScore - initialScore > 0 ? '+' : ''}${finalScore - initialScore}`
                   : '—'}
               </p>
             </div>
           </div>
 
-          {SECTIONS.map((section) => (
+          {sections.map((section) => (
             <div key={section.key}>
               <h3 className="mb-2 text-xs font-semibold uppercase tracking-wide text-slate-400">
                 {section.title}
