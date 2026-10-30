@@ -1,5 +1,5 @@
 import { useMemo, useState } from 'react'
-import { BarChart3, ClipboardList, Database, HeartPulse, TrendingUp } from 'lucide-react'
+import { BarChart3, ClipboardList, Database, HeartPulse, TrendingUp, Users } from 'lucide-react'
 import { useAdminData } from '../hooks/useAdminData'
 import { daysAgo } from '../utils/dateHelpers'
 import {
@@ -19,6 +19,7 @@ import AdminDashboard from '../components/admin/AdminDashboard'
 import AggregateCharts from '../components/admin/AggregateCharts'
 import InitialTestStats from '../components/admin/InitialTestStats'
 import EvolutionPanel from '../components/admin/EvolutionPanel'
+import StudentResponses from '../components/admin/StudentResponses'
 import SurveyManager from '../components/admin/SurveyManager'
 import DataExport from '../components/admin/DataExport'
 
@@ -33,6 +34,7 @@ const TABS = [
   { key: 'overview', label: 'Datos agregados', icon: BarChart3 },
   { key: 'initial', label: 'Test inicial', icon: HeartPulse },
   { key: 'final', label: 'Encuesta final', icon: TrendingUp },
+  { key: 'students', label: 'Respuestas por alumno', icon: Users },
   { key: 'surveys', label: 'Encuestas', icon: ClipboardList },
   { key: 'export', label: 'Exportar', icon: Database },
 ]
@@ -217,6 +219,15 @@ export default function Admin() {
           finalStats={finalSelfEsteemStats}
           evolution={evolution}
           impact={finalImpact}
+        />
+      )}
+
+      {tab === 'students' && (
+        <StudentResponses
+          initialTests={admin.initialTests}
+          finalTests={admin.finalTests}
+          anonIds={anonIds}
+          genderById={genderById}
         />
       )}
 
