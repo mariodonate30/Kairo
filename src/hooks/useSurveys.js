@@ -2,16 +2,9 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { useAuth } from './useAuth'
 import { supabase } from '../lib/supabase'
 import { startOfWeek } from '../utils/dateHelpers'
+import { SURVEY_CATEGORIES } from '../utils/surveyCategories'
 
-// Metadatos de las categorías de encuesta: etiqueta visible y orden de aparición.
-// El `key` coincide con la columna `category` de survey_questions.
-export const SURVEY_CATEGORIES = [
-  { key: 'stress', label: 'Estrés académico', emoji: '📚' },
-  { key: 'social', label: 'Relaciones sociales', emoji: '🤝' },
-  { key: 'motivation', label: 'Motivación', emoji: '🎯' },
-  { key: 'study_habits', label: 'Hábitos de estudio', emoji: '⏱️' },
-  { key: 'wellbeing', label: 'Bienestar general', emoji: '🌱' },
-]
+export { SURVEY_CATEGORIES }
 
 // Agrupa las preguntas activas por categoría, respetando el orden definido en
 // SURVEY_CATEGORIES. Solo devuelve las categorías que tienen alguna pregunta.

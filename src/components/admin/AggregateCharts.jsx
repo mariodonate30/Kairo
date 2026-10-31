@@ -154,12 +154,13 @@ function RetentionChart({ data }) {
   )
 }
 
-// Rejilla completa de gráficos agregados y anonimizados del instituto.
+// Rejilla completa de gráficos agregados y anonimizados del instituto. Sin
+// retentionRows no se muestra el gráfico de retención (web pública).
 export default function AggregateCharts({ dailyRows, categoryRows, sectionRows, retentionRows }) {
   const hasDaily = dailyRows.length > 0
   const hasCategory = categoryRows.length > 0
   const hasSection = sectionRows.some((row) => row.count > 0)
-  const hasRetention = retentionRows.length > 0
+  const hasRetention = retentionRows?.length > 0
 
   return (
     <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
@@ -193,6 +194,7 @@ export default function AggregateCharts({ dailyRows, categoryRows, sectionRows, 
         <StressChart data={dailyRows} />
       </ChartCard>
 
+      {retentionRows && (
       <ChartCard
         icon={Activity}
         title="Tasa de retención"
@@ -203,6 +205,7 @@ export default function AggregateCharts({ dailyRows, categoryRows, sectionRows, 
       >
         <RetentionChart data={retentionRows} />
       </ChartCard>
+      )}
 
       <ChartCard
         icon={BarChart3}

@@ -136,7 +136,7 @@ export default function EvolutionPanel({
 
   return (
     <div className="flex flex-col gap-4">
-      <ActivationCard active={active} count={completedCount} onToggle={onToggle} />
+      {onToggle && <ActivationCard active={active} count={completedCount} onToggle={onToggle} />}
 
       {completedCount === 0 ? (
         <section className="rounded-3xl border border-slate-100 bg-white p-8 text-center shadow-sm">

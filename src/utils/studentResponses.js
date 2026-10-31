@@ -1,7 +1,7 @@
 // Respuestas individuales (anónimas) del test inicial y la encuesta final.
 //
-// Lo usan la pestaña "Respuestas por alumno" del admin y la web pública
-// (public-panel/), que muestra una copia fija exportada desde el admin.
+// Lo usa la pestaña "Respuestas por alumno" del admin, también en la web
+// pública de resultados (public-panel/).
 
 // Preguntas que nunca salen en la copia pública: texto libre que podría
 // identificar al alumno.
@@ -29,26 +29,6 @@ export function buildStudentRecords(initialTests, finalTests, anonIds, genderByI
       if (typeof a.anonId === 'number' && typeof b.anonId === 'number') return a.anonId - b.anonId
       return String(a.anonId).localeCompare(String(b.anonId))
     })
-}
-
-function withoutExcluded(test) {
-  if (!test) return null
-  const responses = { ...test.responses }
-  for (const key of PUBLIC_EXCLUDED_KEYS) delete responses[key]
-  return { completed_at: test.completed_at, responses }
-}
-
-// Copia para publicar: sin user_id ni comentarios libres.
-export function buildPublicSnapshot(records) {
-  return {
-    generated_at: new Date().toISOString(),
-    students: records.map((s) => ({
-      anonId: s.anonId,
-      gender: s.gender,
-      initial: withoutExcluded(s.initial),
-      final: withoutExcluded(s.final),
-    })),
-  }
 }
 
 export function downloadJson(data, filename) {

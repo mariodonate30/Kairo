@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { Check, Eye, EyeOff, Pencil, Plus, X } from 'lucide-react'
-import { SURVEY_CATEGORIES } from '../../hooks/useSurveys'
+import { SURVEY_CATEGORIES } from '../../utils/surveyCategories'
 
 const CATEGORY_LABELS = Object.fromEntries(
   SURVEY_CATEGORIES.map((cat) => [cat.key, `${cat.emoji} ${cat.label}`]),
@@ -141,6 +141,7 @@ function QuestionRow({ question, onUpdate, onToggle }) {
             )}
           </div>
         </div>
+        {onToggle && (
         <div className="flex shrink-0 items-center gap-1">
           <button
             type="button"
@@ -161,6 +162,7 @@ function QuestionRow({ question, onUpdate, onToggle }) {
             {question.active ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
           </button>
         </div>
+        )}
       </div>
     </li>
   )
@@ -263,7 +265,8 @@ function NewQuestionForm({ onCreate, nextOrder }) {
   )
 }
 
-// Gestión completa de las preguntas de la encuesta semanal.
+// Gestión completa de las preguntas de la encuesta semanal. Sin onCreate /
+// onToggle (web pública) se muestra solo la lista, sin poder editar.
 export default function SurveyManager({ questions, onCreate, onUpdate, onToggle }) {
   const nextOrder =
     questions.reduce((max, q) => Math.max(max, q.sort_order || 0), 0) + 10
@@ -279,7 +282,7 @@ export default function SurveyManager({ questions, onCreate, onUpdate, onToggle 
             {activeCount} preguntas activas de {questions.length} en total.
           </p>
         </div>
-        <NewQuestionForm onCreate={onCreate} nextOrder={nextOrder} />
+        {onCreate && <NewQuestionForm onCreate={onCreate} nextOrder={nextOrder} />}
       </div>
 
       {questions.length === 0 ? (

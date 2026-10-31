@@ -1,7 +1,8 @@
 import { useState } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
-import { Eye, EyeOff, Lock, Mail } from 'lucide-react'
+import { Eye, EyeOff, Lock, Mail, UserRound } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
+import { enterGuestMode } from '../lib/guestClient'
 
 const ERROR_MESSAGES = {
   'Invalid login credentials': 'Email o contraseña incorrectos.',
@@ -108,6 +109,21 @@ export default function Login() {
               {submitting ? 'Entrando…' : 'Entrar'}
             </button>
           </form>
+        </div>
+
+        <div className="mt-4 rounded-3xl border border-emerald-100 bg-emerald-50/70 p-5 text-center">
+          <p className="text-sm text-slate-600">¿Solo quieres ver cómo es la app?</p>
+          <button
+            type="button"
+            onClick={enterGuestMode}
+            className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-200 transition hover:bg-emerald-700"
+          >
+            <UserRound className="h-4 w-4" />
+            Entrar como invitado
+          </button>
+          <p className="mt-2 text-xs text-slate-500">
+            Sin registro. Lo que hagas se queda en tu móvil y no cuenta para el estudio.
+          </p>
         </div>
 
         <p className="mt-6 text-center text-sm text-slate-500">

@@ -1,8 +1,9 @@
-import { StrictMode, useEffect, useState } from 'react'
+import { StrictMode, useEffect, useMemo, useState } from 'react'
 import { createRoot } from 'react-dom/client'
-import StudentResponses from '../src/components/admin/StudentResponses'
+import AdminPanel from '../src/components/admin/AdminPanel'
 import LoadingSpinner from '../src/components/ui/LoadingSpinner'
-import { PUBLIC_EXCLUDED_KEYS } from '../src/utils/studentResponses'
+import { toDateString } from '../src/utils/dateHelpers'
+import { snapshotToAdminData } from '../src/utils/publicSnapshot'
 import './index.css'
 
 function formatDateTime(iso) {
@@ -11,38 +12,39 @@ function formatDateTime(iso) {
 }
 
 function PublicPanel() {
-  const [data, setData] = useState(null)
+  const [snapshot, setSnapshot] = useState(null)
   const [error, setError] = useState('')
 
   useEffect(() => {
-    fetch('./respuestas.json', { cache: 'no-store' })
+    fetch('./datos.json', { cache: 'no-store' })
       .then((res) => {
         if (!res.ok) throw new Error(res.statusText)
         return res.json()
       })
-      .then(setData)
-      .catch(() => setError('No se han podido cargar las respuestas.'))
+      .then(setSnapshot)
+      .catch(() => setError('No se han podido cargar los datos.'))
   }, [])
 
-  const updated = formatDateTime(data?.generated_at)
+  const admin = useMemo(() => (snapshot ? snapshotToAdminData(snapshot) : null), [snapshot])
+  const updated = formatDateTime(snapshot?.generated_at)
+  const referenceDate = snapshot?.generated_at
+    ? toDateString(new Date(snapshot.generated_at))
+    : undefined
 
   return (
-    <main className="mx-auto flex max-w-6xl flex-col gap-6 px-4 py-8 sm:px-6">
-      <header>
-        <h1 className="text-2xl font-bold text-slate-900">Kairo · Respuestas por alumno</h1>
-        <p className="mt-1 max-w-3xl text-slate-500">
-          Respuestas individuales del test inicial y de la encuesta final del estudio sobre hábitos
-          en la adolescencia. Los alumnos son anónimos: solo se identifican con un número.
-        </p>
-        {updated && <p className="mt-1 text-xs text-slate-400">Datos actualizados el {updated}.</p>}
-      </header>
-
+    <main className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8 sm:px-6">
       {error ? (
         <p className="rounded-xl bg-rose-50 px-3 py-2 text-sm text-rose-600">{error}</p>
-      ) : !data ? (
-        <LoadingSpinner label="Cargando respuestas…" />
+      ) : !admin ? (
+        <LoadingSpinner label="Cargando resultados…" />
       ) : (
-        <StudentResponses students={data.students || []} hiddenKeys={PUBLIC_EXCLUDED_KEYS} />
+        <>
+          <AdminPanel admin={admin} publicView referenceDate={referenceDate} />
+          <p className="text-center text-xs text-slate-400">
+            Estudio sobre hábitos en la adolescencia · Datos anónimos: cada alumno se identifica
+            solo con un número.{updated && ` Copia de los datos del ${updated}.`}
+          </p>
+        </>
       )}
     </main>
   )

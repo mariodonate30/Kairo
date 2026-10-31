@@ -4,7 +4,7 @@
 // emails; trabajan solo con user_id para contar usuarios distintos.
 
 import { parseDate, todayDate, startOfWeek } from './dateHelpers'
-import { SURVEY_CATEGORIES } from '../hooks/useSurveys'
+import { SURVEY_CATEGORIES } from './surveyCategories'
 import { INITIAL_TEST_QUESTIONS, rosenbergScore } from './initialTest'
 
 // ---- Autoestima: escala de Rosenberg del test inicial ----
@@ -180,10 +180,10 @@ function activityEvents(data) {
   return events
 }
 
-// Estadísticas generales del dashboard (tarjetas superiores).
-export function computeDashboardStats(data) {
-  const today = todayDate()
-  const weekStart = startOfWeek()
+// Estadísticas generales del dashboard (tarjetas superiores). `today` permite
+// calcularlas a la fecha de una copia fija (web pública).
+export function computeDashboardStats(data, today = todayDate()) {
+  const weekStart = startOfWeek(today)
 
   const totalStudents = data.profiles.filter((p) => p.role !== 'admin').length
 
