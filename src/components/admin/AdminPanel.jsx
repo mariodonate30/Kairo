@@ -217,7 +217,7 @@ export default function AdminPanel({ admin, publicView = false, referenceDate })
           <AggregateCharts
             dailyRows={dailyRows}
             categoryRows={categoryRows}
-            sectionRows={sectionRows}
+            sectionRows={publicView ? null : sectionRows}
             retentionRows={publicView ? null : retentionRows}
           />
         </div>

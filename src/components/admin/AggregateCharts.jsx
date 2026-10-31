@@ -155,11 +155,12 @@ function RetentionChart({ data }) {
 }
 
 // Rejilla completa de gráficos agregados y anonimizados del instituto. Sin
-// retentionRows no se muestra el gráfico de retención (web pública).
+// retentionRows ni sectionRows no se muestran los gráficos de retención ni de
+// secciones más usadas (web pública).
 export default function AggregateCharts({ dailyRows, categoryRows, sectionRows, retentionRows }) {
   const hasDaily = dailyRows.length > 0
   const hasCategory = categoryRows.length > 0
-  const hasSection = sectionRows.some((row) => row.count > 0)
+  const hasSection = sectionRows?.some((row) => row.count > 0)
   const hasRetention = retentionRows?.length > 0
 
   return (
@@ -218,6 +219,7 @@ export default function AggregateCharts({ dailyRows, categoryRows, sectionRows, 
         <CategoryDistributionChart data={categoryRows} />
       </ChartCard>
 
+      {sectionRows && (
       <ChartCard
         icon={LayoutGrid}
         title="Seccions més utilitzades"
@@ -228,6 +230,7 @@ export default function AggregateCharts({ dailyRows, categoryRows, sectionRows, 
       >
         <SectionUsageChart data={sectionRows} />
       </ChartCard>
+      )}
     </div>
   )
 }
