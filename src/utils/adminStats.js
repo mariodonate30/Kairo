@@ -139,6 +139,27 @@ export function countByGender(profiles, genderById) {
   return counts
 }
 
+// Quita del panel todo lo que hayan hecho las cuentas de admin (pruebas), para
+// que todos los recuentos y medias usen solo a los alumnos.
+export function excludeAdminRows(data) {
+  const adminIds = new Set(data.profiles.filter((p) => p.role === 'admin').map((p) => p.id))
+  if (adminIds.size === 0) return data
+
+  const keep = (row) => !adminIds.has(row.user_id)
+
+  return {
+    ...data,
+    profiles: data.profiles.filter((p) => !adminIds.has(p.id)),
+    checkins: data.checkins.filter(keep),
+    surveys: data.surveys.filter(keep),
+    goals: data.goals.filter(keep),
+    focusSessions: data.focusSessions.filter(keep),
+    meditationSessions: data.meditationSessions.filter(keep),
+    initialTests: data.initialTests.filter(keep),
+    finalTests: data.finalTests.filter(keep),
+  }
+}
+
 // Devuelve una copia de los datos del panel filtrada a un solo sexo. Con
 // gender = 'all' devuelve los datos sin tocar (vista conjunta). Filtra tanto los
 // perfiles (para que los porcentajes de retención usen el total de ese sexo)

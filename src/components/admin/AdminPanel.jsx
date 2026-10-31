@@ -13,6 +13,7 @@ import {
   buildSelfEsteemStats,
   computeDashboardStats,
   countByGender,
+  excludeAdminRows,
   filterDataByGender,
 } from '../../utils/adminStats'
 import LoadingSpinner from '../ui/LoadingSpinner'
@@ -59,6 +60,9 @@ export default function AdminPanel({ admin, publicView = false, referenceDate })
     setFinalTestActive,
   } = admin
 
+  // Todo el panel trabaja solo con alumnos: las cuentas de admin no cuentan.
+  const data = useMemo(() => excludeAdminRows(admin), [admin])
+
   const [tab, setTab] = useState('overview')
   const [rangeKey, setRangeKey] = useState('month')
   const [genderKey, setGenderKey] = useState('all')
@@ -67,36 +71,36 @@ export default function AdminPanel({ admin, publicView = false, referenceDate })
   const fromDate = range.days ? daysAgo(range.days) : null
 
   const stats = useMemo(
-    () => computeDashboardStats(admin, referenceDate),
-    [admin, referenceDate],
+    () => computeDashboardStats(data, referenceDate),
+    [data, referenceDate],
   )
 
   const genderCounts = useMemo(
-    () => countByGender(admin.profiles, genderById),
-    [admin.profiles, genderById],
+    () => countByGender(data.profiles, genderById),
+    [data.profiles, genderById],
   )
 
   const selfEsteemStats = useMemo(
-    () => buildSelfEsteemStats(admin.initialTests, genderById),
-    [admin.initialTests, genderById],
+    () => buildSelfEsteemStats(data.initialTests, genderById),
+    [data.initialTests, genderById],
   )
 
   const finalSelfEsteemStats = useMemo(
-    () => buildSelfEsteemStats(admin.finalTests, genderById),
-    [admin.finalTests, genderById],
+    () => buildSelfEsteemStats(data.finalTests, genderById),
+    [data.finalTests, genderById],
   )
 
   const evolution = useMemo(
-    () => buildEvolution(admin.initialTests, admin.finalTests, genderById, anonIds),
-    [admin.initialTests, admin.finalTests, genderById, anonIds],
+    () => buildEvolution(data.initialTests, data.finalTests, genderById, anonIds),
+    [data.initialTests, data.finalTests, genderById, anonIds],
   )
 
   const studentRecords = useMemo(
-    () => buildStudentRecords(admin.initialTests, admin.finalTests, anonIds, genderById),
-    [admin.initialTests, admin.finalTests, anonIds, genderById],
+    () => buildStudentRecords(data.initialTests, data.finalTests, anonIds, genderById),
+    [data.initialTests, data.finalTests, anonIds, genderById],
   )
 
-  const finalImpact = useMemo(() => buildFinalImpact(admin.finalTests), [admin.finalTests])
+  const finalImpact = useMemo(() => buildFinalImpact(data.finalTests), [data.finalTests])
 
   // Opciones del filtro por sexo. La vista conjunta ('all') muestra a todos.
   const GENDER_FILTERS = [
@@ -108,8 +112,8 @@ export default function AdminPanel({ admin, publicView = false, referenceDate })
   // Datos filtrados al sexo seleccionado (o todos). Todos los gráficos de la
   // pestaña "Datos agregados" se calculan sobre esta vista.
   const scoped = useMemo(
-    () => filterDataByGender(admin, genderById, genderKey),
-    [admin, genderById, genderKey],
+    () => filterDataByGender(data, genderById, genderKey),
+    [data, genderById, genderKey],
   )
 
   const dailyRows = useMemo(
@@ -245,7 +249,7 @@ export default function AdminPanel({ admin, publicView = false, referenceDate })
             <button
               type="button"
               onClick={() =>
-                downloadJson(buildPublicPanelSnapshot(admin), 'kairo-panel-publico.json')
+                downloadJson(buildPublicPanelSnapshot(data), 'kairo-panel-publico.json')
               }
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-violet-600 px-3 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-violet-700"
             >
@@ -268,7 +272,7 @@ export default function AdminPanel({ admin, publicView = false, referenceDate })
 
       {tab === 'export' && (
         <DataExport
-          data={admin}
+          data={data}
           anonIds={anonIds}
           questions={questions}
           genderById={genderById}
