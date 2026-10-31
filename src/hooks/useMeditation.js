@@ -52,7 +52,7 @@ export function useMeditation() {
       .order('created_at', { ascending: false })
 
     if (error) {
-      setError('No se han podido cargar tus sesiones de meditación.')
+      setError('No s\'han pogut carregar les teves sessions de meditació.')
     } else {
       setSessions(data || [])
     }
@@ -95,7 +95,7 @@ export function useMeditation() {
   // temporizador llega a cero, así que cada registro es una sesión entera.
   async function saveSession({ durationMinutes }) {
     if (!user) {
-      return { data: null, error: new Error('No hay sesión activa.') }
+      return { data: null, error: new Error('No hi ha cap sessió activa.') }
     }
 
     const { data, error } = await supabase

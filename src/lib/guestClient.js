@@ -64,46 +64,46 @@ function seededRandom(seed) {
 }
 
 const ACHIEVEMENTS = [
-  ['first_checkin', 'Primer check-in', 'Has completado tu primer check-in diario.', '🌱'],
-  ['streak_3', '3 días seguidos', 'Tres check-ins en días consecutivos.', '🔥'],
-  ['streak_7', '7 días seguidos', 'Una semana entera registrando tu día.', '🔥'],
-  ['streak_30', '30 días seguidos', 'Un mes completo sin fallar un check-in.', '🏆'],
-  ['checkin_10', '10 check-ins', 'Has registrado 10 check-ins en total.', '✅'],
-  ['first_survey', 'Primera encuesta', 'Has completado tu primera encuesta semanal.', '📋'],
-  ['survey_4', 'Un mes de encuestas', 'Cuatro encuestas semanales completadas.', '🗓️'],
-  ['first_focus', 'Primer enfoque', 'Has completado tu primera sesión de enfoque.', '⏱️'],
-  ['focus_10', '10 sesiones de enfoque', 'Diez sesiones de enfoque a tus espaldas.', '🎯'],
-  ['focus_600', '10 horas de enfoque', 'Has acumulado 600 minutos de enfoque.', '🧠'],
-  ['first_meditation', 'Primera meditación', 'Has completado tu primera sesión de meditación.', '🧘'],
-  ['meditation_10', '10 meditaciones', 'Diez sesiones de meditación completadas.', '☮️'],
-  ['water_100', '100 vasos de agua', 'Has registrado 100 vasos de agua en tus check-ins.', '💧'],
-  ['goals_perfect_day', 'Día redondo', 'Cumpliste todos los objetivos que te marcaste en un día.', '🎯'],
-  ['goals_10', '10 objetivos cumplidos', 'Has completado 10 objetivos diarios en total.', '📝'],
+  ['first_checkin', 'Primer check-in', 'Has completat el teu primer check-in diari.', '🌱'],
+  ['streak_3', '3 dies seguits', 'Tres check-ins en dies consecutius.', '🔥'],
+  ['streak_7', '7 dies seguits', 'Una setmana sencera registrant el teu dia.', '🔥'],
+  ['streak_30', '30 dies seguits', 'Un mes complet sense fallar cap check-in.', '🏆'],
+  ['checkin_10', '10 check-ins', 'Has registrat 10 check-ins en total.', '✅'],
+  ['first_survey', 'Primera enquesta', 'Has completat la teva primera enquesta setmanal.', '📋'],
+  ['survey_4', 'Un mes d\'enquestes', 'Quatre enquestes setmanals completades.', '🗓️'],
+  ['first_focus', 'Primera concentració', 'Has completat la teva primera sessió de concentració.', '⏱️'],
+  ['focus_10', '10 sessions de concentració', 'Deu sessions de concentració a l\'esquena.', '🎯'],
+  ['focus_600', '10 hores de concentració', 'Has acumulat 600 minuts de concentració.', '🧠'],
+  ['first_meditation', 'Primera meditació', 'Has completat la teva primera sessió de meditació.', '🧘'],
+  ['meditation_10', '10 meditacions', 'Deu sessions de meditació completades.', '☮️'],
+  ['water_100', '100 gots d\'aigua', 'Has registrat 100 gots d\'aigua als teus check-ins.', '💧'],
+  ['goals_perfect_day', 'Dia rodó', 'Vas complir tots els objectius que t\'havies marcat en un dia.', '🎯'],
+  ['goals_10', '10 objectius complerts', 'Has completat 10 objectius diaris en total.', '📝'],
 ]
 
 const SURVEY_QUESTIONS = [
-  ['He sentido estrés por los exámenes, entregas o notas.', 'stress'],
-  ['Me ha costado desconectar de las tareas del instituto.', 'stress'],
-  ['He notado síntomas de agobio (dolor de cabeza, nervios, no dormir bien) por el estudio.', 'stress'],
-  ['Me he sentido apoyado/a por mis amigos y mi familia.', 'social'],
-  ['He pasado tiempo de calidad con otras personas esta semana.', 'social'],
-  ['Me he sentido a gusto y aceptado/a en mi entorno social.', 'social'],
-  ['Me he sentido motivado/a para asistir a clase y estudiar.', 'motivation'],
-  ['He tenido claros mis objetivos personales o académicos.', 'motivation'],
-  ['He organizado mi tiempo de estudio de forma eficaz.', 'study_habits'],
-  ['He evitado dejar las tareas para el último momento.', 'study_habits'],
-  ['He conseguido concentrarme al estudiar sin distraerme con el móvil.', 'study_habits'],
-  ['En general, me he sentido bien conmigo mismo/a.', 'wellbeing'],
-  ['He descansado y he tenido energía para el día a día.', 'wellbeing'],
+  ['He sentit estrès pels exàmens, les entregues o les notes.', 'stress'],
+  ['M\'ha costat desconnectar de les tasques de l\'institut.', 'stress'],
+  ['He notat símptomes d\'angoixa (mal de cap, nervis, no dormir bé) per l\'estudi.', 'stress'],
+  ['M\'he sentit recolzat/da pels meus amics i la meva família.', 'social'],
+  ['He passat temps de qualitat amb altres persones aquesta setmana.', 'social'],
+  ['M\'he sentit a gust i acceptat/da en el meu entorn social.', 'social'],
+  ['M\'he sentit motivat/da per anar a classe i estudiar.', 'motivation'],
+  ['He tingut clars els meus objectius personals o acadèmics.', 'motivation'],
+  ['He organitzat el meu temps d\'estudi de manera eficaç.', 'study_habits'],
+  ['He evitat deixar les tasques per a l\'últim moment.', 'study_habits'],
+  ['He aconseguit concentrar-me en estudiar sense distreure\'m amb el mòbil.', 'study_habits'],
+  ['En general, m\'he sentit bé amb mi mateix/a.', 'wellbeing'],
+  ['He descansat i he tingut energia per al dia a dia.', 'wellbeing'],
 ]
 
 const GOAL_EXAMPLES = [
-  'Repasar matemáticas 30 min',
-  'Beber 8 vasos de agua',
-  'Acostarme antes de las 23:00',
-  'Leer 20 páginas',
-  'Salir a caminar',
-  'Terminar los deberes de historia',
+  'Repassar matemàtiques 30 min',
+  'Beure 8 gots d\'aigua',
+  'Anar a dormir abans de les 23:00',
+  'Llegir 20 pàgines',
+  'Sortir a caminar',
+  'Acabar els deures d\'història',
 ]
 
 // Base de datos inicial del invitado: dos semanas de uso de ejemplo para que
@@ -149,7 +149,7 @@ function buildSeed() {
       studied,
       study_minutes: studied ? pick(2, 9) * 15 : 0,
       exercised,
-      exercise_type: exercised ? ['Correr', 'Fútbol', 'Gimnasio', 'Baile'][pick(0, 3)] : null,
+      exercise_type: exercised ? ['Córrer', 'Futbol', 'Gimnàs', 'Ball'][pick(0, 3)] : null,
       created_at: created(date),
     })
 
@@ -212,7 +212,7 @@ function buildSeed() {
       {
         id: GUEST_ID,
         email: 'invitado@kairo',
-        full_name: 'Invitado',
+        full_name: 'Convidat',
         role: 'student',
         avatar_url: null,
         gender: null,
@@ -247,9 +247,9 @@ function buildSeed() {
       {
         id: uuid(),
         user_id: GUEST_ID,
-        title: 'Examen de biología',
-        description: 'Temas 4 y 5',
-        subject: 'Biología',
+        title: 'Examen de biologia',
+        description: 'Temes 4 i 5',
+        subject: 'Biologia',
         due_date: addDays(todayDate(), 3),
         priority: 'alta',
         completed: false,
@@ -259,9 +259,9 @@ function buildSeed() {
       {
         id: uuid(),
         user_id: GUEST_ID,
-        title: 'Entregar redacción',
+        title: 'Entregar la redacció',
         description: null,
-        subject: 'Lengua',
+        subject: 'Llengua',
         due_date: addDays(todayDate(), 1),
         priority: 'media',
         completed: false,
@@ -439,7 +439,7 @@ class GuestQuery {
     if (data.length === 0) {
       return this.mode === 'maybe'
         ? { data: null, error: null }
-        : { data: null, error: { message: 'No se ha encontrado el registro.' } }
+        : { data: null, error: { message: 'No s\'ha trobat el registre.' } }
     }
     return { data: data[0], error: null }
   }
@@ -458,7 +458,7 @@ for (const [name, matcher] of Object.entries(MATCHERS)) {
   }
 }
 
-const UNAVAILABLE = { message: 'Esta opción no está disponible en modo invitado.' }
+const UNAVAILABLE = { message: 'Aquesta opció no està disponible en mode convidat.' }
 
 export function createGuestClient() {
   const client = {

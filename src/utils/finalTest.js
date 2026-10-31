@@ -30,15 +30,15 @@ export const IMPROVEMENT_OPTIONS = ['Sí', 'Un poco', 'No']
 export const FINAL_TEST_BLOCKS = [
   {
     key: 'resultado',
-    title: 'Tu examen',
-    description: 'El resultado del examen para el que te has preparado con la app.',
+    title: 'El teu examen',
+    description: 'El resultat de l\'examen per al qual t\'has preparat amb l\'app.',
     hypotheses: ['H3.2'],
     questions: [
       {
         key: 'final_grade',
         type: 'choice',
         options: FINAL_GRADE_OPTIONS,
-        text: '¿Qué nota has sacado aproximadamente en el examen?',
+        text: 'Quina nota has tret aproximadament a l\'examen?',
         hypotheses: ['H3.2'],
       },
     ],
@@ -46,8 +46,8 @@ export const FINAL_TEST_BLOCKS = [
   {
     // Autoestima de Rosenberg (idéntica al test inicial, escala 1-4) → evolución.
     key: 'autoestima',
-    title: 'Cómo te ves a ti mismo/a',
-    description: 'Escala 1-4: del 1 (muy en desacuerdo) al 4 (muy de acuerdo).',
+    title: 'Com et veus a tu mateix/a',
+    description: 'Escala 1-4: de l\'1 (molt en desacord) al 4 (molt d\'acord).',
     hypotheses: ['H1.1'],
     questions: pickQuestions([
       'rse_01',
@@ -64,43 +64,43 @@ export const FINAL_TEST_BLOCKS = [
   },
   {
     key: 'fracaso_ansiedad',
-    title: 'Ante los exámenes',
-    description: 'Indica cuánto estás de acuerdo con cada frase.',
+    title: 'Davant dels exàmens',
+    description: 'Indica fins a quin punt estàs d\'acord amb cada frase.',
     hypotheses: ['H1.2'],
     questions: pickQuestions(['exam_nerves', 'exam_block']),
   },
   {
     key: 'habitos_estudio',
-    title: 'Tus hábitos de estudio',
-    description: 'Indica cuánto estás de acuerdo con cada frase.',
+    title: 'Els teus hàbits d\'estudi',
+    description: 'Indica fins a quin punt estàs d\'acord amb cada frase.',
     hypotheses: ['H3.2'],
     questions: pickQuestions(['study_planning', 'study_phone_distract']),
   },
   {
     key: 'impacto_app',
-    title: 'Tu experiencia con la app',
-    description: 'Cuéntanos cómo te ha ido usando Kairo.',
+    title: 'La teva experiència amb l\'app',
+    description: 'Explica\'ns com t\'ha anat fent servir Kairo.',
     hypotheses: ['H3.1', 'H3.2'],
     questions: [
       {
         key: 'most_useful_tool',
         type: 'choice',
         options: TOOL_OPTIONS,
-        text: '¿Qué herramienta de la app te ha ayudado más al preparar el examen?',
+        text: 'Quina eina de l\'app t\'ha ajudat més a preparar l\'examen?',
         hypotheses: ['H3.1'],
       },
       {
         key: 'perceived_improvement',
         type: 'choice',
         options: IMPROVEMENT_OPTIONS,
-        text: 'Gracias a la app, ¿has mejorado tus hábitos de estudio y confías más en tus capacidades?',
+        text: 'Gràcies a l\'app, has millorat els teus hàbits d\'estudi i confies més en les teves capacitats?',
         hypotheses: ['H3.2'],
       },
       {
         key: 'experience_comment',
         type: 'text',
         optional: true,
-        text: 'Deja un comentario sobre tu experiencia usando la app (opcional).',
+        text: 'Deixa un comentari sobre la teva experiència fent servir l\'app (opcional).',
         hypotheses: ['H3.2'],
       },
     ],

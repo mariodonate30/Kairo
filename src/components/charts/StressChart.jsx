@@ -34,7 +34,7 @@ export default function StressChart({ data }) {
         <Tooltip
           contentStyle={TOOLTIP_STYLE}
           labelStyle={TOOLTIP_LABEL_STYLE}
-          formatter={(value) => [value, 'Estrés']}
+          formatter={(value) => [value, 'Estrès']}
         />
         <Line
           type="monotone"

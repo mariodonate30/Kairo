@@ -34,7 +34,7 @@ export default function MoodChart({ data }) {
         <Tooltip
           contentStyle={TOOLTIP_STYLE}
           labelStyle={TOOLTIP_LABEL_STYLE}
-          formatter={(value) => [value, 'Ánimo']}
+          formatter={(value) => [value, 'Ànim']}
         />
         <Line
           type="monotone"

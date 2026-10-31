@@ -24,7 +24,7 @@ import {
   parseDate,
 } from '../utils/dateHelpers'
 
-const WEEKDAYS = ['Lun', 'Mar', 'Mié', 'Jue', 'Vie', 'Sáb', 'Dom']
+const WEEKDAYS = ['Dl', 'Dt', 'Dc', 'Dj', 'Dv', 'Ds', 'Dg']
 
 // Configuración visual por prioridad. `dot` para los chips del calendario,
 // `chip`/`badge` para etiquetas y `button` para el selector del formulario.
@@ -36,13 +36,13 @@ const PRIORITY_CONFIG = {
     activeButton: 'border-rose-400 bg-rose-50 text-rose-700',
   },
   media: {
-    label: 'Media',
+    label: 'Mitjana',
     dot: 'bg-amber-500',
     chip: 'bg-amber-50 text-amber-700 border-amber-100',
     activeButton: 'border-amber-400 bg-amber-50 text-amber-700',
   },
   baja: {
-    label: 'Baja',
+    label: 'Baixa',
     dot: 'bg-sky-500',
     chip: 'bg-sky-50 text-sky-700 border-sky-100',
     activeButton: 'border-sky-400 bg-sky-50 text-sky-700',
@@ -77,7 +77,7 @@ function TaskModal({ initialDate, task, onClose, onSubmit, onDelete }) {
   async function handleSubmit(e) {
     e.preventDefault()
     if (!title.trim()) {
-      setFormError('Ponle un título a la tarea.')
+      setFormError('Posa-li un títol a la tasca.')
       return
     }
     setSaving(true)
@@ -85,7 +85,7 @@ function TaskModal({ initialDate, task, onClose, onSubmit, onDelete }) {
     const { error } = await onSubmit({ title, subject, description, dueDate, priority })
     setSaving(false)
     if (error) {
-      setFormError('No se ha podido guardar. Inténtalo de nuevo.')
+      setFormError('No s\'ha pogut desar. Torna-ho a provar.')
     } else {
       onClose()
     }
@@ -102,13 +102,13 @@ function TaskModal({ initialDate, task, onClose, onSubmit, onDelete }) {
       >
         <div className="mb-5 flex items-center justify-between">
           <h2 className="text-lg font-bold text-slate-900">
-            {isEditing ? 'Editar tarea' : 'Nueva tarea'}
+            {isEditing ? 'Editar la tasca' : 'Nova tasca'}
           </h2>
           <button
             type="button"
             onClick={onClose}
             className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-100"
-            aria-label="Cerrar"
+            aria-label="Tancar"
           >
             <X className="h-5 w-5" />
           </button>
@@ -116,14 +116,14 @@ function TaskModal({ initialDate, task, onClose, onSubmit, onDelete }) {
 
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-slate-700">Título</label>
+            <label className="mb-1.5 block text-sm font-medium text-slate-700">Títol</label>
             <input
               autoFocus
               type="text"
               value={title}
               maxLength={140}
               onChange={(e) => setTitle(e.target.value)}
-              placeholder="Ej. Entregar trabajo de Historia"
+              placeholder="Ex. Entregar el treball d'Història"
               className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-900 outline-none transition focus:border-violet-400 focus:bg-white focus:ring-2 focus:ring-violet-100"
             />
           </div>
@@ -131,7 +131,7 @@ function TaskModal({ initialDate, task, onClose, onSubmit, onDelete }) {
           <div className="grid grid-cols-2 gap-3">
             <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">
-                Fecha de entrega
+                Data d'entrega
               </label>
               <input
                 type="date"
@@ -142,21 +142,21 @@ function TaskModal({ initialDate, task, onClose, onSubmit, onDelete }) {
             </div>
             <div>
               <label className="mb-1.5 block text-sm font-medium text-slate-700">
-                Asignatura <span className="font-normal text-slate-400">(opcional)</span>
+                Assignatura <span className="font-normal text-slate-400">(opcional)</span>
               </label>
               <input
                 type="text"
                 value={subject}
                 maxLength={40}
                 onChange={(e) => setSubject(e.target.value)}
-                placeholder="Ej. Matemáticas"
+                placeholder="Ex. Matemàtiques"
                 className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-900 outline-none transition focus:border-violet-400 focus:bg-white focus:ring-2 focus:ring-violet-100"
               />
             </div>
           </div>
 
           <div>
-            <label className="mb-1.5 block text-sm font-medium text-slate-700">Prioridad</label>
+            <label className="mb-1.5 block text-sm font-medium text-slate-700">Prioritat</label>
             <div className="grid grid-cols-3 gap-2">
               {PRIORITIES.map((p) => {
                 const config = PRIORITY_CONFIG[p]
@@ -183,14 +183,14 @@ function TaskModal({ initialDate, task, onClose, onSubmit, onDelete }) {
 
           <div>
             <label className="mb-1.5 block text-sm font-medium text-slate-700">
-              Notas <span className="font-normal text-slate-400">(opcional)</span>
+              Notes <span className="font-normal text-slate-400">(opcional)</span>
             </label>
             <textarea
               value={description}
               maxLength={500}
               rows={3}
               onChange={(e) => setDescription(e.target.value)}
-              placeholder="Detalles, enlaces, lo que necesites recordar…"
+              placeholder="Detalls, enllaços, el que necessitis recordar…"
               className="w-full resize-none rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-900 outline-none transition focus:border-violet-400 focus:bg-white focus:ring-2 focus:ring-violet-100"
             />
           </div>
@@ -213,7 +213,7 @@ function TaskModal({ initialDate, task, onClose, onSubmit, onDelete }) {
               disabled={saving || !title.trim()}
               className="ml-auto flex h-11 items-center justify-center rounded-xl bg-violet-600 px-6 text-sm font-semibold text-white shadow-lg shadow-violet-200 transition hover:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-50"
             >
-              {saving ? 'Guardando…' : 'Guardar'}
+              {saving ? 'Desant…' : 'Desar'}
             </button>
           </div>
         </form>
@@ -284,7 +284,7 @@ function DayCell({ date, tasks, inMonth, isToday, isSelected, onSelect, tall }) 
           <TaskChip key={task.id} task={task} />
         ))}
         {hidden > 0 && (
-          <span className="px-1 text-[10px] font-medium text-slate-400">+{hidden} más</span>
+          <span className="px-1 text-[10px] font-medium text-slate-400">+{hidden} més</span>
         )}
       </div>
     </button>
@@ -307,7 +307,7 @@ function TaskRow({ task, onToggle, onEdit }) {
             ? 'border-violet-600 bg-violet-600 text-white'
             : 'border-slate-300 text-transparent hover:border-violet-400',
         ].join(' ')}
-        aria-label={task.completed ? 'Marcar como pendiente' : 'Marcar como completada'}
+        aria-label={task.completed ? 'Marcar com a pendent' : 'Marcar com a completada'}
       >
         <Check className="h-4 w-4" />
       </button>
@@ -344,7 +344,7 @@ function TaskRow({ task, onToggle, onEdit }) {
         type="button"
         onClick={() => onEdit(task)}
         className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg text-slate-300 transition hover:bg-slate-100 hover:text-slate-500 lg:opacity-0 lg:group-hover:opacity-100"
-        aria-label="Editar tarea"
+        aria-label="Editar la tasca"
       >
         <Pencil className="h-4 w-4" />
       </button>
@@ -407,9 +407,9 @@ export default function Tasks() {
     <div className="flex flex-col gap-6">
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Calendario de tareas</h1>
+          <h1 className="text-2xl font-bold text-slate-900">Calendari de tasques</h1>
           <p className="mt-1 text-slate-500">
-            Organiza tus entregas y tareas con fecha límite, como un planificador.
+            Organitza les teves entregues i tasques amb data límit, com una agenda.
           </p>
         </div>
         <button
@@ -418,11 +418,11 @@ export default function Tasks() {
           className="flex h-11 items-center gap-2 rounded-xl bg-violet-600 px-4 text-sm font-semibold text-white shadow-lg shadow-violet-200 transition hover:bg-violet-700"
         >
           <Plus className="h-5 w-5" />
-          Nueva tarea
+          Nova tasca
         </button>
       </div>
 
-      {loading && <LoadingSpinner label="Cargando tu calendario…" />}
+      {loading && <LoadingSpinner label="Carregant el teu calendari…" />}
 
       {!loading && (
         <>
@@ -449,7 +449,7 @@ export default function Tasks() {
                   type="button"
                   onClick={goNext}
                   className="flex h-9 w-9 items-center justify-center rounded-lg text-slate-500 transition hover:bg-slate-100"
-                  aria-label="Siguiente"
+                  aria-label="Següent"
                 >
                   <ChevronRight className="h-5 w-5" />
                 </button>
@@ -458,14 +458,14 @@ export default function Tasks() {
                   onClick={goToday}
                   className="ml-1 rounded-lg border border-slate-200 px-3 py-1.5 text-xs font-medium text-slate-600 transition hover:bg-slate-50"
                 >
-                  Hoy
+                  Avui
                 </button>
               </div>
 
               <div className="flex rounded-xl bg-slate-100 p-1">
                 {[
                   { key: 'month', label: 'Mes' },
-                  { key: 'week', label: 'Semana' },
+                  { key: 'week', label: 'Setmana' },
                 ].map(({ key, label }) => (
                   <button
                     key={key}
@@ -525,7 +525,7 @@ export default function Tasks() {
                   <p className="text-xs text-slate-400">
                     {selectedTasks.length
                       ? `${selectedTasks.filter((t) => t.completed).length}/${selectedTasks.length} completadas`
-                      : 'Sin tareas para este día'}
+                      : 'Sense tasques per a aquest dia'}
                   </p>
                 </div>
               </div>
@@ -533,7 +533,7 @@ export default function Tasks() {
                 type="button"
                 onClick={() => setModal({ date: selectedDate, task: null })}
                 className="flex h-9 w-9 shrink-0 items-center justify-center rounded-xl bg-violet-600 text-white shadow-lg shadow-violet-200 transition hover:bg-violet-700"
-                aria-label="Añadir tarea a este día"
+                aria-label="Afegir una tasca a aquest dia"
               >
                 <Plus className="h-5 w-5" />
               </button>
@@ -541,7 +541,7 @@ export default function Tasks() {
 
             {selectedTasks.length === 0 ? (
               <p className="rounded-xl bg-slate-50 px-4 py-6 text-center text-sm text-slate-400">
-                No hay tareas para este día. Pulsa + para añadir una.
+                No hi ha tasques per a aquest dia. Prem + per afegir-ne una.
               </p>
             ) : (
               <ul className="flex flex-col gap-2">

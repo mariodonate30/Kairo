@@ -8,7 +8,7 @@ import './index.css'
 
 function formatDateTime(iso) {
   if (!iso) return null
-  return new Date(iso).toLocaleString('es-ES', { dateStyle: 'long', timeStyle: 'short' })
+  return new Date(iso).toLocaleString('ca-ES', { dateStyle: 'long', timeStyle: 'short' })
 }
 
 function PublicPanel() {
@@ -22,7 +22,7 @@ function PublicPanel() {
         return res.json()
       })
       .then(setSnapshot)
-      .catch(() => setError('No se han podido cargar los datos.'))
+      .catch(() => setError('No s\'han pogut carregar les dades.'))
   }, [])
 
   const admin = useMemo(() => (snapshot ? snapshotToAdminData(snapshot) : null), [snapshot])
@@ -36,13 +36,12 @@ function PublicPanel() {
       {error ? (
         <p className="rounded-xl bg-rose-50 px-3 py-2 text-sm text-rose-600">{error}</p>
       ) : !admin ? (
-        <LoadingSpinner label="Cargando resultados…" />
+        <LoadingSpinner label="Carregant els resultats…" />
       ) : (
         <>
           <AdminPanel admin={admin} publicView referenceDate={referenceDate} />
           <p className="text-center text-xs text-slate-400">
-            Estudio sobre hábitos en la adolescencia · Datos anónimos: cada alumno se identifica
-            solo con un número.{updated && ` Copia de los datos del ${updated}.`}
+            Estudi sobre hàbits a l'adolescència · Dades anònimes: cada alumne s'identifica només amb un número.{updated && ` Còpia de les dades del ${updated}.`}
           </p>
         </>
       )}

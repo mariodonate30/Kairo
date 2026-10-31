@@ -296,13 +296,13 @@ export function buildSectionUsage(data, fromDate) {
 
   const sections = [
     { section: 'Check-in', count: data.checkins.filter((r) => inRange(r.date)).length },
-    { section: 'Objetivos', count: data.goals.filter((r) => inRange(r.date)).length },
-    { section: 'Enfoque', count: data.focusSessions.filter((r) => inRange(r.date)).length },
+    { section: 'Objectius', count: data.goals.filter((r) => inRange(r.date)).length },
+    { section: 'Concentració', count: data.focusSessions.filter((r) => inRange(r.date)).length },
     {
-      section: 'Meditación',
+      section: 'Meditació',
       count: data.meditationSessions.filter((r) => inRange(r.date)).length,
     },
-    { section: 'Encuestas', count: surveysCount },
+    { section: 'Enquestes', count: surveysCount },
   ]
 
   return sections.sort((a, b) => b.count - a.count)

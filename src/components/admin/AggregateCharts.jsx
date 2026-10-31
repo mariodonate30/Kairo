@@ -62,7 +62,7 @@ function CategoryDistributionChart({ data }) {
           cursor={{ fill: '#f8fafc' }}
           contentStyle={TOOLTIP_STYLE}
           labelStyle={TOOLTIP_LABEL_STYLE}
-          formatter={(value) => [`${value}%`, 'Media']}
+          formatter={(value) => [`${value}%`, 'Mitjana']}
         />
         <Bar dataKey="value" radius={[0, 6, 6, 0]} maxBarSize={28}>
           {data.map((entry, index) => (
@@ -103,7 +103,7 @@ function SectionUsageChart({ data }) {
           cursor={{ fill: '#f8fafc' }}
           contentStyle={TOOLTIP_STYLE}
           labelStyle={TOOLTIP_LABEL_STYLE}
-          formatter={(value) => [`${value} registros`, 'Uso']}
+          formatter={(value) => [`${value} registros`, 'Ús']}
         />
         <Bar dataKey="count" fill="#8b5cf6" radius={[0, 6, 6, 0]} maxBarSize={28} />
       </BarChart>
@@ -138,7 +138,7 @@ function RetentionChart({ data }) {
           labelStyle={TOOLTIP_LABEL_STYLE}
           formatter={(value, _name, entry) => [
             `${value}% (${entry?.payload?.active ?? 0} usuarios)`,
-            'Activos',
+            'Actius',
           ]}
         />
         <Line
@@ -166,8 +166,8 @@ export default function AggregateCharts({ dailyRows, categoryRows, sectionRows, 
     <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
       <ChartCard
         icon={Smile}
-        title="Ánimo medio del instituto"
-        subtitle="Media diaria (escala 1-5)"
+        title="Estat d'ànim mitjà de l'institut"
+        subtitle="Mitjana diària (escala 1-5)"
         accent="violet"
         hasData={hasDaily}
       >
@@ -176,8 +176,8 @@ export default function AggregateCharts({ dailyRows, categoryRows, sectionRows, 
 
       <ChartCard
         icon={Moon}
-        title="Horas de sueño medias"
-        subtitle="Media diaria de horas dormidas"
+        title="Hores de son mitjanes"
+        subtitle="Mitjana diària d'hores dormides"
         accent="indigo"
         hasData={hasDaily}
       >
@@ -186,8 +186,8 @@ export default function AggregateCharts({ dailyRows, categoryRows, sectionRows, 
 
       <ChartCard
         icon={Zap}
-        title="Nivel de estrés medio"
-        subtitle="Media diaria (escala 1-5)"
+        title="Nivell d'estrès mitjà"
+        subtitle="Mitjana diària (escala 1-5)"
         accent="rose"
         hasData={hasDaily}
       >
@@ -197,11 +197,11 @@ export default function AggregateCharts({ dailyRows, categoryRows, sectionRows, 
       {retentionRows && (
       <ChartCard
         icon={Activity}
-        title="Tasa de retención"
-        subtitle="% de estudiantes activos cada día"
+        title="Taxa de retenció"
+        subtitle="% d'estudiants actius cada dia"
         accent="emerald"
         hasData={hasRetention}
-        emptyLabel="Aún no hay actividad registrada en este periodo."
+        emptyLabel="Encara no hi ha activitat registrada en aquest període."
       >
         <RetentionChart data={retentionRows} />
       </ChartCard>
@@ -209,22 +209,22 @@ export default function AggregateCharts({ dailyRows, categoryRows, sectionRows, 
 
       <ChartCard
         icon={BarChart3}
-        title="Respuestas por categoría de encuesta"
-        subtitle="Media normalizada (0-100 %)"
+        title="Respostes per categoria d'enquesta"
+        subtitle="Mitjana normalitzada (0-100 %)"
         accent="rose"
         hasData={hasCategory}
-        emptyLabel="Todavía no hay encuestas completadas en este periodo."
+        emptyLabel="Encara no hi ha enquestes completades en aquest període."
       >
         <CategoryDistributionChart data={categoryRows} />
       </ChartCard>
 
       <ChartCard
         icon={LayoutGrid}
-        title="Secciones más usadas"
-        subtitle="Número de registros por sección"
+        title="Seccions més utilitzades"
+        subtitle="Nombre de registres per secció"
         accent="violet"
         hasData={hasSection}
-        emptyLabel="Aún no hay actividad en este periodo."
+        emptyLabel="Encara no hi ha activitat en aquest període."
       >
         <SectionUsageChart data={sectionRows} />
       </ChartCard>

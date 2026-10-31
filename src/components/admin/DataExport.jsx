@@ -16,7 +16,7 @@ const genderOf = (genderById, userId) => genderById.get(userId) || ''
 const DATASETS = [
   {
     key: 'checkins',
-    label: 'Check-ins diarios',
+    label: 'Check-ins diaris',
     filename: 'kairo_checkins',
     columns: [
       { key: 'id', label: 'id' },
@@ -53,7 +53,7 @@ const DATASETS = [
   },
   {
     key: 'surveys',
-    label: 'Encuestas semanales',
+    label: 'Enquestes setmanals',
     filename: 'kairo_encuestas',
     // Formato largo: una fila por (encuesta, respuesta). Fácil de analizar.
     columns: [
@@ -86,7 +86,7 @@ const DATASETS = [
   },
   {
     key: 'goals',
-    label: 'Objetivos diarios',
+    label: 'Objectius diaris',
     filename: 'kairo_objetivos',
     columns: [
       { key: 'id', label: 'id' },
@@ -107,7 +107,7 @@ const DATASETS = [
   },
   {
     key: 'focus',
-    label: 'Sesiones de enfoque',
+    label: 'Sessions de concentració',
     filename: 'kairo_enfoque',
     columns: [
       { key: 'id', label: 'id' },
@@ -130,7 +130,7 @@ const DATASETS = [
   },
   {
     key: 'meditation',
-    label: 'Sesiones de meditación',
+    label: 'Sessions de meditació',
     filename: 'kairo_meditacion',
     columns: [
       { key: 'id', label: 'id' },
@@ -151,7 +151,7 @@ const DATASETS = [
   },
   {
     key: 'evolution',
-    label: 'Evolución (inicial→final)',
+    label: 'Evolució (inicial→final)',
     filename: 'kairo_evolucion',
     // Una fila por alumno que completó la encuesta final, emparejada con su test
     // inicial. No depende de fechas: ignora el filtro de rango.
@@ -212,9 +212,9 @@ export default function DataExport({ data, anonIds, questions, genderById }) {
   return (
     <section className="rounded-3xl border border-slate-100 bg-white p-5 shadow-sm sm:p-6">
       <div className="mb-4">
-        <h2 className="text-base font-semibold text-slate-900">Exportación de datos</h2>
+        <h2 className="text-base font-semibold text-slate-900">Exportació de dades</h2>
         <p className="text-sm text-slate-400">
-          Datos anonimizados (solo IDs numéricos, sin nombres) en formato CSV.
+          Dades anonimitzades (només IDs numèrics, sense noms) en format CSV.
         </p>
       </div>
 
@@ -241,7 +241,7 @@ export default function DataExport({ data, anonIds, questions, genderById }) {
         {/* Filtro por fechas */}
         <div className="flex flex-wrap items-end gap-4">
           <label className="flex flex-col gap-1 text-sm text-slate-500">
-            Desde
+            Des de
             <input
               type="date"
               value={from}
@@ -250,7 +250,7 @@ export default function DataExport({ data, anonIds, questions, genderById }) {
             />
           </label>
           <label className="flex flex-col gap-1 text-sm text-slate-500">
-            Hasta
+            Fins a
             <input
               type="date"
               value={to}
@@ -267,14 +267,14 @@ export default function DataExport({ data, anonIds, questions, genderById }) {
               }}
               className="rounded-xl px-3 py-2 text-sm font-medium text-slate-500 transition hover:bg-slate-100"
             >
-              Limpiar
+              Netejar
             </button>
           )}
         </div>
 
         <div className="flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-4">
           <p className="text-sm text-slate-500">
-            {rows.length} {rows.length === 1 ? 'fila' : 'filas'} listas para exportar.
+            {rows.length} {rows.length === 1 ? 'fila' : 'files'} llestes per exportar.
           </p>
           <button
             type="button"
@@ -283,7 +283,7 @@ export default function DataExport({ data, anonIds, questions, genderById }) {
             className="inline-flex items-center gap-2 rounded-xl bg-violet-600 px-4 py-2.5 text-sm font-medium text-white transition hover:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-50"
           >
             <Download className="h-4 w-4" />
-            Descargar CSV
+            Descarregar CSV
           </button>
         </div>
       </div>

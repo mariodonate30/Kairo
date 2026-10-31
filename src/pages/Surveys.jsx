@@ -12,14 +12,14 @@ import LoadingSpinner from '../components/ui/LoadingSpinner'
 import ScaleInput from '../components/ui/ScaleInput'
 import { parseDate } from '../utils/dateHelpers'
 
-const weekFormatter = new Intl.DateTimeFormat('es-ES', {
+const weekFormatter = new Intl.DateTimeFormat('ca-ES', {
   day: 'numeric',
   month: 'long',
 })
 
 // "Semana del 4 de agosto"
 function formatWeekLabel(weekStart) {
-  return `Semana del ${weekFormatter.format(parseDate(weekStart))}`
+  return `Setmana del ${weekFormatter.format(parseDate(weekStart))}`
 }
 
 // Construye la escala 1-5 (o el rango configurado en la pregunta) como
@@ -61,8 +61,8 @@ function CategoryBlock({ category, answers, onAnswer }) {
               value={answers[question.id] ?? null}
               onChange={(value) => onAnswer(question.id, value)}
               emojis={scaleDigits(question)}
-              lowLabel="Nada de acuerdo"
-              highLabel="Totalmente de acuerdo"
+              lowLabel="Gens d'acord"
+              highLabel="Totalment d'acord"
             />
           </div>
         ))}
@@ -92,7 +92,7 @@ function SurveyForm({ categories, weekStart, onSubmit }) {
   async function handleSubmit(e) {
     e.preventDefault()
     if (!allAnswered) {
-      setFormError('Responde todas las preguntas antes de enviar.')
+      setFormError('Respon totes les preguntes abans d\'enviar.')
       return
     }
 
@@ -102,7 +102,7 @@ function SurveyForm({ categories, weekStart, onSubmit }) {
     setSubmitting(false)
 
     if (error) {
-      setFormError('No se ha podido guardar la encuesta. Inténtalo de nuevo.')
+      setFormError('No s\'ha pogut desar l\'enquesta. Torna-ho a provar.')
     } else {
       checkAchievements()
     }
@@ -120,12 +120,12 @@ function SurveyForm({ categories, weekStart, onSubmit }) {
               {formatWeekLabel(weekStart)}
             </h2>
             <p className="text-xs text-slate-400">
-              {answeredCount} de {totalQuestions} respondidas
+              {answeredCount} de {totalQuestions} respostes
             </p>
           </div>
         </div>
         <span className="rounded-full bg-amber-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-amber-600">
-          Pendiente
+          Pendent
         </span>
       </div>
 
@@ -148,7 +148,7 @@ function SurveyForm({ categories, weekStart, onSubmit }) {
           disabled={submitting || !allAnswered}
           className="flex h-12 items-center justify-center rounded-xl bg-violet-600 px-6 text-sm font-semibold text-white shadow-lg shadow-violet-200 transition hover:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          {submitting ? 'Guardando…' : 'Enviar encuesta'}
+          {submitting ? 'Desant…' : 'Enviar l\'enquesta'}
         </button>
       </form>
     </SectionCard>
@@ -197,7 +197,7 @@ function SurveyResponses({ categories, responses }) {
 // Resumen "✓ Completada" de la encuesta de la semana actual.
 function CompletedSummary({ categories, survey }) {
   const completedDate = survey.completed_at
-    ? new Intl.DateTimeFormat('es-ES', {
+    ? new Intl.DateTimeFormat('ca-ES', {
         day: 'numeric',
         month: 'long',
         hour: '2-digit',
@@ -250,7 +250,7 @@ function HistoryRow({ categories, survey }) {
             {formatWeekLabel(survey.week_start)}
           </p>
           <p className="text-xs text-slate-400">
-            {survey.completed_at ? `${answered} respuestas` : 'No respondida'}
+            {survey.completed_at ? `${answered} respostes` : 'No resposta'}
           </p>
         </div>
         <div className="flex shrink-0 items-center gap-2">
@@ -260,7 +260,7 @@ function HistoryRow({ categories, survey }) {
             </span>
           ) : (
             <span className="rounded-full bg-slate-100 px-2.5 py-0.5 text-xs font-semibold text-slate-500">
-              No respondida
+              No resposta
             </span>
           )}
           <ChevronDown
@@ -274,7 +274,7 @@ function HistoryRow({ categories, survey }) {
           {survey.completed_at ? (
             <SurveyResponses categories={categories} responses={survey.responses} />
           ) : (
-            <p className="text-sm text-slate-400">Esta encuesta no llegó a responderse.</p>
+            <p className="text-sm text-slate-400">Aquesta enquesta no es va arribar a respondre.</p>
           )}
         </div>
       )}
@@ -297,14 +297,13 @@ export default function Surveys() {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Encuestas semanales</h1>
+        <h1 className="text-2xl font-bold text-slate-900">Enquestes setmanals</h1>
         <p className="mt-1 text-slate-500">
-          Cada lunes se desbloquea una nueva encuesta. Responde con sinceridad: nos ayuda a
-          entender cómo evoluciona vuestro bienestar.
+          Cada dilluns es desbloqueja una nova enquesta. Respon amb sinceritat: ens ajuda a entendre com evoluciona el vostre benestar.
         </p>
       </div>
 
-      {loading && <LoadingSpinner label="Cargando encuestas…" />}
+      {loading && <LoadingSpinner label="Carregant les enquestes…" />}
 
       {!loading && error && (
         <p className="rounded-xl bg-rose-50 px-4 py-3 text-sm text-rose-600">{error}</p>
@@ -318,7 +317,7 @@ export default function Surveys() {
                 <ClipboardList className="h-6 w-6" />
               </div>
               <p className="text-sm text-slate-500">
-                Todavía no hay preguntas configuradas para la encuesta. Vuelve más tarde.
+                Encara no hi ha preguntes configurades per a l'enquesta. Torna més tard.
               </p>
             </SectionCard>
           ) : isCompleted ? (
@@ -337,12 +336,12 @@ export default function Surveys() {
               <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-50 text-slate-500">
                 <CalendarDays className="h-5 w-5" />
               </div>
-              <h2 className="text-sm font-semibold text-slate-900">Historial de encuestas</h2>
+              <h2 className="text-sm font-semibold text-slate-900">Historial d'enquestes</h2>
             </div>
 
             {history.length === 0 ? (
               <p className="rounded-xl bg-slate-50 px-4 py-6 text-center text-sm text-slate-400">
-                Aquí verás tus encuestas de semanas anteriores a medida que las completes.
+                Aquí veuràs les teves enquestes de setmanes anteriors a mesura que les completis.
               </p>
             ) : (
               <ul className="flex flex-col gap-2">

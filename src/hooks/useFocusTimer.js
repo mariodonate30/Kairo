@@ -52,7 +52,7 @@ export function useFocusTimer() {
       .order('created_at', { ascending: false })
 
     if (error) {
-      setError('No se han podido cargar tus sesiones de enfoque.')
+      setError('No s\'han pogut carregar les teves sessions de concentració.')
     } else {
       setSessions(data || [])
     }
@@ -95,7 +95,7 @@ export function useFocusTimer() {
   // guardar sesiones con algún minuto real de enfoque.
   async function saveSession({ plannedMinutes, actualMinutes, completed }) {
     if (!user) {
-      return { data: null, error: new Error('No hay sesión activa.') }
+      return { data: null, error: new Error('No hi ha cap sessió activa.') }
     }
 
     const { data, error } = await supabase

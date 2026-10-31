@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { ArrowRight, MessageSquareText, Power, TrendingUp, Wrench } from 'lucide-react'
+import { toCatalan } from '../../utils/catalan'
 
 // Formatea una puntuación de autoestima o un guion si falta.
 const fmt = (v) => (v == null ? '—' : v)
@@ -20,8 +21,8 @@ function ActivationCard({ active, count, onToggle }) {
 
   async function handleClick() {
     const message = active
-      ? '¿Desactivar la encuesta final? Dejará de mostrarse a los alumnos.'
-      : '¿Activar la encuesta final? A partir de ahora, todos los alumnos deberán completarla para poder usar la app.'
+      ? 'Vols desactivar l\'enquesta final? Deixarà de mostrar-se als alumnes.'
+      : 'Vols activar l\'enquesta final? A partir d\'ara, tots els alumnes l\'hauran de completar per poder fer servir l\'app.'
     if (!window.confirm(message)) return
     setBusy(true)
     await onToggle(!active)
@@ -45,14 +46,14 @@ function ActivationCard({ active, count, onToggle }) {
           </div>
           <div>
             <h2 className="text-sm font-semibold text-slate-900">
-              Encuesta final: {active ? 'ACTIVADA' : 'desactivada'}
+              Enquesta final: {active ? 'ACTIVADA' : 'desactivada'}
             </h2>
             <p className="mt-0.5 max-w-md text-xs text-slate-500">
               {active
-                ? 'Los alumnos la ven y deben completarla para usar la app. Ya hay ' +
+                ? 'Els alumnes la veuen i l\'han de completar per fer servir l\'app. Ja hi ha ' +
                   count +
                   ' respondida(s).'
-                : 'Está oculta para todos. Actívala cuando queráis cerrar el estudio.'}
+                : 'Està amagada per a tothom. Activeu-la quan vulgueu tancar l\'estudi.'}
             </p>
           </div>
         </div>
@@ -66,7 +67,7 @@ function ActivationCard({ active, count, onToggle }) {
             active ? 'bg-rose-600 hover:bg-rose-700' : 'bg-emerald-600 hover:bg-emerald-700',
           ].join(' ')}
         >
-          {busy ? 'Guardando…' : active ? 'Desactivar' : 'Activar encuesta final'}
+          {busy ? 'Desant…' : active ? 'Desactivar' : 'Activar l\'enquesta final'}
         </button>
       </div>
     </section>
@@ -86,7 +87,7 @@ function StatCard({ label, value, hint, accent }) {
 
 // Barra simple de distribución (herramienta más útil, mejora percibida).
 function DistributionBars({ rows, total, color = 'bg-violet-500' }) {
-  if (!total) return <p className="text-sm text-slate-400">Sin respuestas todavía.</p>
+  if (!total) return <p className="text-sm text-slate-400">Encara no hi ha respostes.</p>
   return (
     <div className="flex flex-col gap-3">
       {rows.map((row) => {
@@ -123,12 +124,12 @@ export default function EvolutionPanel({
       ? Number((finalStats.all.mean - initialStats.all.mean).toFixed(1))
       : null
 
-  const genderLabel = (g) => (g === 'chico' ? 'Chico' : g === 'chica' ? 'Chica' : '—')
+  const genderLabel = (g) => (g === 'chico' ? 'Noi' : g === 'chica' ? 'Noia' : '—')
   const comments = evolution.filter((row) => row.comment && row.comment.trim())
 
   const improvementRows = [
     { label: 'Sí', count: impact.improvement['Sí'] },
-    { label: 'Un poco', count: impact.improvement['Un poco'] },
+    { label: 'Una mica', count: impact.improvement['Un poco'] },
     { label: 'No', count: impact.improvement['No'] },
   ]
   const improvementTotal = improvementRows.reduce((s, r) => s + r.count, 0)
@@ -144,8 +145,7 @@ export default function EvolutionPanel({
             <TrendingUp className="h-6 w-6" />
           </div>
           <p className="text-sm text-slate-500">
-            Todavía no hay encuestas finales completadas. Cuando los alumnos la respondan,
-            aquí verás la evolución de cada uno (inicial → final) y el impacto de la app.
+            Encara no hi ha enquestes finals completades. Quan els alumnes la responguin, aquí veuràs l'evolució de cadascun (inicial → final) i l'impacte de l'app.
           </p>
         </section>
       ) : (
@@ -153,25 +153,25 @@ export default function EvolutionPanel({
           {/* Resumen de autoestima inicial vs final */}
           <section className="grid grid-cols-2 gap-3 lg:grid-cols-4">
             <StatCard
-              label="Finales completadas"
+              label="Finals completades"
               value={completedCount}
-              hint="Alumnos que la han hecho"
+              hint="Alumnes que l'han feta"
               accent="text-violet-500"
             />
             <StatCard
               label="Autoestima inicial"
               value={initialStats.all.mean != null ? `${initialStats.all.mean} / ${initialStats.max}` : '—'}
-              hint="Media al empezar"
+              hint="Mitjana en començar"
               accent="text-sky-500"
             />
             <StatCard
               label="Autoestima final"
               value={finalStats.all.mean != null ? `${finalStats.all.mean} / ${finalStats.max}` : '—'}
-              hint="Media al terminar"
+              hint="Mitjana en acabar"
               accent="text-emerald-500"
             />
             <StatCard
-              label="Variación media"
+              label="Variació mitjana"
               value={deltaMean == null ? '—' : `${deltaMean > 0 ? '+' : ''}${deltaMean}`}
               hint="Final − inicial"
               accent={deltaMean > 0 ? 'text-emerald-500' : deltaMean < 0 ? 'text-rose-500' : 'text-slate-500'}
@@ -185,9 +185,9 @@ export default function EvolutionPanel({
                 <TrendingUp className="h-5 w-5" />
               </div>
               <div>
-                <h2 className="text-sm font-semibold text-slate-900">Evolución por alumno</h2>
+                <h2 className="text-sm font-semibold text-slate-900">Evolució per alumne</h2>
                 <p className="text-xs text-slate-400">
-                  Autoestima (Rosenberg) y notas, emparejadas por persona. Identidad anónima.
+                  Autoestima (Rosenberg) i notes, aparellades per persona. Identitat anònima.
                 </p>
               </div>
             </div>
@@ -196,27 +196,27 @@ export default function EvolutionPanel({
               <table className="w-full min-w-[640px] text-sm">
                 <thead>
                   <tr className="border-b border-slate-100 text-left text-xs uppercase tracking-wide text-slate-400">
-                    <th className="px-3 py-2 font-medium">Alumno</th>
-                    <th className="px-3 py-2 font-medium">Género</th>
+                    <th className="px-3 py-2 font-medium">Alumne</th>
+                    <th className="px-3 py-2 font-medium">Gènere</th>
                     <th className="px-3 py-2 font-medium">Autoest. inicial</th>
                     <th className="px-3 py-2 font-medium">Autoest. final</th>
                     <th className="px-3 py-2 font-medium">Δ</th>
                     <th className="px-3 py-2 font-medium">Nota base</th>
                     <th className="px-3 py-2 font-medium">Nota examen</th>
-                    <th className="px-3 py-2 font-medium">¿Mejora?</th>
+                    <th className="px-3 py-2 font-medium">Millora?</th>
                   </tr>
                 </thead>
                 <tbody>
                   {evolution.map((row) => (
                     <tr key={row.anonId} className="border-b border-slate-50 last:border-0">
-                      <td className="px-3 py-2 font-medium text-slate-700">Alumno {row.anonId}</td>
+                      <td className="px-3 py-2 font-medium text-slate-700">Alumne {row.anonId}</td>
                       <td className="px-3 py-2 text-slate-500">{genderLabel(row.gender)}</td>
                       <td className="px-3 py-2 text-slate-600">{fmt(row.initialScore)}</td>
                       <td className="px-3 py-2 text-slate-600">{fmt(row.finalScore)}</td>
                       <td className="px-3 py-2"><DeltaBadge delta={row.delta} /></td>
                       <td className="px-3 py-2 text-slate-500">{row.gradeBaseline || '—'}</td>
-                      <td className="px-3 py-2 text-slate-600">{row.gradeExam || '—'}</td>
-                      <td className="px-3 py-2 text-slate-500">{row.improvement || '—'}</td>
+                      <td className="px-3 py-2 text-slate-600">{row.gradeExam ? toCatalan(row.gradeExam) : '—'}</td>
+                      <td className="px-3 py-2 text-slate-500">{row.improvement ? toCatalan(row.improvement) : '—'}</td>
                     </tr>
                   ))}
                 </tbody>
@@ -232,12 +232,12 @@ export default function EvolutionPanel({
                   <Wrench className="h-5 w-5" />
                 </div>
                 <div>
-                  <h2 className="text-sm font-semibold text-slate-900">Herramienta más útil</h2>
-                  <p className="text-xs text-slate-400">Hipótesis H3.1</p>
+                  <h2 className="text-sm font-semibold text-slate-900">Eina més útil</h2>
+                  <p className="text-xs text-slate-400">Hipòtesi H3.1</p>
                 </div>
               </div>
               <DistributionBars
-                rows={impact.toolRows.map((r) => ({ label: r.tool, count: r.count }))}
+                rows={impact.toolRows.map((r) => ({ label: toCatalan(r.tool), count: r.count }))}
                 total={toolTotal}
                 color="bg-amber-500"
               />
@@ -249,8 +249,8 @@ export default function EvolutionPanel({
                   <ArrowRight className="h-5 w-5" />
                 </div>
                 <div>
-                  <h2 className="text-sm font-semibold text-slate-900">Mejora percibida</h2>
-                  <p className="text-xs text-slate-400">Hipótesis H3.2 (autopercepción)</p>
+                  <h2 className="text-sm font-semibold text-slate-900">Millora percebuda</h2>
+                  <p className="text-xs text-slate-400">Hipòtesi H3.2 (autopercepció)</p>
                 </div>
               </div>
               <DistributionBars rows={improvementRows} total={improvementTotal} color="bg-emerald-500" />
@@ -264,12 +264,12 @@ export default function EvolutionPanel({
                 <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-100 text-slate-500">
                   <MessageSquareText className="h-5 w-5" />
                 </div>
-                <h2 className="text-sm font-semibold text-slate-900">Comentarios de los alumnos</h2>
+                <h2 className="text-sm font-semibold text-slate-900">Comentaris dels alumnes</h2>
               </div>
               <ul className="flex flex-col gap-3">
                 {comments.map((row) => (
                   <li key={row.anonId} className="rounded-2xl bg-slate-50 px-4 py-3">
-                    <p className="mb-1 text-xs font-semibold text-slate-400">Alumno {row.anonId}</p>
+                    <p className="mb-1 text-xs font-semibold text-slate-400">Alumne {row.anonId}</p>
                     <p className="text-sm text-slate-700">{row.comment}</p>
                   </li>
                 ))}

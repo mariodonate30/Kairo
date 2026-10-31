@@ -35,7 +35,7 @@ export default function GoalCompletionChart({ data }) {
         <Tooltip
           contentStyle={TOOLTIP_STYLE}
           labelStyle={TOOLTIP_LABEL_STYLE}
-          formatter={(value) => [`${value}%`, 'Cumplido']}
+          formatter={(value) => [`${value}%`, 'Complert']}
         />
         <Line
           type="monotone"

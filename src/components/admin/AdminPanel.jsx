@@ -26,17 +26,17 @@ import DataExport from './DataExport'
 
 // Rangos temporales para los gráficos agregados. `days` a null = todo el historial.
 const RANGES = [
-  { key: 'week', label: 'Última semana', days: 7 },
-  { key: 'month', label: 'Último mes', days: 30 },
-  { key: 'all', label: 'Todo', days: null },
+  { key: 'week', label: 'Última setmana', days: 7 },
+  { key: 'month', label: 'Últim mes', days: 30 },
+  { key: 'all', label: 'Tot', days: null },
 ]
 
 const TABS = [
-  { key: 'overview', label: 'Datos agregados', icon: BarChart3 },
+  { key: 'overview', label: 'Dades agregades', icon: BarChart3 },
   { key: 'initial', label: 'Test inicial', icon: HeartPulse },
-  { key: 'final', label: 'Encuesta final', icon: TrendingUp },
-  { key: 'students', label: 'Respuestas por alumno', icon: Users },
-  { key: 'surveys', label: 'Encuestas', icon: ClipboardList },
+  { key: 'final', label: 'Enquesta final', icon: TrendingUp },
+  { key: 'students', label: 'Respostes per alumne', icon: Users },
+  { key: 'surveys', label: 'Enquestes', icon: ClipboardList },
   { key: 'export', label: 'Exportar', icon: Database },
 ]
 
@@ -100,9 +100,9 @@ export default function AdminPanel({ admin, publicView = false, referenceDate })
 
   // Opciones del filtro por sexo. La vista conjunta ('all') muestra a todos.
   const GENDER_FILTERS = [
-    { key: 'all', label: 'Todos', count: genderCounts.chico + genderCounts.chica },
-    { key: 'chico', label: 'Chicos', count: genderCounts.chico },
-    { key: 'chica', label: 'Chicas', count: genderCounts.chica },
+    { key: 'all', label: 'Tots', count: genderCounts.chico + genderCounts.chica },
+    { key: 'chico', label: 'Nois', count: genderCounts.chico },
+    { key: 'chica', label: 'Noies', count: genderCounts.chica },
   ]
 
   // Datos filtrados al sexo seleccionado (o todos). Todos los gráficos de la
@@ -124,17 +124,17 @@ export default function AdminPanel({ admin, publicView = false, referenceDate })
   const retentionRows = useMemo(() => buildRetention(scoped, fromDate), [scoped, fromDate])
 
   if (loading) {
-    return <LoadingSpinner label="Cargando datos de administración…" />
+    return <LoadingSpinner label="Carregant les dades d'administració…" />
   }
 
   return (
     <div className="flex flex-col gap-6">
       <div>
         <h1 className="text-2xl font-bold text-slate-900">
-          {publicView ? 'Kairo · Panel de resultados' : 'Panel de administración'}
+          {publicView ? 'Kairo · Panell de resultats' : 'Panell d\'administració'}
         </h1>
         <p className="mt-1 text-slate-500">
-          Datos agregados y anonimizados del instituto, gestión de encuestas y exportación.
+          Dades agregades i anonimitzades de l'institut, gestió d'enquestes i exportació.
         </p>
       </div>
 
@@ -210,8 +210,7 @@ export default function AdminPanel({ admin, publicView = false, referenceDate })
 
           {genderKey !== 'all' && (
             <p className="rounded-xl bg-violet-50 px-4 py-2.5 text-sm text-violet-700">
-              Mostrando solo <strong>{genderKey === 'chico' ? 'chicos' : 'chicas'}</strong>. Los
-              alumnos que no indicaron su género ({genderCounts.none}) no aparecen en esta vista.
+              Mostrant només <strong>{genderKey === 'chico' ? 'nois' : 'noies'}</strong>. Els alumnes que no van indicar el seu gènere ({genderCounts.none}) no apareixen en aquesta vista.
             </p>
           )}
 
@@ -251,7 +250,7 @@ export default function AdminPanel({ admin, publicView = false, referenceDate })
               className="inline-flex items-center justify-center gap-2 rounded-xl bg-violet-600 px-3 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-violet-700"
             >
               <Download className="h-4 w-4" />
-              Exportar copia pública
+              Exportar còpia pública
             </button>
             )
           }

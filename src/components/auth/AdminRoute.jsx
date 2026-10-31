@@ -6,7 +6,7 @@ export default function AdminRoute() {
   const { loading, isAdmin } = useAuth()
 
   if (loading) {
-    return <LoadingSpinner label="Comprobando permisos…" />
+    return <LoadingSpinner label="Comprovant permisos…" />
   }
 
   if (!isAdmin) {

@@ -12,7 +12,7 @@ export default function StudyClosed() {
   if (initialTestCompleted === null || finalTestActive === null) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-violet-50 via-white to-emerald-50">
-        <LoadingSpinner label="Cargando…" />
+        <LoadingSpinner label="Carregant…" />
       </div>
     )
   }
@@ -29,17 +29,16 @@ export default function StudyClosed() {
         <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-violet-600 text-white shadow-lg shadow-violet-200">
           <Lock className="h-6 w-6" />
         </div>
-        <h1 className="text-xl font-bold text-slate-900">El estudio ha terminado</h1>
+        <h1 className="text-xl font-bold text-slate-900">L'estudi ha acabat</h1>
         <p className="mt-3 text-sm text-slate-500">
-          Kairo ya ha cerrado la fase de participación. Solo pueden acceder los alumnos que
-          completaron el test inicial al principio del estudio. ¡Gracias por tu interés!
+          Kairo ja ha tancat la fase de participació. Només hi poden accedir els alumnes que van completar el test inicial al principi de l'estudi. Gràcies pel teu interès!
         </p>
         <button
           type="button"
           onClick={signOut}
           className="mt-6 w-full rounded-xl bg-violet-600 px-4 py-3 text-sm font-semibold text-white transition hover:bg-violet-700"
         >
-          Cerrar sesión
+          Tancar sessió
         </button>
       </div>
     </div>

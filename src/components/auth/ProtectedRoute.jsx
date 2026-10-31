@@ -7,7 +7,7 @@ export default function ProtectedRoute() {
   const location = useLocation()
 
   if (loading) {
-    return <LoadingSpinner label="Comprobando tu sesión…" />
+    return <LoadingSpinner label="Comprovant la teva sessió…" />
   }
 
   if (!user) {

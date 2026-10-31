@@ -32,7 +32,7 @@ function AchievementCard({ achievement }) {
   const { unlocked, icon, title, description, unlocked_at } = achievement
 
   const unlockedDate = unlocked_at
-    ? new Date(unlocked_at).toLocaleDateString('es-ES', {
+    ? new Date(unlocked_at).toLocaleDateString('ca-ES', {
         day: 'numeric',
         month: 'short',
         year: 'numeric',
@@ -80,7 +80,7 @@ function AchievementCard({ achievement }) {
         </p>
         {unlocked && unlockedDate && (
           <p className="mt-1.5 text-[11px] font-medium text-amber-600">
-            Desbloqueado el {unlockedDate}
+            Desbloquejat el {unlockedDate}
           </p>
         )}
       </div>
@@ -102,7 +102,7 @@ export default function Profile() {
       .join('') || '?'
 
   const memberSince = profile?.created_at
-    ? new Date(profile.created_at).toLocaleDateString('es-ES', {
+    ? new Date(profile.created_at).toLocaleDateString('ca-ES', {
         day: 'numeric',
         month: 'long',
         year: 'numeric',
@@ -127,24 +127,24 @@ export default function Profile() {
           </div>
           <div>
             <p className="text-lg font-semibold text-slate-900">
-              {profile?.full_name || 'Estudiante'}
+              {profile?.full_name || 'Estudiant'}
             </p>
             <p className="text-sm text-slate-500">{profile?.email}</p>
           </div>
         </div>
 
         <div className="mt-6 grid grid-cols-2 gap-4 border-t border-slate-100 pt-6">
-          <StatBox label="Rol" value={profile?.role === 'admin' ? 'Administrador' : 'Estudiante'} />
-          <StatBox label="Miembro desde" value={memberSince} />
+          <StatBox label="Rol" value={profile?.role === 'admin' ? 'Administrador' : 'Estudiant'} />
+          <StatBox label="Membre des de" value={memberSince} />
         </div>
       </div>
 
       {/* Estadísticas generales */}
       <section className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
-        <UsageStat label="Check-ins completados" value={checkinCount} icon="✅" />
-        <UsageStat label="Días usando la app" value={daysUsingApp} icon="📅" />
-        <UsageStat label="Racha actual" value={`${profile?.current_streak ?? 0} d`} icon="🔥" />
-        <UsageStat label="Racha más larga" value={`${profile?.longest_streak ?? 0} d`} icon="🏆" />
+        <UsageStat label="Check-ins completats" value={checkinCount} icon="✅" />
+        <UsageStat label="Dies fent servir l'app" value={daysUsingApp} icon="📅" />
+        <UsageStat label="Ratxa actual" value={`${profile?.current_streak ?? 0} d`} icon="🔥" />
+        <UsageStat label="Ratxa més llarga" value={`${profile?.longest_streak ?? 0} d`} icon="🏆" />
       </section>
 
       {/* Logros */}
@@ -155,9 +155,9 @@ export default function Profile() {
               <Trophy className="h-5 w-5" />
             </div>
             <div>
-              <h2 className="text-sm font-semibold text-slate-900">Logros</h2>
+              <h2 className="text-sm font-semibold text-slate-900">Assoliments</h2>
               <p className="text-xs text-slate-400">
-                {unlockedCount} de {total} desbloqueados
+                {unlockedCount} de {total} desbloquejats
               </p>
             </div>
           </div>
@@ -177,11 +177,11 @@ export default function Profile() {
           )}
         </div>
 
-        {loading && <LoadingSpinner label="Cargando tus logros…" />}
+        {loading && <LoadingSpinner label="Carregant els teus assoliments…" />}
 
         {!loading && total === 0 && (
           <p className="rounded-xl bg-slate-50 px-4 py-6 text-center text-sm text-slate-400">
-            Aún no hay logros disponibles.
+            Encara no hi ha assoliments disponibles.
           </p>
         )}
 

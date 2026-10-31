@@ -23,9 +23,9 @@ import SurveyRadarChart from '../components/charts/SurveyRadarChart'
 
 // Rangos temporales disponibles. `days` a null significa "todo el historial".
 const RANGES = [
-  { key: 'week', label: 'Última semana', days: 7 },
-  { key: 'month', label: 'Último mes', days: 30 },
-  { key: 'all', label: 'Todo', days: null },
+  { key: 'week', label: 'Última setmana', days: 7 },
+  { key: 'month', label: 'Últim mes', days: 30 },
+  { key: 'all', label: 'Tot', days: null },
 ]
 
 // Etiqueta compacta "día/mes" para los ejes X.
@@ -171,17 +171,16 @@ export default function Progress() {
   const hasRadar = radarRows.length > 0
 
   if (loading) {
-    return <LoadingSpinner label="Cargando tu progresión…" />
+    return <LoadingSpinner label="Carregant la teva progressió…" />
   }
 
   return (
     <div className="flex flex-col gap-6">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Mi progresión</h1>
+          <h1 className="text-2xl font-bold text-slate-900">La meva progressió</h1>
           <p className="mt-1 text-slate-500">
-            Observa cómo evolucionan tus hábitos: ánimo, sueño, estrés, hidratación, estudio y
-            objetivos.
+            Observa com evolucionen els teus hàbits: ànim, son, estrès, hidratació, estudi i objectius.
           </p>
         </div>
 
@@ -211,12 +210,12 @@ export default function Progress() {
 
       {/* Resumen del periodo */}
       <section className="grid grid-cols-2 gap-3 lg:grid-cols-4">
-        <StatCard icon={Smile} label="Ánimo medio" value={summary.mood} accent="text-violet-500" />
-        <StatCard icon={Moon} label="Sueño medio" value={summary.sleep} accent="text-indigo-500" />
-        <StatCard icon={Zap} label="Estrés medio" value={summary.stress} accent="text-rose-500" />
+        <StatCard icon={Smile} label="Ànim mitjà" value={summary.mood} accent="text-violet-500" />
+        <StatCard icon={Moon} label="Son mitjà" value={summary.sleep} accent="text-indigo-500" />
+        <StatCard icon={Zap} label="Estrès mitjà" value={summary.stress} accent="text-rose-500" />
         <StatCard
           icon={Target}
-          label="Objetivos"
+          label="Objectius"
           value={summary.goals}
           accent="text-emerald-500"
         />
@@ -226,8 +225,8 @@ export default function Progress() {
       <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
         <ChartCard
           icon={Smile}
-          title="Estado de ánimo"
-          subtitle="Escala 1-5 por día"
+          title="Estat d'ànim"
+          subtitle="Escala 1-5 per dia"
           accent="violet"
           hasData={hasDaily}
         >
@@ -236,8 +235,8 @@ export default function Progress() {
 
         <ChartCard
           icon={Moon}
-          title="Horas de sueño"
-          subtitle="Horas registradas por día"
+          title="Hores de son"
+          subtitle="Hores registrades per dia"
           accent="indigo"
           hasData={hasDaily}
         >
@@ -246,8 +245,8 @@ export default function Progress() {
 
         <ChartCard
           icon={Zap}
-          title="Nivel de estrés"
-          subtitle="Escala 1-5 por día"
+          title="Nivell d'estrès"
+          subtitle="Escala 1-5 per dia"
           accent="rose"
           hasData={hasDaily}
         >
@@ -256,8 +255,8 @@ export default function Progress() {
 
         <ChartCard
           icon={Droplets}
-          title="Vasos de agua"
-          subtitle="Hidratación por día"
+          title="Gots d'aigua"
+          subtitle="Hidratació per dia"
           accent="sky"
           hasData={hasDaily}
         >
@@ -266,8 +265,8 @@ export default function Progress() {
 
         <ChartCard
           icon={GraduationCap}
-          title="Minutos de estudio"
-          subtitle="Tiempo de estudio por día"
+          title="Minuts d'estudi"
+          subtitle="Temps d'estudi per dia"
           accent="amber"
           hasData={hasDaily}
         >
@@ -276,11 +275,11 @@ export default function Progress() {
 
         <ChartCard
           icon={Target}
-          title="Cumplimiento de objetivos"
-          subtitle="Porcentaje cumplido por día"
+          title="Compliment d'objectius"
+          subtitle="Percentatge complert per dia"
           accent="emerald"
           hasData={hasGoals}
-          emptyLabel="Aún no has registrado objetivos en este periodo."
+          emptyLabel="Encara no has registrat objectius en aquest període."
         >
           <GoalCompletionChart data={goalRows} />
         </ChartCard>
@@ -289,11 +288,11 @@ export default function Progress() {
       {/* Encuestas semanales por categoría (radar, a ancho completo) */}
       <ChartCard
         icon={RadarIcon}
-        title="Encuestas semanales por categoría"
-        subtitle="Media de tus respuestas (0-100 %) en el periodo"
+        title="Enquestes setmanals per categoria"
+        subtitle="Mitjana de les teves respostes (0-100 %) en el període"
         accent="violet"
         hasData={hasRadar}
-        emptyLabel="Completa alguna encuesta semanal para ver este gráfico."
+        emptyLabel="Completa alguna enquesta setmanal per veure aquest gràfic."
       >
         <SurveyRadarChart data={radarRows} />
       </ChartCard>

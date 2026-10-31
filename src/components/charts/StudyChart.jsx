@@ -34,7 +34,7 @@ export default function StudyChart({ data }) {
           cursor={{ fill: '#f8fafc' }}
           contentStyle={TOOLTIP_STYLE}
           labelStyle={TOOLTIP_LABEL_STYLE}
-          formatter={(value) => [`${value} min`, 'Estudio']}
+          formatter={(value) => [`${value} min`, 'Estudi']}
         />
         <Bar dataKey="study_minutes" fill="#f59e0b" radius={[6, 6, 0, 0]} maxBarSize={44} />
       </BarChart>

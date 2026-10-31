@@ -10,7 +10,7 @@ export default function RequireInitialTest() {
   const { initialTestCompleted, finalTestActive, isAdmin } = useAuth()
 
   if (initialTestCompleted === null) {
-    return <LoadingSpinner label="Cargando…" />
+    return <LoadingSpinner label="Carregant…" />
   }
 
   if (initialTestCompleted) {
@@ -18,7 +18,7 @@ export default function RequireInitialTest() {
   }
 
   if (finalTestActive === null) {
-    return <LoadingSpinner label="Cargando…" />
+    return <LoadingSpinner label="Carregant…" />
   }
 
   // Los admins siguen pudiendo entrar al panel aunque no hicieran el test.

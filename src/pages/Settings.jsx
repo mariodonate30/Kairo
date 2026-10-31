@@ -74,7 +74,7 @@ function ChangeNameForm() {
     setStatus(null)
 
     if (!name) {
-      setStatus({ type: 'error', text: 'El nombre no puede estar vacío.' })
+      setStatus({ type: 'error', text: 'El nom no pot estar buit.' })
       return
     }
 
@@ -86,19 +86,19 @@ function ChangeNameForm() {
     setSaving(false)
 
     if (error) {
-      setStatus({ type: 'error', text: 'No se ha podido guardar el nombre. Inténtalo de nuevo.' })
+      setStatus({ type: 'error', text: 'No s\'ha pogut desar el nom. Torna-ho a provar.' })
       return
     }
 
     await refreshProfile()
-    setStatus({ type: 'success', text: 'Nombre actualizado correctamente.' })
+    setStatus({ type: 'success', text: 'Nom actualitzat correctament.' })
   }
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       <div>
         <label htmlFor="fullName" className="mb-1.5 block text-sm font-medium text-slate-700">
-          Nombre completo
+          Nom complet
         </label>
         <input
           id="fullName"
@@ -119,7 +119,7 @@ function ChangeNameForm() {
         className="flex items-center justify-center gap-2 self-start rounded-xl bg-violet-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-violet-200 transition hover:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {saving && <Loader2 className="h-4 w-4 animate-spin" />}
-        {saving ? 'Guardando…' : 'Guardar nombre'}
+        {saving ? 'Desant…' : 'Desar el nom'}
       </button>
     </form>
   )
@@ -137,12 +137,12 @@ function ChangePasswordForm() {
     setStatus(null)
 
     if (password.length < 6) {
-      setStatus({ type: 'error', text: 'La contraseña debe tener al menos 6 caracteres.' })
+      setStatus({ type: 'error', text: 'La contrasenya ha de tenir almenys 6 caràcters.' })
       return
     }
 
     if (password !== confirmPassword) {
-      setStatus({ type: 'error', text: 'Las contraseñas no coinciden.' })
+      setStatus({ type: 'error', text: 'Les contrasenyes no coincideixen.' })
       return
     }
 
@@ -151,20 +151,20 @@ function ChangePasswordForm() {
     setSaving(false)
 
     if (error) {
-      setStatus({ type: 'error', text: 'No se ha podido cambiar la contraseña. Inténtalo de nuevo.' })
+      setStatus({ type: 'error', text: 'No s\'ha pogut canviar la contrasenya. Torna-ho a provar.' })
       return
     }
 
     setPassword('')
     setConfirmPassword('')
-    setStatus({ type: 'success', text: 'Contraseña cambiada correctamente.' })
+    setStatus({ type: 'success', text: 'Contrasenya canviada correctament.' })
   }
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       <div>
         <label htmlFor="newPassword" className="mb-1.5 block text-sm font-medium text-slate-700">
-          Nueva contraseña
+          Nova contrasenya
         </label>
         <div className="relative">
           <input
@@ -173,14 +173,14 @@ function ChangePasswordForm() {
             value={password}
             autoComplete="new-password"
             onChange={(e) => setPassword(e.target.value)}
-            placeholder="Mínimo 6 caracteres"
+            placeholder="Mínim 6 caràcters"
             className={inputClasses + ' pr-10'}
           />
           <button
             type="button"
             onClick={() => setShowPassword((v) => !v)}
             className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
-            aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+            aria-label={showPassword ? 'Amagar la contrasenya' : 'Mostrar la contrasenya'}
           >
             {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
           </button>
@@ -189,7 +189,7 @@ function ChangePasswordForm() {
 
       <div>
         <label htmlFor="confirmPassword" className="mb-1.5 block text-sm font-medium text-slate-700">
-          Confirmar contraseña
+          Confirmar la contrasenya
         </label>
         <input
           id="confirmPassword"
@@ -197,7 +197,7 @@ function ChangePasswordForm() {
           value={confirmPassword}
           autoComplete="new-password"
           onChange={(e) => setConfirmPassword(e.target.value)}
-          placeholder="Repite la nueva contraseña"
+          placeholder="Repeteix la nova contrasenya"
           className={inputClasses}
         />
       </div>
@@ -210,7 +210,7 @@ function ChangePasswordForm() {
         className="flex items-center justify-center gap-2 self-start rounded-xl bg-violet-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-violet-200 transition hover:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {saving && <Loader2 className="h-4 w-4 animate-spin" />}
-        {saving ? 'Cambiando…' : 'Cambiar contraseña'}
+        {saving ? 'Canviant…' : 'Canviar la contrasenya'}
       </button>
     </form>
   )
@@ -234,7 +234,7 @@ function DeleteAccountSection() {
 
     if (rpcError) {
       setDeleting(false)
-      setError('No se ha podido eliminar la cuenta. Inténtalo de nuevo más tarde.')
+      setError('No s\'ha pogut eliminar el compte. Torna-ho a provar més tard.')
       return
     }
 
@@ -246,8 +246,7 @@ function DeleteAccountSection() {
   return (
     <div className="flex flex-col gap-4">
       <p className="text-sm text-slate-500">
-        Al eliminar tu cuenta se borrarán de forma permanente tu perfil y todos tus datos
-        (check-ins, objetivos, encuestas, sesiones y logros). Esta acción no se puede deshacer.
+        En eliminar el teu compte s'esborraran de manera permanent el teu perfil i totes les teves dades (check-ins, objectius, enquestes, sessions i assoliments). Aquesta acció no es pot desfer.
       </p>
 
       {!confirming ? (
@@ -257,13 +256,12 @@ function DeleteAccountSection() {
           className="flex items-center gap-2 self-start rounded-xl border border-rose-200 bg-white px-5 py-2.5 text-sm font-semibold text-rose-600 transition hover:bg-rose-50"
         >
           <Trash2 className="h-4 w-4" />
-          Eliminar mi cuenta
+          Eliminar el meu compte
         </button>
       ) : (
         <div className="rounded-2xl border border-rose-200 bg-rose-50/60 p-4">
           <p className="mb-3 text-sm text-slate-700">
-            Escribe <strong className="font-semibold text-rose-700">{CONFIRM_WORD}</strong> para
-            confirmar que quieres eliminar tu cuenta.
+            Escriu <strong className="font-semibold text-rose-700">{CONFIRM_WORD}</strong> per confirmar que vols eliminar el teu compte.
           </p>
           <input
             type="text"
@@ -283,7 +281,7 @@ function DeleteAccountSection() {
               className="flex items-center justify-center gap-2 rounded-xl bg-rose-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-rose-200 transition hover:bg-rose-700 disabled:cursor-not-allowed disabled:opacity-50"
             >
               {deleting && <Loader2 className="h-4 w-4 animate-spin" />}
-              {deleting ? 'Eliminando…' : 'Eliminar definitivamente'}
+              {deleting ? 'Eliminant…' : 'Eliminar definitivament'}
             </button>
             <button
               type="button"
@@ -295,7 +293,7 @@ function DeleteAccountSection() {
               disabled={deleting}
               className="rounded-xl border border-slate-200 bg-white px-5 py-2.5 text-sm font-semibold text-slate-600 transition hover:bg-slate-50 disabled:opacity-50"
             >
-              Cancelar
+              Cancel·lar
             </button>
           </div>
         </div>
@@ -307,24 +305,24 @@ function DeleteAccountSection() {
 export default function Settings() {
   return (
     <div className="mx-auto flex max-w-2xl flex-col gap-6">
-      <h1 className="text-2xl font-bold text-slate-900">Configuración</h1>
+      <h1 className="text-2xl font-bold text-slate-900">Configuració</h1>
 
-      <SettingsCard icon={User} title="Cambiar nombre" description="Cómo aparece tu nombre en la app.">
+      <SettingsCard icon={User} title="Canviar el nom" description="Com apareix el teu nom a l'app.">
         <ChangeNameForm />
       </SettingsCard>
 
       <SettingsCard
         icon={KeyRound}
-        title="Cambiar contraseña"
-        description="Actualiza la contraseña de tu cuenta."
+        title="Canviar la contrasenya"
+        description="Actualitza la contrasenya del teu compte."
       >
         <ChangePasswordForm />
       </SettingsCard>
 
       <SettingsCard
         icon={AlertTriangle}
-        title="Eliminar cuenta"
-        description="Borra tu cuenta y todos tus datos."
+        title="Eliminar el compte"
+        description="Esborra el teu compte i totes les teves dades."
         tone="rose"
       >
         <DeleteAccountSection />

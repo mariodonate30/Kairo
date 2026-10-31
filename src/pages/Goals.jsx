@@ -59,7 +59,7 @@ function GoalRow({ goal, onToggle, onEdit, onDelete }) {
           type="button"
           onClick={handleSave}
           className="flex h-8 w-8 items-center justify-center rounded-lg text-emerald-600 transition hover:bg-emerald-50"
-          aria-label="Guardar cambios"
+          aria-label="Desar els canvis"
         >
           <Check className="h-4 w-4" />
         </button>
@@ -67,7 +67,7 @@ function GoalRow({ goal, onToggle, onEdit, onDelete }) {
           type="button"
           onClick={handleCancel}
           className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-400 transition hover:bg-slate-100"
-          aria-label="Cancelar"
+          aria-label="Cancel·lar"
         >
           <X className="h-4 w-4" />
         </button>
@@ -86,7 +86,7 @@ function GoalRow({ goal, onToggle, onEdit, onDelete }) {
             ? 'border-violet-600 bg-violet-600 text-white'
             : 'border-slate-300 text-transparent hover:border-violet-400',
         ].join(' ')}
-        aria-label={goal.completed ? 'Marcar como pendiente' : 'Marcar como cumplido'}
+        aria-label={goal.completed ? 'Marcar com a pendent' : 'Marcar com a complert'}
       >
         <Check className="h-4 w-4" />
       </button>
@@ -104,7 +104,7 @@ function GoalRow({ goal, onToggle, onEdit, onDelete }) {
         type="button"
         onClick={() => setEditing(true)}
         className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-300 transition hover:bg-slate-100 hover:text-slate-500 lg:opacity-0 lg:group-hover:opacity-100"
-        aria-label="Editar objetivo"
+        aria-label="Editar objectiu"
       >
         <Pencil className="h-4 w-4" />
       </button>
@@ -112,7 +112,7 @@ function GoalRow({ goal, onToggle, onEdit, onDelete }) {
         type="button"
         onClick={() => onDelete(goal)}
         className="flex h-8 w-8 items-center justify-center rounded-lg text-slate-300 transition hover:bg-rose-50 hover:text-rose-500 lg:opacity-0 lg:group-hover:opacity-100"
-        aria-label="Eliminar objetivo"
+        aria-label="Eliminar objectiu"
       >
         <Trash2 className="h-4 w-4" />
       </button>
@@ -164,7 +164,7 @@ export default function Goals() {
     setAdding(false)
 
     if (addError) {
-      setFormError('No se ha podido añadir el objetivo. Inténtalo de nuevo.')
+      setFormError('No s\'ha pogut afegir l\'objectiu. Torna-ho a provar.')
     } else {
       setNewGoal('')
     }
@@ -173,13 +173,13 @@ export default function Goals() {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Mis objetivos</h1>
+        <h1 className="text-2xl font-bold text-slate-900">Els meus objectius</h1>
         <p className="mt-1 text-slate-500">
-          Escribe hasta {MAX_GOALS_PER_DAY} prioridades para hoy y márcalas a medida que las cumplas.
+          Escriu fins a {MAX_GOALS_PER_DAY} prioritats per a avui i marca-les a mesura que les compleixis.
         </p>
       </div>
 
-      {loading && <LoadingSpinner label="Cargando tus objetivos…" />}
+      {loading && <LoadingSpinner label="Carregant els teus objectius…" />}
 
       {!loading && (
         <>
@@ -191,11 +191,11 @@ export default function Goals() {
                   <Target className="h-5 w-5" />
                 </div>
                 <div>
-                  <h2 className="text-sm font-semibold text-slate-900">Objetivos de hoy</h2>
+                  <h2 className="text-sm font-semibold text-slate-900">Objectius d'avui</h2>
                   <p className="text-xs text-slate-400">
                     {todayGoals.length
                       ? `${completedToday} de ${todayGoals.length} cumplidos`
-                      : 'Aún no has añadido objetivos'}
+                      : 'Encara no has afegit objectius'}
                   </p>
                 </div>
               </div>
@@ -235,8 +235,8 @@ export default function Goals() {
                   onChange={(e) => setNewGoal(e.target.value)}
                   placeholder={
                     todayGoals.length === 0
-                      ? '¿Cuál es tu prioridad de hoy?'
-                      : 'Añadir otro objetivo…'
+                      ? 'Quina és la teva prioritat d\'avui?'
+                      : 'Afegir un altre objectiu…'
                   }
                   className="min-w-0 flex-1 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-900 outline-none transition focus:border-violet-400 focus:bg-white focus:ring-2 focus:ring-violet-100"
                 />
@@ -244,14 +244,14 @@ export default function Goals() {
                   type="submit"
                   disabled={adding || !newGoal.trim()}
                   className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-violet-600 text-white shadow-lg shadow-violet-200 transition hover:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-50"
-                  aria-label="Añadir objetivo"
+                  aria-label="Afegir objectiu"
                 >
                   <Plus className="h-5 w-5" />
                 </button>
               </form>
             ) : (
               <p className="mt-3 rounded-xl bg-slate-50 px-3 py-2.5 text-center text-xs text-slate-400">
-                Has alcanzado el máximo de {MAX_GOALS_PER_DAY} objetivos para hoy.
+                Has arribat al màxim de {MAX_GOALS_PER_DAY} objectius per a avui.
               </p>
             )}
 
@@ -261,14 +261,14 @@ export default function Goals() {
           {/* Estadísticas */}
           <section className="grid grid-cols-2 gap-3">
             <StatCard
-              label="Esta semana"
+              label="Aquesta setmana"
               value={`${stats.week.percent}%`}
-              caption={`${stats.week.completed}/${stats.week.total} objetivos`}
+              caption={`${stats.week.completed}/${stats.week.total} objectius`}
             />
             <StatCard
-              label="Últimos 30 días"
+              label="Últims 30 dies"
               value={`${stats.month.percent}%`}
-              caption={`${stats.month.completed}/${stats.month.total} objetivos`}
+              caption={`${stats.month.completed}/${stats.month.total} objectius`}
             />
           </section>
 
@@ -278,12 +278,12 @@ export default function Goals() {
               <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-50 text-slate-500">
                 <CalendarDays className="h-5 w-5" />
               </div>
-              <h2 className="text-sm font-semibold text-slate-900">Historial de días anteriores</h2>
+              <h2 className="text-sm font-semibold text-slate-900">Historial de dies anteriors</h2>
             </div>
 
             {history.length === 0 ? (
               <p className="rounded-xl bg-slate-50 px-4 py-6 text-center text-sm text-slate-400">
-                Aquí verás tu cumplimiento de días anteriores a medida que uses la app.
+                Aquí veuràs el teu compliment dels dies anteriors a mesura que facis servir l'app.
               </p>
             ) : (
               <ul className="flex flex-col gap-3">

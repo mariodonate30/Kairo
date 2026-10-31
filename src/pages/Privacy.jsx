@@ -13,7 +13,7 @@ function Section({ title, children }) {
 }
 
 export default function Privacy() {
-  const lastUpdated = 'agosto de 2026'
+  const lastUpdated = 'agost de 2026'
 
   return (
     <div className="mx-auto max-w-2xl">
@@ -21,109 +21,81 @@ export default function Privacy() {
         <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-violet-50 text-violet-600">
           <ShieldCheck className="h-6 w-6" />
         </div>
-        <h1 className="text-2xl font-bold text-slate-900">Políticas de privacidad</h1>
+        <h1 className="text-2xl font-bold text-slate-900">Política de privacitat</h1>
       </div>
 
       <div className="space-y-7 rounded-3xl border border-slate-100 bg-white p-6 shadow-sm sm:p-8">
         <p className="text-sm leading-relaxed text-slate-600">
-          Kairo es una aplicación desarrollada para un proyecto escolar de Batxillerat sobre los
-          hábitos en la adolescencia y las claves para el éxito. Como la mayoría de las personas
-          usuarias sois <strong className="text-slate-900">menores de edad</strong>, queremos ser
-          totalmente transparentes sobre qué datos recogemos, para qué los usamos y qué derechos
-          tienes sobre ellos.
+          Kairo és una aplicació desenvolupada per a un projecte escolar de Batxillerat sobre els hàbits a l'adolescència i les claus per a l'èxit. Com que la majoria de les persones usuàries sou <strong className="text-slate-900">menors d'edat</strong>, volem ser totalment transparents sobre quines dades recollim, per a què les fem servir i quins drets tens sobre elles.
         </p>
 
-        <Section title="1. Quién es responsable de tus datos">
+        <Section title="1. Qui és responsable de les teves dades">
           <p>
-            Los responsables de la app son los tres administradores del proyecto (estudiantes y
-            profesorado responsable del instituto). Los datos se almacenan de forma segura en
-            Supabase y solo se utilizan dentro del ámbito de este proyecto educativo.
+            Els responsables de l'app són els tres administradors del projecte (estudiants i professorat responsable de l'institut). Les dades s'emmagatzemen de manera segura a Supabase i només es fan servir dins de l'àmbit d'aquest projecte educatiu.
           </p>
         </Section>
 
-        <Section title="2. Qué datos recogemos">
-          <p>Recogemos únicamente los datos necesarios para el funcionamiento de la app:</p>
+        <Section title="2. Quines dades recollim">
+          <p>Recollim únicament les dades necessàries per al funcionament de l'app:</p>
           <ul className="list-disc space-y-1 pl-5">
             <li>
-              <strong className="text-slate-900">Datos de cuenta:</strong> nombre y correo
-              electrónico, usados para identificarte al iniciar sesión.
+              <strong className="text-slate-900">Dades del compte:</strong> nom i correu electrònic, que es fan servir per identificar-te en iniciar sessió.
             </li>
             <li>
-              <strong className="text-slate-900">Check-ins diarios:</strong> estado de ánimo, horas
-              y calidad del sueño, alimentación, vasos de agua, nivel de estrés, estudio y
-              ejercicio.
+              <strong className="text-slate-900">Check-ins diaris:</strong> estat d'ànim, hores i qualitat del son, alimentació, gots d'aigua, nivell d'estrès, estudi i exercici.
             </li>
             <li>
-              <strong className="text-slate-900">Encuestas semanales:</strong> tus respuestas sobre
-              estrés académico, relaciones sociales, motivación, hábitos de estudio y bienestar.
+              <strong className="text-slate-900">Enquestes setmanals:</strong> les teves respostes sobre estrès acadèmic, relacions socials, motivació, hàbits d'estudi i benestar.
             </li>
             <li>
-              <strong className="text-slate-900">Actividad en la app:</strong> objetivos diarios,
-              sesiones de enfoque y de meditación, rachas y logros.
+              <strong className="text-slate-900">Activitat a l'app:</strong> objectius diaris, sessions de concentració i de meditació, ratxes i assoliments.
             </li>
           </ul>
           <p>
-            No recogemos datos innecesarios ni información sensible más allá de la descrita.
-            Tampoco compartimos tus datos con terceros ni los usamos con fines comerciales o
-            publicitarios.
+            No recollim dades innecessàries ni informació sensible més enllà de la descrita. Tampoc no compartim les teves dades amb tercers ni les fem servir amb finalitats comercials o publicitàries.
           </p>
         </Section>
 
-        <Section title="3. Para qué usamos tus datos">
+        <Section title="3. Per a què fem servir les teves dades">
           <p>
-            Tus datos se usan <strong className="text-slate-900">exclusivamente con fines de
-            análisis educativo</strong> para el proyecto de investigación sobre hábitos
-            adolescentes. Nos permiten estudiar la evolución de hábitos como el sueño, la
-            alimentación, el estrés o el estudio a lo largo del tiempo.
+            Les teves dades es fan servir <strong className="text-slate-900">exclusivament amb finalitats d'anàlisi educativa</strong> per al projecte de recerca sobre hàbits adolescents. Ens permeten estudiar l'evolució d'hàbits com el son, l'alimentació, l'estrès o l'estudi al llarg del temps.
           </p>
         </Section>
 
-        <Section title="4. Datos agregados y anonimizados">
+        <Section title="4. Dades agregades i anonimitzades">
           <p>
-            Los administradores <strong className="text-slate-900">nunca analizan tus respuestas
-            individuales de forma identificada</strong>. En el panel de administración solo ven
-            datos <strong className="text-slate-900">agregados y anonimizados</strong> del conjunto
-            de estudiantes: por ejemplo, la media de horas de sueño del instituto o la evolución
-            media del nivel de estrés.
+            Els administradors <strong className="text-slate-900">mai no analitzen les teves respostes individuals de manera identificada</strong>. Al panell d'administració només veuen dades <strong className="text-slate-900">agregades i anonimitzades</strong> del conjunt d'estudiants: per exemple, la mitjana d'hores de son de l'institut o l'evolució mitjana del nivell d'estrès.
           </p>
           <p>
-            Cuando se exportan datos para el estudio, estos se anonimizan: se sustituyen los
-            nombres por identificadores numéricos, de modo que las conclusiones se extraen del
-            grupo y no de personas concretas.
+            Quan s'exporten dades per a l'estudi, s'anonimitzen: se substitueixen els noms per identificadors numèrics, de manera que les conclusions s'extreuen del grup i no de persones concretes.
           </p>
         </Section>
 
-        <Section title="5. Tus derechos">
-          <p>Tienes control total sobre tus datos. En cualquier momento puedes:</p>
+        <Section title="5. Els teus drets">
+          <p>Tens control total sobre les teves dades. En qualsevol moment pots:</p>
           <ul className="list-disc space-y-1 pl-5">
-            <li>Consultar tus propios datos desde las distintas secciones de la app.</li>
-            <li>Cambiar tu nombre y tu contraseña desde Configuración.</li>
+            <li>Consultar les teves pròpies dades des de les diferents seccions de l'app.</li>
+            <li>Canviar el teu nom i la contrasenya des de Configuració.</li>
             <li>
-              <strong className="text-slate-900">Eliminar tu cuenta</strong> desde Configuración.
-              Al hacerlo se borran de forma permanente tu perfil y todos tus datos (check-ins,
-              encuestas, objetivos, sesiones y logros).
+              <strong className="text-slate-900">Eliminar el teu compte</strong> des de Configuració. En fer-ho s'esborren de manera permanent el teu perfil i totes les teves dades (check-ins, enquestes, objectius, sessions i assoliments).
             </li>
           </ul>
         </Section>
 
-        <Section title="6. Seguridad">
+        <Section title="6. Seguretat">
           <p>
-            Cada persona usuaria solo puede acceder a sus propios datos. La base de datos aplica
-            reglas de seguridad (Row Level Security) que impiden que nadie lea ni modifique los
-            datos de otra persona. Las contraseñas se gestionan de forma cifrada mediante el
-            sistema de autenticación de Supabase y nunca son visibles para los administradores.
+            Cada persona usuària només pot accedir a les seves pròpies dades. La base de dades aplica regles de seguretat (Row Level Security) que impedeixen que ningú llegeixi ni modifiqui les dades d'una altra persona. Les contrasenyes es gestionen de manera xifrada mitjançant el sistema d'autenticació de Supabase i mai no són visibles per als administradors.
           </p>
         </Section>
 
-        <Section title="7. Contacto">
+        <Section title="7. Contacte">
           <p>
-            Si tienes cualquier duda sobre el tratamiento de tus datos, puedes hablar con el
-            profesorado responsable del proyecto o con los administradores de la app.
+            Si tens qualsevol dubte sobre el tractament de les teves dades, pots parlar amb el professorat responsable del projecte o amb els administradors de l'app.
           </p>
         </Section>
 
         <p className="border-t border-slate-100 pt-5 text-xs text-slate-400">
-          Última actualización: {lastUpdated}.
+          Última actualització: {lastUpdated}.
         </p>
       </div>
     </div>

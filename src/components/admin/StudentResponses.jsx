@@ -2,11 +2,12 @@ import { useMemo, useState } from 'react'
 import { ChevronLeft, ChevronRight, Search, UserRound } from 'lucide-react'
 import { GENDER_OPTIONS, INITIAL_TEST_BLOCKS, rosenbergScore } from '../../utils/initialTest'
 import { FINAL_TEST_BLOCKS } from '../../utils/finalTest'
+import { toCatalan } from '../../utils/catalan'
 
 const FILTERS = [
-  { key: 'all', label: 'Todos' },
+  { key: 'all', label: 'Tots' },
   { key: 'both', label: 'Inicial + final' },
-  { key: 'initial_only', label: 'Solo inicial' },
+  { key: 'initial_only', label: 'Només inicial' },
 ]
 
 const INITIAL_KEYS = new Set(INITIAL_TEST_BLOCKS.flatMap((b) => b.questions.map((q) => q.key)))
@@ -22,7 +23,7 @@ const SECTIONS = [
   })),
   ...FINAL_TEST_BLOCKS.map((block) => ({
     key: `f_${block.key}`,
-    title: `${block.title} (solo encuesta final)`,
+    title: `${block.title} (només enquesta final)`,
     questions: block.questions.filter((q) => !INITIAL_KEYS.has(q.key)),
   })),
 ]
@@ -34,16 +35,16 @@ function formatAnswer(question, value) {
     return GENDER_OPTIONS.find((o) => o.value === value)?.label || value
   }
   if (question.type === 'scale') return `${value} / ${question.scaleMax || 5}`
-  return String(value)
+  return toCatalan(String(value))
 }
 
 function formatDate(iso) {
   if (!iso) return '—'
-  return new Date(iso).toLocaleDateString('es-ES', { day: 'numeric', month: 'short', year: 'numeric' })
+  return new Date(iso).toLocaleDateString('ca-ES', { day: 'numeric', month: 'short', year: 'numeric' })
 }
 
 function AnswerCell({ question, value, asked }) {
-  if (!asked) return <span className="text-xs text-slate-300">No se pregunta</span>
+  if (!asked) return <span className="text-xs text-slate-300">No es pregunta</span>
   const text = formatAnswer(question, value)
   if (text == null) return <span className="text-slate-300">—</span>
   if (question.type === 'text') {
@@ -85,7 +86,7 @@ export default function StudentResponses({ students, hiddenKeys = [], actions = 
   if (students.length === 0) {
     return (
       <section className="rounded-3xl border border-slate-100 bg-white p-8 text-center text-sm text-slate-500 shadow-sm">
-        Todavía ningún alumno ha respondido el test inicial ni la encuesta final.
+        Encara cap alumne no ha respost el test inicial ni l'enquesta final.
       </section>
     )
   }
@@ -103,7 +104,7 @@ export default function StudentResponses({ students, hiddenKeys = [], actions = 
             inputMode="numeric"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Buscar nº de alumno"
+            placeholder="Cercar núm. d'alumne"
             className="w-full rounded-xl border border-slate-200 py-2 pl-9 pr-3 text-sm outline-none focus:border-violet-400"
           />
         </div>
@@ -126,7 +127,7 @@ export default function StudentResponses({ students, hiddenKeys = [], actions = 
           ))}
         </div>
 
-        <p className="text-xs text-slate-400">{visible.length} alumno(s)</p>
+        <p className="text-xs text-slate-400">{visible.length} alumne(s)</p>
 
         <ul className="flex max-h-72 flex-col gap-1 overflow-y-auto lg:max-h-none lg:flex-1">
           {visible.map((s) => (
@@ -141,7 +142,7 @@ export default function StudentResponses({ students, hiddenKeys = [], actions = 
                     : 'text-slate-700 hover:bg-slate-50',
                 ].join(' ')}
               >
-                <span>Alumno {s.anonId}</span>
+                <span>Alumne {s.anonId}</span>
                 <span className="flex gap-1">
                   <span
                     className={`rounded-md px-1.5 py-0.5 text-[10px] font-semibold ${
@@ -167,7 +168,7 @@ export default function StudentResponses({ students, hiddenKeys = [], actions = 
       {/* Detalle del alumno seleccionado */}
       {!selected ? (
         <section className="rounded-3xl border border-slate-100 bg-white p-8 text-center text-sm text-slate-500 shadow-sm">
-          Ningún alumno coincide con el filtro.
+          Cap alumne no coincideix amb el filtre.
         </section>
       ) : (
         <section className="flex min-w-0 flex-col gap-5 rounded-3xl border border-slate-100 bg-white p-5 shadow-sm sm:p-6">
@@ -177,9 +178,9 @@ export default function StudentResponses({ students, hiddenKeys = [], actions = 
                 <UserRound className="h-5 w-5" />
               </div>
               <div>
-                <h2 className="text-base font-semibold text-slate-900">Alumno {selected.anonId}</h2>
+                <h2 className="text-base font-semibold text-slate-900">Alumne {selected.anonId}</h2>
                 <p className="text-xs text-slate-400">
-                  {selected.gender === 'chico' ? 'Chico' : selected.gender === 'chica' ? 'Chica' : 'Género no indicado'}
+                  {selected.gender === 'chico' ? 'Noi' : selected.gender === 'chica' ? 'Noia' : 'Gènere no indicat'}
                   {' · '}Inicial: {formatDate(selected.initial?.completed_at)}
                   {' · '}Final: {formatDate(selected.final?.completed_at)}
                 </p>
@@ -192,7 +193,7 @@ export default function StudentResponses({ students, hiddenKeys = [], actions = 
                 disabled={index <= 0}
                 onClick={() => setSelectedId(visible[index - 1].anonId)}
                 className="rounded-xl border border-slate-200 p-2 text-slate-500 transition hover:bg-slate-50 disabled:opacity-40"
-                aria-label="Alumno anterior"
+                aria-label="Alumne anterior"
               >
                 <ChevronLeft className="h-4 w-4" />
               </button>
@@ -201,7 +202,7 @@ export default function StudentResponses({ students, hiddenKeys = [], actions = 
                 disabled={index >= visible.length - 1}
                 onClick={() => setSelectedId(visible[index + 1].anonId)}
                 className="rounded-xl border border-slate-200 p-2 text-slate-500 transition hover:bg-slate-50 disabled:opacity-40"
-                aria-label="Alumno siguiente"
+                aria-label="Alumne següent"
               >
                 <ChevronRight className="h-4 w-4" />
               </button>
@@ -218,7 +219,7 @@ export default function StudentResponses({ students, hiddenKeys = [], actions = 
               <p className="mt-1 text-xl font-bold text-slate-900">{finalScore ?? '—'}</p>
             </div>
             <div className="rounded-2xl bg-slate-50 p-3">
-              <p className="text-xs font-medium uppercase tracking-wide text-slate-500">Variación</p>
+              <p className="text-xs font-medium uppercase tracking-wide text-slate-500">Variació</p>
               <p className="mt-1 text-xl font-bold text-slate-900">
                 {initialScore != null && finalScore != null
                   ? `${finalScore - initialScore > 0 ? '+' : ''}${finalScore - initialScore}`
@@ -238,7 +239,7 @@ export default function StudentResponses({ students, hiddenKeys = [], actions = 
                     <tr className="border-b border-slate-100 text-left text-xs text-slate-400">
                       <th className="px-3 py-2 font-medium">Pregunta</th>
                       <th className="w-32 px-3 py-2 font-medium text-sky-600">Test inicial</th>
-                      <th className="w-32 px-3 py-2 font-medium text-emerald-600">Encuesta final</th>
+                      <th className="w-32 px-3 py-2 font-medium text-emerald-600">Enquesta final</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -263,7 +264,7 @@ export default function StudentResponses({ students, hiddenKeys = [], actions = 
                                 asked={inInitial}
                               />
                             ) : (
-                              <span className="text-xs text-slate-300">No lo hizo</span>
+                              <span className="text-xs text-slate-300">No el va fer</span>
                             )}
                           </td>
                           <td className="px-3 py-2">
@@ -274,7 +275,7 @@ export default function StudentResponses({ students, hiddenKeys = [], actions = 
                                 asked={inFinal}
                               />
                             ) : (
-                              <span className="text-xs text-slate-300">No lo hizo</span>
+                              <span className="text-xs text-slate-300">No el va fer</span>
                             )}
                           </td>
                         </tr>

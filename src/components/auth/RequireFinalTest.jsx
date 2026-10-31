@@ -14,7 +14,7 @@ export default function RequireFinalTest() {
 
   // Mientras carga el estado global, esperamos (evita redirecciones en falso).
   if (finalTestActive === null) {
-    return <LoadingSpinner label="Cargando…" />
+    return <LoadingSpinner label="Carregant…" />
   }
 
   if (!finalTestActive) {
@@ -22,7 +22,7 @@ export default function RequireFinalTest() {
   }
 
   if (finalTestCompleted === null) {
-    return <LoadingSpinner label="Cargando…" />
+    return <LoadingSpinner label="Carregant…" />
   }
 
   if (!finalTestCompleted) {

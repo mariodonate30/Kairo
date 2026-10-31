@@ -30,7 +30,7 @@ export default function SurveyRadarChart({ data }) {
         <Tooltip
           contentStyle={TOOLTIP_STYLE}
           labelStyle={TOOLTIP_LABEL_STYLE}
-          formatter={(value) => [`${value}%`, 'Media']}
+          formatter={(value) => [`${value}%`, 'Mitjana']}
         />
         <Radar
           dataKey="value"

@@ -32,10 +32,10 @@ const STATUS = {
 // Sonidos ambientales. Se generan en tiempo real con la Web Audio API a partir
 // de ruido filtrado, así que no dependemos de ningún archivo de audio externo.
 const AMBIENTS = [
-  { id: 'none', label: 'Silencio', icon: VolumeX },
-  { id: 'rain', label: 'Lluvia', icon: Volume2 },
-  { id: 'waves', label: 'Olas', icon: Waves },
-  { id: 'wind', label: 'Viento', icon: Wind },
+  { id: 'none', label: 'Silenci', icon: VolumeX },
+  { id: 'rain', label: 'Pluja', icon: Volume2 },
+  { id: 'waves', label: 'Onades', icon: Waves },
+  { id: 'wind', label: 'Vent', icon: Wind },
 ]
 
 // Formatea segundos como "MM:SS".
@@ -258,7 +258,7 @@ export default function Meditation() {
       durationMinutes: plannedMinutes,
     })
     if (sessionError) {
-      setSaveError('No se ha podido guardar la sesión. Revisa tu conexión.')
+      setSaveError('No s\'ha pogut desar la sessió. Revisa la connexió.')
     } else {
       checkAchievements()
     }
@@ -350,10 +350,9 @@ export default function Meditation() {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Meditación</h1>
+        <h1 className="text-2xl font-bold text-slate-900">Meditació</h1>
         <p className="mt-1 text-slate-500">
-          Tómate unos minutos para respirar y calmar la mente. Elige una duración y, si quieres,
-          un sonido ambiental.
+          Pren-te uns minuts per respirar i calmar la ment. Tria una durada i, si vols, un so ambiental.
         </p>
       </div>
 
@@ -390,7 +389,7 @@ export default function Meditation() {
                 if (e.key === 'Enter') applyCustom()
               }}
               onBlur={applyCustom}
-              placeholder="Otro"
+              placeholder="Altre"
               className="w-20 rounded-xl border border-teal-200 bg-white/70 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-teal-400 focus:bg-white focus:ring-2 focus:ring-teal-100 disabled:cursor-not-allowed disabled:opacity-40"
             />
             <span className="text-sm text-slate-400">min</span>
@@ -459,8 +458,8 @@ export default function Meditation() {
               <span className="mt-1 text-sm font-medium text-slate-400">
                 {status === STATUS.RUNNING && 'Respira…'}
                 {status === STATUS.PAUSED && 'En pausa'}
-                {status === STATUS.FINISHED && '¡Sesión completada! 🧘'}
-                {status === STATUS.IDLE && `Sesión de ${plannedMinutes} min`}
+                {status === STATUS.FINISHED && 'Sessió completada! 🧘'}
+                {status === STATUS.IDLE && `Sessió de ${plannedMinutes} min`}
               </span>
             </div>
           </div>
@@ -474,7 +473,7 @@ export default function Meditation() {
                 className="flex items-center gap-2 rounded-2xl bg-teal-600 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-teal-200 transition hover:bg-teal-700"
               >
                 <Play className="h-5 w-5" />
-                Empezar
+                Començar
               </button>
             )}
 
@@ -494,7 +493,7 @@ export default function Meditation() {
                   className="flex items-center gap-2 rounded-2xl bg-white px-6 py-3.5 text-sm font-semibold text-slate-600 shadow-sm transition hover:bg-rose-50 hover:text-rose-600"
                 >
                   <X className="h-5 w-5" />
-                  Cancelar
+                  Cancel·lar
                 </button>
               </>
             )}
@@ -507,7 +506,7 @@ export default function Meditation() {
                   className="flex items-center gap-2 rounded-2xl bg-teal-600 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-teal-200 transition hover:bg-teal-700"
                 >
                   <Play className="h-5 w-5" />
-                  Reanudar
+                  Reprendre
                 </button>
                 <button
                   type="button"
@@ -515,7 +514,7 @@ export default function Meditation() {
                   className="flex items-center gap-2 rounded-2xl bg-white px-6 py-3.5 text-sm font-semibold text-slate-600 shadow-sm transition hover:bg-rose-50 hover:text-rose-600"
                 >
                   <X className="h-5 w-5" />
-                  Cancelar
+                  Cancel·lar
                 </button>
               </>
             )}
@@ -527,7 +526,7 @@ export default function Meditation() {
                 className="flex items-center gap-2 rounded-2xl bg-teal-600 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-teal-200 transition hover:bg-teal-700"
               >
                 <RotateCcw className="h-5 w-5" />
-                Nueva sesión
+                Nova sessió
               </button>
             )}
           </div>
@@ -540,21 +539,21 @@ export default function Meditation() {
       <section className="grid grid-cols-2 gap-3 lg:grid-cols-3">
         <StatCard
           icon={Sparkles}
-          label="Esta semana"
-          value={`${stats.weekSessions} ${stats.weekSessions === 1 ? 'sesión' : 'sesiones'}`}
+          label="Aquesta setmana"
+          value={`${stats.weekSessions} ${stats.weekSessions === 1 ? 'sessió' : 'sessions'}`}
           caption={formatMinutes(stats.weekMinutes)}
         />
         <StatCard
           icon={Flame}
-          label="Racha"
-          value={`${stats.streak} ${stats.streak === 1 ? 'día' : 'días'}`}
-          caption="Días seguidos meditando"
+          label="Ratxa"
+          value={`${stats.streak} ${stats.streak === 1 ? 'dia' : 'dies'}`}
+          caption="Dies seguits meditant"
         />
         <StatCard
           icon={CalendarDays}
           label="Total"
           value={formatMinutes(stats.totalMinutes)}
-          caption={`${stats.totalSessions} ${stats.totalSessions === 1 ? 'sesión' : 'sesiones'}`}
+          caption={`${stats.totalSessions} ${stats.totalSessions === 1 ? 'sessió' : 'sessions'}`}
         />
       </section>
 
@@ -564,10 +563,10 @@ export default function Meditation() {
           <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-50 text-slate-500">
             <CalendarDays className="h-5 w-5" />
           </div>
-          <h2 className="text-sm font-semibold text-slate-900">Historial de sesiones</h2>
+          <h2 className="text-sm font-semibold text-slate-900">Historial de sessions</h2>
         </div>
 
-        {loading && <LoadingSpinner label="Cargando tus sesiones…" />}
+        {loading && <LoadingSpinner label="Carregant les teves sessions…" />}
 
         {!loading && error && (
           <p className="rounded-xl bg-rose-50 px-3 py-2 text-sm text-rose-600">{error}</p>
@@ -575,7 +574,7 @@ export default function Meditation() {
 
         {!loading && !error && sessions.length === 0 && (
           <p className="rounded-xl bg-slate-50 px-4 py-6 text-center text-sm text-slate-400">
-            Aún no tienes sesiones registradas. Completa tu primera meditación para verla aquí.
+            Encara no tens sessions registrades. Completa la teva primera meditació per veure-la aquí.
           </p>
         )}
 
@@ -591,7 +590,7 @@ export default function Meditation() {
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-medium text-slate-800">
-                    {formatMinutes(session.duration_minutes)} de meditación
+                    {formatMinutes(session.duration_minutes)} de meditació
                   </p>
                   <p className="text-xs capitalize text-slate-400">
                     {relativeDayLabel(session.date)}

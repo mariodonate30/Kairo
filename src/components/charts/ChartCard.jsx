@@ -17,7 +17,7 @@ export default function ChartCard({
   subtitle,
   accent = 'violet',
   hasData = true,
-  emptyLabel = 'Sin datos en este periodo todavía.',
+  emptyLabel = 'Encara no hi ha dades en aquest període.',
   children,
 }) {
   return (

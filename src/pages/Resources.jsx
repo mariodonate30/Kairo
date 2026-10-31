@@ -74,153 +74,131 @@ export default function Resources() {
       <div>
         <h1 className="text-2xl font-bold text-slate-900">Recursos</h1>
         <p className="mt-1 text-slate-500">
-          Técnicas, guías y ayuda para cuidar tus hábitos y tu bienestar.
+          Tècniques, guies i ajuda per cuidar els teus hàbits i el teu benestar.
         </p>
       </div>
 
       {/* Técnicas de estudio */}
       <Card>
-        <SectionHeader icon={BookOpen} title="Técnicas de estudio" tone="violet" />
+        <SectionHeader icon={BookOpen} title="Tècniques d'estudi" tone="violet" />
         <ul className="grid gap-3 sm:grid-cols-2">
-          <TipItem title="Técnica Pomodoro">
-            Estudia en bloques de 25 minutos con descansos de 5. Cada 4 bloques, descansa 15-30
-            minutos. Ayuda a mantener la concentración y evitar el agotamiento. Puedes usar el
-            Temporizador de enfoque de la app.
+          <TipItem title="Tècnica Pomodoro">
+            Estudia en blocs de 25 minuts amb descansos de 5. Cada 4 blocs, descansa 15-30 minuts. Ajuda a mantenir la concentració i a evitar l'esgotament. Pots fer servir el Temporitzador de concentració de l'app.
           </TipItem>
-          <TipItem title="Active recall (recuerdo activo)">
-            En lugar de releer, cierra los apuntes e intenta recordar la información de memoria.
-            Hazte preguntas o explícate el tema en voz alta. Recordar activamente fija mucho mejor
-            el conocimiento.
+          <TipItem title="Active recall (record actiu)">
+            En lloc de rellegir, tanca els apunts i intenta recordar la informació de memòria. Fes-te preguntes o explica't el tema en veu alta. Recordar activament fixa molt millor el coneixement.
           </TipItem>
-          <TipItem title="Spaced repetition (repaso espaciado)">
-            Repasa el material en intervalos crecientes (al día siguiente, a los 3 días, a la
-            semana…). Combatir el olvido justo antes de que ocurra hace el estudio mucho más
-            eficiente.
+          <TipItem title="Spaced repetition (repàs espaiat)">
+            Repassa el material en intervals creixents (l'endemà, al cap de 3 dies, al cap d'una setmana…). Combatre l'oblit just abans que passi fa l'estudi molt més eficient.
           </TipItem>
-          <TipItem title="Regla de los dos minutos">
-            Si algo te cuesta empezar, comprométete a hacerlo solo 2 minutos. Arrancar es lo más
-            difícil; una vez empiezas, suele ser fácil continuar.
+          <TipItem title="Regla dels dos minuts">
+            Si et costa començar alguna cosa, comprometa't a fer-la només 2 minuts. Arrencar és el més difícil; un cop comences, sol ser fàcil continuar.
           </TipItem>
         </ul>
       </Card>
 
       {/* Alimentación saludable */}
       <Card>
-        <SectionHeader icon={Apple} title="Alimentación saludable para estudiantes" tone="emerald" />
+        <SectionHeader icon={Apple} title="Alimentació saludable per a estudiants" tone="emerald" />
         <ul className="grid gap-3 sm:grid-cols-2">
-          <TipItem title="No te saltes el desayuno">
-            Un buen desayuno con proteína, fruta y cereales integrales te da energía estable para
-            las primeras horas de clase y mejora la concentración.
+          <TipItem title="No et saltis l'esmorzar">
+            Un bon esmorzar amb proteïna, fruita i cereals integrals et dona energia estable per a les primeres hores de classe i millora la concentració.
           </TipItem>
-          <TipItem title="Hidrátate bien">
-            El agua es clave para el rendimiento mental. Lleva una botella y bebe a lo largo del
-            día; registra tus vasos en el check-in diario.
+          <TipItem title="Hidrata't bé">
+            L'aigua és clau per al rendiment mental. Porta una ampolla i beu al llarg del dia; registra els teus gots al check-in diari.
           </TipItem>
-          <TipItem title="Snacks inteligentes">
-            Cambia la bollería y las bebidas azucaradas por fruta, frutos secos o yogur. Evitan los
-            picos de azúcar que luego provocan bajones de energía.
+          <TipItem title="Snacks intel·ligents">
+            Canvia la brioixeria i les begudes ensucrades per fruita, fruits secs o iogurt. Eviten els pics de sucre que després provoquen baixades d'energia.
           </TipItem>
-          <TipItem title="Cuida el azúcar y la cafeína">
-            Demasiadas bebidas energéticas o refrescos alteran el sueño y aumentan la ansiedad.
-            Modéralos, sobre todo por la tarde.
+          <TipItem title="Vigila el sucre i la cafeïna">
+            Massa begudes energètiques o refrescos alteren el son i augmenten l'ansietat. Modera'ls, sobretot a la tarda.
           </TipItem>
         </ul>
       </Card>
 
       {/* Meditación y respiración */}
       <Card>
-        <SectionHeader icon={Wind} title="Meditación y respiración" tone="sky" />
+        <SectionHeader icon={Wind} title="Meditació i respiració" tone="sky" />
         <ul className="grid gap-3 sm:grid-cols-2">
-          <TipItem title="Respiración 4-7-8">
-            Inspira por la nariz durante 4 segundos, mantén el aire 7 segundos y suelta lentamente
-            por la boca durante 8. Repite 4 veces. Ideal para calmar los nervios antes de un examen.
+          <TipItem title="Respiració 4-7-8">
+            Inspira pel nas durant 4 segons, aguanta l'aire 7 segons i deixa'l anar lentament per la boca durant 8. Repeteix-ho 4 vegades. Ideal per calmar els nervis abans d'un examen.
           </TipItem>
-          <TipItem title="Respiración cuadrada (box breathing)">
-            Inspira 4 s, mantén 4 s, espira 4 s, mantén 4 s. Visualiza un cuadrado mientras lo
-            haces. Reduce el estrés y ayuda a recuperar la concentración.
+          <TipItem title="Respiració quadrada (box breathing)">
+            Inspira 4 s, aguanta 4 s, expira 4 s, aguanta 4 s. Visualitza un quadrat mentre ho fas. Redueix l'estrès i ajuda a recuperar la concentració.
           </TipItem>
-          <TipItem title="Atención plena de 5 minutos">
-            Siéntate cómodo, cierra los ojos y centra la atención en tu respiración. Cuando tu mente
-            se distraiga, vuelve a ella sin juzgarte. Usa el temporizador de Meditación de la app.
+          <TipItem title="Atenció plena de 5 minuts">
+            Asseu-te còmodament, tanca els ulls i centra l'atenció en la respiració. Quan la ment es distregui, torna-hi sense jutjar-te. Fes servir el temporitzador de Meditació de l'app.
           </TipItem>
-          <TipItem title="Escaneo corporal">
-            Recorre mentalmente tu cuerpo de los pies a la cabeza, notando y relajando cada zona.
-            Muy útil para soltar la tensión acumulada al final del día.
+          <TipItem title="Escaneig corporal">
+            Recorre mentalment el teu cos dels peus al cap, notant i relaxant cada zona. Molt útil per alliberar la tensió acumulada al final del dia.
           </TipItem>
         </ul>
       </Card>
 
       {/* Consejos para el sueño */}
       <Card>
-        <SectionHeader icon={Moon} title="Consejos para mejorar el sueño" tone="indigo" />
+        <SectionHeader icon={Moon} title="Consells per millorar el son" tone="indigo" />
         <ul className="grid gap-3 sm:grid-cols-2">
-          <TipItem title="Horario regular">
-            Acuéstate y levántate a horas parecidas, también los fines de semana. Tu cuerpo funciona
-            mejor con una rutina estable de sueño.
+          <TipItem title="Horari regular">
+            Ves a dormir i lleva't a hores semblants, també els caps de setmana. El teu cos funciona millor amb una rutina de son estable.
           </TipItem>
-          <TipItem title="Menos pantallas antes de dormir">
-            La luz azul del móvil retrasa el sueño. Intenta apagar las pantallas al menos 30-60
-            minutos antes de acostarte.
+          <TipItem title="Menys pantalles abans de dormir">
+            La llum blava del mòbil endarrereix el son. Intenta apagar les pantalles almenys 30-60 minuts abans d'anar a dormir.
           </TipItem>
-          <TipItem title="Cuida el ambiente">
-            Duerme en una habitación oscura, fresca y silenciosa. Un buen entorno mejora mucho la
-            calidad del descanso.
+          <TipItem title="Cuida l'ambient">
+            Dorm en una habitació fosca, fresca i silenciosa. Un bon entorn millora molt la qualitat del descans.
           </TipItem>
-          <TipItem title="Evita estimulantes por la tarde">
-            La cafeína puede tardar horas en desaparecer. Evita café, té o bebidas energéticas a
-            partir de media tarde.
+          <TipItem title="Evita estimulants a la tarda">
+            La cafeïna pot trigar hores a desaparèixer. Evita el cafè, el te o les begudes energètiques a partir de mitja tarda.
           </TipItem>
         </ul>
       </Card>
 
       {/* Apps recomendadas */}
       <Card>
-        <SectionHeader icon={Sparkles} title="Apps recomendadas" tone="amber" />
+        <SectionHeader icon={Sparkles} title="Apps recomanades" tone="amber" />
         <ul className="flex flex-col gap-3">
           <ExternalLinkItem
             name="Forest"
-            description="Planta árboles virtuales mientras estudias sin tocar el móvil."
+            description="Planta arbres virtuals mentre estudies sense tocar el mòbil."
             href="https://www.forestapp.cc/"
           />
           <ExternalLinkItem
             name="Insight Timer"
-            description="Miles de meditaciones guiadas y sonidos para relajarte o dormir."
+            description="Milers de meditacions guiades i sons per relaxar-te o dormir."
             href="https://insighttimer.com/"
           />
           <ExternalLinkItem
             name="Anki"
-            description="Tarjetas de repaso espaciado para memorizar de forma eficiente."
+            description="Targetes de repàs espaiat per memoritzar de manera eficient."
             href="https://apps.ankiweb.net/"
           />
           <ExternalLinkItem
             name="Sleep Cycle"
-            description="Analiza tu sueño y te despierta en el momento más ligero."
+            description="Analitza el teu son i et desperta en el moment més lleuger."
             href="https://www.sleepcycle.com/"
           />
         </ul>
         <p className="mt-4 text-xs text-slate-400">
-          Estas apps son externas y no forman parte de Kairo. Revisa siempre sus condiciones de uso.
+          Aquestes apps són externes i no formen part de Kairo. Revisa sempre les seves condicions d'ús.
         </p>
       </Card>
 
       {/* Líneas de ayuda */}
       <Card>
-        <SectionHeader icon={LifeBuoy} title="Líneas de ayuda y apoyo" tone="rose" />
+        <SectionHeader icon={LifeBuoy} title="Línies d'ajuda i suport" tone="rose" />
         <p className="mb-4 text-sm leading-relaxed text-slate-600">
-          Si te sientes mal, estás pasando por un momento difícil o necesitas hablar con alguien, no
-          estás solo/a. Pedir ayuda es un signo de fortaleza. Aquí tienes recursos gratuitos y
-          confidenciales:
+          Si et trobes malament, estàs passant per un moment difícil o necessites parlar amb algú, no estàs sol/a. Demanar ajuda és un signe de fortalesa. Aquí tens recursos gratuïts i confidencials:
         </p>
         <ul className="flex flex-col gap-3">
           <li className="flex items-start gap-3 rounded-2xl bg-slate-50 p-4">
             <Phone className="mt-0.5 h-4 w-4 shrink-0 text-rose-500" />
             <div>
               <p className="text-sm font-semibold text-slate-900">
-                024 — Atención a la conducta suicida
+                024 — Atenció a la conducta suïcida
               </p>
               <p className="mt-0.5 text-sm text-slate-600">
-                Línea gratuita y confidencial, disponible las 24 horas, para quien pasa por un
-                momento de crisis emocional.
+                Línia gratuïta i confidencial, disponible les 24 hores, per a qui passa per un moment de crisi emocional.
               </p>
             </div>
           </li>
@@ -228,10 +206,10 @@ export default function Resources() {
             <Phone className="mt-0.5 h-4 w-4 shrink-0 text-rose-500" />
             <div>
               <p className="text-sm font-semibold text-slate-900">
-                Fundación ANAR — 900 20 20 10
+                Fundació ANAR — 900 20 20 10
               </p>
               <p className="mt-0.5 text-sm text-slate-600">
-                Teléfono de ayuda a niños, niñas y adolescentes. Gratuito, anónimo y confidencial.
+                Telèfon d'ajuda a nens, nenes i adolescents. Gratuït, anònim i confidencial.
               </p>
             </div>
           </li>
@@ -239,19 +217,17 @@ export default function Resources() {
             <Phone className="mt-0.5 h-4 w-4 shrink-0 text-rose-500" />
             <div>
               <p className="text-sm font-semibold text-slate-900">
-                Teléfono de la Esperanza — 717 003 717
+                Telèfon de l'Esperança — 717 003 717
               </p>
               <p className="mt-0.5 text-sm text-slate-600">
-                Apoyo emocional para cualquier tipo de crisis o malestar, atendido por profesionales
-                y voluntariado.
+                Suport emocional per a qualsevol tipus de crisi o malestar, atès per professionals i voluntariat.
               </p>
             </div>
           </li>
         </ul>
         <p className="mt-4 rounded-2xl bg-rose-50 p-4 text-sm leading-relaxed text-rose-700">
-          En una emergencia con riesgo para tu vida o la de otra persona, llama al{' '}
-          <strong>112</strong>. Y recuerda: siempre puedes hablar con tu familia, un profesor de
-          confianza o el orientador del instituto.
+          En una emergència amb risc per a la teva vida o la d'una altra persona, truca al{' '}
+          <strong>112</strong>. I recorda: sempre pots parlar amb la teva família, un professor de confiança o l'orientador de l'institut.
         </p>
       </Card>
     </div>

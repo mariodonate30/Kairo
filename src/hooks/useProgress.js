@@ -43,7 +43,7 @@ export function useProgress() {
     ])
 
     if (checkinsRes.error || goalsRes.error || surveysRes.error || questionsRes.error) {
-      setError('No se han podido cargar tus datos de progresión.')
+      setError('No s\'han pogut carregar les teves dades de progressió.')
     } else {
       setCheckins(checkinsRes.data || [])
       setGoals(goalsRes.data || [])

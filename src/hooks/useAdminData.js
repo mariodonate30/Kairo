@@ -74,7 +74,7 @@ export function useAdminData() {
       settingsRes.error
 
     if (firstError) {
-      setError('No se han podido cargar los datos de administración.')
+      setError('No s\'han pogut carregar les dades d\'administració.')
     } else {
       setProfiles(profilesRes.data || [])
       setCheckins(checkinsRes.data || [])

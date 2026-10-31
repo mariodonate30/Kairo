@@ -108,7 +108,7 @@ export default function FocusTimer() {
           completed,
         })
         if (sessionError) {
-          setSaveError('No se ha podido guardar la sesión. Revisa tu conexión.')
+          setSaveError('No s\'ha pogut desar la sessió. Revisa la connexió.')
         } else {
           checkAchievements()
         }
@@ -192,9 +192,9 @@ export default function FocusTimer() {
   return (
     <div className="flex flex-col gap-6">
       <div>
-        <h1 className="text-2xl font-bold text-slate-900">Temporizador de enfoque</h1>
+        <h1 className="text-2xl font-bold text-slate-900">Temporitzador de concentració</h1>
         <p className="mt-1 text-slate-500">
-          Sesiones de estudio concentrado tipo Pomodoro. Elige una duración y mantén el foco.
+          Sessions d'estudi concentrat tipus Pomodoro. Tria una durada i mantén la concentració.
         </p>
       </div>
 
@@ -231,7 +231,7 @@ export default function FocusTimer() {
                 if (e.key === 'Enter') applyCustom()
               }}
               onBlur={applyCustom}
-              placeholder="Otro"
+              placeholder="Altre"
               className="w-20 rounded-xl border border-slate-200 bg-slate-50 px-3 py-2 text-sm text-slate-900 outline-none transition focus:border-violet-400 focus:bg-white focus:ring-2 focus:ring-violet-100 disabled:cursor-not-allowed disabled:opacity-40"
             />
             <span className="text-sm text-slate-400">min</span>
@@ -278,10 +278,10 @@ export default function FocusTimer() {
                 {formatClock(remaining)}
               </span>
               <span className="mt-1 text-sm font-medium text-slate-400">
-                {status === STATUS.RUNNING && 'En marcha'}
+                {status === STATUS.RUNNING && 'En marxa'}
                 {status === STATUS.PAUSED && 'En pausa'}
-                {status === STATUS.FINISHED && '¡Sesión completada! 🎉'}
-                {status === STATUS.IDLE && `Sesión de ${plannedMinutes} min`}
+                {status === STATUS.FINISHED && 'Sessió completada! 🎉'}
+                {status === STATUS.IDLE && `Sessió de ${plannedMinutes} min`}
               </span>
             </div>
           </div>
@@ -315,7 +315,7 @@ export default function FocusTimer() {
                   className="flex items-center gap-2 rounded-2xl bg-slate-100 px-6 py-3.5 text-sm font-semibold text-slate-600 transition hover:bg-rose-50 hover:text-rose-600"
                 >
                   <X className="h-5 w-5" />
-                  Cancelar
+                  Cancel·lar
                 </button>
               </>
             )}
@@ -328,7 +328,7 @@ export default function FocusTimer() {
                   className="flex items-center gap-2 rounded-2xl bg-violet-600 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-violet-200 transition hover:bg-violet-700"
                 >
                   <Play className="h-5 w-5" />
-                  Reanudar
+                  Reprendre
                 </button>
                 <button
                   type="button"
@@ -336,7 +336,7 @@ export default function FocusTimer() {
                   className="flex items-center gap-2 rounded-2xl bg-slate-100 px-6 py-3.5 text-sm font-semibold text-slate-600 transition hover:bg-rose-50 hover:text-rose-600"
                 >
                   <X className="h-5 w-5" />
-                  Cancelar
+                  Cancel·lar
                 </button>
               </>
             )}
@@ -348,7 +348,7 @@ export default function FocusTimer() {
                 className="flex items-center gap-2 rounded-2xl bg-violet-600 px-8 py-3.5 text-sm font-semibold text-white shadow-lg shadow-violet-200 transition hover:bg-violet-700"
               >
                 <RotateCcw className="h-5 w-5" />
-                Nueva sesión
+                Nova sessió
               </button>
             )}
           </div>
@@ -361,21 +361,21 @@ export default function FocusTimer() {
       <section className="grid grid-cols-2 gap-3 lg:grid-cols-3">
         <StatCard
           icon={Timer}
-          label="Esta semana"
+          label="Aquesta setmana"
           value={formatMinutes(stats.weekMinutes)}
-          caption={`${stats.weekSessions} ${stats.weekSessions === 1 ? 'sesión' : 'sesiones'}`}
+          caption={`${stats.weekSessions} ${stats.weekSessions === 1 ? 'sessió' : 'sessions'}`}
         />
         <StatCard
           icon={Flame}
-          label="Racha"
-          value={`${stats.streak} ${stats.streak === 1 ? 'día' : 'días'}`}
-          caption="Días seguidos con enfoque"
+          label="Ratxa"
+          value={`${stats.streak} ${stats.streak === 1 ? 'dia' : 'dies'}`}
+          caption="Dies seguits amb concentració"
         />
         <StatCard
           icon={CalendarDays}
           label="Total"
           value={formatMinutes(stats.totalMinutes)}
-          caption={`${stats.totalSessions} ${stats.totalSessions === 1 ? 'sesión' : 'sesiones'}`}
+          caption={`${stats.totalSessions} ${stats.totalSessions === 1 ? 'sessió' : 'sessions'}`}
         />
       </section>
 
@@ -385,10 +385,10 @@ export default function FocusTimer() {
           <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-slate-50 text-slate-500">
             <CalendarDays className="h-5 w-5" />
           </div>
-          <h2 className="text-sm font-semibold text-slate-900">Historial de sesiones</h2>
+          <h2 className="text-sm font-semibold text-slate-900">Historial de sessions</h2>
         </div>
 
-        {loading && <LoadingSpinner label="Cargando tus sesiones…" />}
+        {loading && <LoadingSpinner label="Carregant les teves sessions…" />}
 
         {!loading && error && (
           <p className="rounded-xl bg-rose-50 px-3 py-2 text-sm text-rose-600">{error}</p>
@@ -396,7 +396,7 @@ export default function FocusTimer() {
 
         {!loading && !error && sessions.length === 0 && (
           <p className="rounded-xl bg-slate-50 px-4 py-6 text-center text-sm text-slate-400">
-            Aún no tienes sesiones registradas. Completa tu primera sesión de enfoque para verla aquí.
+            Encara no tens sessions registrades. Completa la teva primera sessió de concentració per veure-la aquí.
           </p>
         )}
 
@@ -419,12 +419,12 @@ export default function FocusTimer() {
                 </div>
                 <div className="min-w-0 flex-1">
                   <p className="text-sm font-medium text-slate-800">
-                    {formatMinutes(session.actual_minutes)} de enfoque
+                    {formatMinutes(session.actual_minutes)} de concentració
                   </p>
                   <p className="text-xs capitalize text-slate-400">
                     {relativeDayLabel(session.date)}
                     {!session.completed &&
-                      ` · cancelada (${session.planned_minutes} min planificados)`}
+                      ` · cancel·lada (${session.planned_minutes} min planificats)`}
                   </p>
                 </div>
                 <span

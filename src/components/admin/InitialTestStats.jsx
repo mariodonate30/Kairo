@@ -53,8 +53,8 @@ function GroupMeanChart({ data, min, max }) {
           contentStyle={TOOLTIP_STYLE}
           labelStyle={TOOLTIP_LABEL_STYLE}
           formatter={(value, _name, entry) => [
-            `${value} / ${max}  (${entry?.payload?.count ?? 0} alumnos)`,
-            'Media',
+            `${value} / ${max}  (${entry?.payload?.count ?? 0} alumnes)`,
+            'Mitjana',
           ]}
         />
         <Bar dataKey="mean" radius={[6, 6, 0, 0]} maxBarSize={64}>
@@ -72,9 +72,9 @@ function GroupMeanChart({ data, min, max }) {
 function LevelDistribution({ levels }) {
   const total = levels.baja + levels.media + levels.alta
   const rows = [
-    { key: 'baja', label: 'Autoestima baja', color: 'bg-rose-500', hint: '10-25 puntos' },
-    { key: 'media', label: 'Autoestima media', color: 'bg-amber-500', hint: '26-29 puntos' },
-    { key: 'alta', label: 'Autoestima alta', color: 'bg-emerald-500', hint: '30-40 puntos' },
+    { key: 'baja', label: 'Autoestima baixa', color: 'bg-rose-500', hint: '10-25 punts' },
+    { key: 'media', label: 'Autoestima mitjana', color: 'bg-amber-500', hint: '26-29 punts' },
+    { key: 'alta', label: 'Autoestima alta', color: 'bg-emerald-500', hint: '30-40 punts' },
   ]
 
   return (
@@ -87,7 +87,7 @@ function LevelDistribution({ levels }) {
             <div className="mb-1 flex items-center justify-between text-sm">
               <span className="font-medium text-slate-700">{row.label}</span>
               <span className="text-slate-500">
-                {count} {count === 1 ? 'alumno' : 'alumnos'} · {pct}%
+                {count} {count === 1 ? 'alumne' : 'alumnes'} · {pct}%
               </span>
             </div>
             <div className="h-2.5 w-full overflow-hidden rounded-full bg-slate-100">
@@ -105,9 +105,9 @@ export default function InitialTestStats({ stats }) {
   const { all, chico, chica, levels, min, max } = stats
 
   // Datos del gráfico por grupo: siempre "Todos"; chicos/chicas solo si hay.
-  const groupData = [{ group: 'Todos', mean: all.mean, count: all.count }]
-  if (chico.count > 0) groupData.push({ group: 'Chicos', mean: chico.mean, count: chico.count })
-  if (chica.count > 0) groupData.push({ group: 'Chicas', mean: chica.mean, count: chica.count })
+  const groupData = [{ group: 'Tots', mean: all.mean, count: all.count }]
+  if (chico.count > 0) groupData.push({ group: 'Nois', mean: chico.mean, count: chico.count })
+  if (chica.count > 0) groupData.push({ group: 'Noies', mean: chica.mean, count: chica.count })
 
   const hasData = all.count > 0
 
@@ -115,10 +115,8 @@ export default function InitialTestStats({ stats }) {
     <div className="flex flex-col gap-4">
       <section className="rounded-2xl border border-violet-100 bg-violet-50/60 px-4 py-3 text-sm text-violet-800">
         <p>
-          <strong>Autoestima (escala de Rosenberg).</strong> Cada alumno responde 10 frases (1-4)
-          en el test inicial. Se invierten las frases negativas y se suman: la puntuación va de{' '}
-          <strong>{min}</strong> (autoestima más baja) a <strong>{max}</strong> (más alta). Aquí
-          ves las medias del instituto, en conjunto y separadas por sexo.
+          <strong>Autoestima (escala de Rosenberg).</strong> Cada alumne respon 10 frases (1-4) al test inicial. S'inverteixen les frases negatives i se sumen: la puntuació va de{' '}
+          <strong>{min}</strong> (autoestima més baixa) a <strong>{max}</strong> (més alta). Aquí veus les mitjanes de l'institut, en conjunt i separades per sexe.
         </p>
       </section>
 
@@ -128,8 +126,7 @@ export default function InitialTestStats({ stats }) {
             <Heart className="h-6 w-6" />
           </div>
           <p className="text-sm text-slate-500">
-            Todavía no hay tests iniciales completados. En cuanto los alumnos rellenen el
-            cuestionario al registrarse, aquí aparecerán las puntuaciones de autoestima.
+            Encara no hi ha tests inicials completats. Quan els alumnes omplin el qüestionari en registrar-se, aquí apareixeran les puntuacions d'autoestima.
           </p>
         </section>
       ) : (
@@ -137,30 +134,30 @@ export default function InitialTestStats({ stats }) {
           <section className="grid grid-cols-2 gap-3 lg:grid-cols-4">
             <StatCard
               icon={Users}
-              label="Tests completados"
+              label="Tests completats"
               value={all.count}
-              hint="Con las 10 respuestas"
+              hint="Amb les 10 respostes"
               accent="text-violet-500"
             />
             <StatCard
               icon={HeartPulse}
-              label="Media general"
+              label="Mitjana general"
               value={`${all.mean} / ${max}`}
-              hint={`${all.meanPct}% del máximo`}
+              hint={`${all.meanPct}% del màxim`}
               accent="text-rose-500"
             />
             <StatCard
               icon={Heart}
-              label="Media chicos"
+              label="Mitjana nois"
               value={chico.count ? `${chico.mean} / ${max}` : '—'}
-              hint={chico.count ? `${chico.count} alumnos` : 'Sin datos'}
+              hint={chico.count ? `${chico.count} alumnes` : 'Sense dades'}
               accent="text-sky-500"
             />
             <StatCard
               icon={Heart}
-              label="Media chicas"
+              label="Mitjana noies"
               value={chica.count ? `${chica.mean} / ${max}` : '—'}
-              hint={chica.count ? `${chica.count} alumnas` : 'Sin datos'}
+              hint={chica.count ? `${chica.count} alumnes` : 'Sense dades'}
               accent="text-rose-500"
             />
           </section>
@@ -168,8 +165,8 @@ export default function InitialTestStats({ stats }) {
           <div className="grid grid-cols-1 gap-4 xl:grid-cols-2">
             <ChartCard
               icon={HeartPulse}
-              title="Autoestima media por grupo"
-              subtitle={`Puntuación de Rosenberg (${min}-${max})`}
+              title="Autoestima mitjana per grup"
+              subtitle={`Puntuació de Rosenberg (${min}-${max})`}
               accent="violet"
               hasData={hasData}
             >
@@ -178,8 +175,8 @@ export default function InitialTestStats({ stats }) {
 
             <ChartCard
               icon={Heart}
-              title="Distribución por nivel"
-              subtitle="Reparto de alumnos según su autoestima"
+              title="Distribució per nivell"
+              subtitle="Repartiment d'alumnes segons la seva autoestima"
               accent="rose"
               hasData={hasData}
             >

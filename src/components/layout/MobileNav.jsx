@@ -19,7 +19,7 @@ function MobilePendingBadge() {
         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75" />
         <span className="relative inline-flex h-2 w-2 rounded-full bg-amber-500" />
       </span>
-      Check-in pendiente
+      Check-in pendent
     </Link>
   )
 }
@@ -31,7 +31,7 @@ export default function MobileNav({ onMenuClick }) {
         type="button"
         onClick={onMenuClick}
         className="rounded-lg p-1.5 text-slate-500 hover:bg-slate-50 hover:text-slate-700"
-        aria-label="Abrir menú"
+        aria-label="Obrir menú"
       >
         <Menu className="h-5 w-5" />
       </button>

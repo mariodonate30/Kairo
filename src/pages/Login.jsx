@@ -5,8 +5,8 @@ import { useAuth } from '../hooks/useAuth'
 import { enterGuestMode } from '../lib/guestClient'
 
 const ERROR_MESSAGES = {
-  'Invalid login credentials': 'Email o contraseña incorrectos.',
-  'Email not confirmed': 'Debes confirmar tu email antes de iniciar sesión.',
+  'Invalid login credentials': 'Correu electrònic o contrasenya incorrectes.',
+  'Email not confirmed': 'Has de confirmar el teu correu abans d\'iniciar sessió.',
 }
 
 export default function Login() {
@@ -31,7 +31,7 @@ export default function Login() {
     setSubmitting(false)
 
     if (error) {
-      setError(ERROR_MESSAGES[error.message] || 'No se ha podido iniciar sesión. Inténtalo de nuevo.')
+      setError(ERROR_MESSAGES[error.message] || 'No s\'ha pogut iniciar sessió. Torna-ho a provar.')
       return
     }
 
@@ -44,16 +44,16 @@ export default function Login() {
         <div className="mb-8 flex flex-col items-center gap-2 text-center">
           <img src="/logo.png" alt="Kairo" className="h-16 w-16 rounded-2xl shadow-lg shadow-emerald-200" />
           <h1 className="text-2xl font-bold text-slate-900">Kairo</h1>
-          <p className="text-sm text-slate-500">Tu momento para cuidarte cada día</p>
+          <p className="text-sm text-slate-500">El teu moment per cuidar-te cada dia</p>
         </div>
 
         <div className="rounded-3xl border border-slate-100 bg-white p-8 shadow-xl shadow-slate-200/50">
-          <h2 className="mb-6 text-lg font-semibold text-slate-900">Inicia sesión</h2>
+          <h2 className="mb-6 text-lg font-semibold text-slate-900">Inicia sessió</h2>
 
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <div>
               <label htmlFor="email" className="mb-1.5 block text-sm font-medium text-slate-700">
-                Email
+                Correu electrònic
               </label>
               <div className="relative">
                 <Mail className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
@@ -64,7 +64,7 @@ export default function Login() {
                   autoComplete="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="tu.nombre@instituto.com"
+                  placeholder="el.teu.nom@institut.cat"
                   className="w-full rounded-xl border border-slate-200 bg-slate-50 py-2.5 pl-10 pr-3 text-sm text-slate-900 outline-none transition focus:border-violet-400 focus:bg-white focus:ring-2 focus:ring-violet-100"
                 />
               </div>
@@ -72,7 +72,7 @@ export default function Login() {
 
             <div>
               <label htmlFor="password" className="mb-1.5 block text-sm font-medium text-slate-700">
-                Contraseña
+                Contrasenya
               </label>
               <div className="relative">
                 <Lock className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
@@ -90,7 +90,7 @@ export default function Login() {
                   type="button"
                   onClick={() => setShowPassword((v) => !v)}
                   className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
-                  aria-label={showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'}
+                  aria-label={showPassword ? 'Amagar la contrasenya' : 'Mostrar la contrasenya'}
                 >
                   {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 </button>
@@ -106,30 +106,30 @@ export default function Login() {
               disabled={submitting}
               className="mt-2 w-full rounded-xl bg-violet-600 py-2.5 text-sm font-semibold text-white shadow-lg shadow-violet-200 transition hover:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {submitting ? 'Entrando…' : 'Entrar'}
+              {submitting ? 'Entrant…' : 'Entrar'}
             </button>
           </form>
         </div>
 
         <div className="mt-4 rounded-3xl border border-emerald-100 bg-emerald-50/70 p-5 text-center">
-          <p className="text-sm text-slate-600">¿Solo quieres ver cómo es la app?</p>
+          <p className="text-sm text-slate-600">Només vols veure com és l'app?</p>
           <button
             type="button"
             onClick={enterGuestMode}
             className="mt-3 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-600 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-200 transition hover:bg-emerald-700"
           >
             <UserRound className="h-4 w-4" />
-            Entrar como invitado
+            Entrar com a convidat
           </button>
           <p className="mt-2 text-xs text-slate-500">
-            Sin registro. Lo que hagas se queda en tu móvil y no cuenta para el estudio.
+            Sense registre. El que facis es queda al teu mòbil i no compta per a l'estudi.
           </p>
         </div>
 
         <p className="mt-6 text-center text-sm text-slate-500">
-          ¿Todavía no tienes cuenta?{' '}
+          Encara no tens compte?{' '}
           <Link to="/register" className="font-medium text-violet-600 hover:text-violet-700">
-            Regístrate
+            Registra't
           </Link>
         </p>
       </div>

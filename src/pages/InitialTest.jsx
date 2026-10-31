@@ -99,7 +99,7 @@ export default function InitialTest() {
   if (initialTestCompleted === null || finalTestActive === null) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-violet-50 via-white to-emerald-50">
-        <LoadingSpinner label="Cargando…" />
+        <LoadingSpinner label="Carregant…" />
       </div>
     )
   }
@@ -122,7 +122,7 @@ export default function InitialTest() {
     e.preventDefault()
 
     if (!allAnswered) {
-      setError('Responde todas las preguntas antes de continuar. El género es opcional.')
+      setError('Respon totes les preguntes abans de continuar. El gènere és opcional.')
       return
     }
 
@@ -134,8 +134,8 @@ export default function InitialTest() {
     if (submitError) {
       setError(
         submitError.code === '23505'
-          ? 'Este test ya estaba completado.'
-          : 'No se ha podido guardar el test. Inténtalo de nuevo.',
+          ? 'Aquest test ja estava completat.'
+          : 'No s\'ha pogut desar el test. Torna-ho a provar.',
       )
     }
     // Si va bien, refreshInitialTest() (dentro de submit) actualiza el estado y
@@ -150,12 +150,10 @@ export default function InitialTest() {
             <Sparkles className="h-6 w-6" />
           </div>
           <h1 className="text-2xl font-bold text-slate-900">
-            {firstName ? `¡Bienvenido/a, ${firstName}!` : '¡Bienvenido/a!'}
+            {firstName ? `Benvingut/da, ${firstName}!` : 'Benvingut/da!'}
           </h1>
           <p className="max-w-md text-sm text-slate-500">
-            Antes de empezar, responde este cuestionario inicial (unos 5 minutos). Nos da un
-            punto de partida para entender cómo evolucionas. No hay respuestas correctas ni
-            incorrectas: contesta con sinceridad.
+            Abans de començar, respon aquest qüestionari inicial (uns 5 minuts). Ens dona un punt de partida per entendre com evolucions. No hi ha respostes correctes ni incorrectes: contesta amb sinceritat.
           </p>
         </div>
 
@@ -191,14 +189,14 @@ export default function InitialTest() {
 
           <div className="sticky bottom-4 rounded-2xl border border-slate-100 bg-white/90 p-4 shadow-lg shadow-slate-200/50 backdrop-blur">
             <p className="mb-2 text-center text-xs text-slate-400">
-              {answeredRequired} de {REQUIRED_KEYS.length} respondidas
+              {answeredRequired} de {REQUIRED_KEYS.length} respostes
             </p>
             <button
               type="submit"
               disabled={submitting || !allAnswered}
               className="w-full rounded-xl bg-violet-600 py-3 text-sm font-semibold text-white shadow-lg shadow-violet-200 transition hover:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {submitting ? 'Guardando…' : 'Empezar a usar Kairo'}
+              {submitting ? 'Desant…' : 'Començar a fer servir Kairo'}
             </button>
           </div>
         </form>

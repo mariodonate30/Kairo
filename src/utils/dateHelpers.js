@@ -37,13 +37,13 @@ export function startOfWeek(dateStr = todayDate()) {
   return toDateString(date)
 }
 
-const dayLabelFormatter = new Intl.DateTimeFormat('es-ES', {
+const dayLabelFormatter = new Intl.DateTimeFormat('ca-ES', {
   weekday: 'long',
   day: 'numeric',
   month: 'long',
 })
 
-const shortDayFormatter = new Intl.DateTimeFormat('es-ES', {
+const shortDayFormatter = new Intl.DateTimeFormat('ca-ES', {
   weekday: 'short',
   day: 'numeric',
   month: 'short',
@@ -61,8 +61,8 @@ export function formatShortDay(dateStr) {
 
 // Etiqueta relativa amigable para fechas recientes.
 export function relativeDayLabel(dateStr) {
-  if (dateStr === todayDate()) return 'Hoy'
-  if (dateStr === daysAgo(1)) return 'Ayer'
+  if (dateStr === todayDate()) return 'Avui'
+  if (dateStr === daysAgo(1)) return 'Ahir'
   return formatShortDay(dateStr)
 }
 
@@ -127,7 +127,7 @@ export function monthMatrix(dateStr = todayDate()) {
   return weeks
 }
 
-const monthLabelFormatter = new Intl.DateTimeFormat('es-ES', {
+const monthLabelFormatter = new Intl.DateTimeFormat('ca-ES', {
   month: 'long',
   year: 'numeric',
 })
@@ -143,7 +143,7 @@ export function formatWeekRange(dateStr) {
   const start = parseDate(days[0])
   const end = parseDate(days[6])
   const sameMonth = start.getMonth() === end.getMonth()
-  const monthFmt = new Intl.DateTimeFormat('es-ES', { month: 'short' })
+  const monthFmt = new Intl.DateTimeFormat('ca-ES', { month: 'short' })
   const startLabel = sameMonth
     ? `${start.getDate()}`
     : `${start.getDate()} ${monthFmt.format(start).replace('.', '')}`

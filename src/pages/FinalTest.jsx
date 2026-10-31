@@ -3,6 +3,7 @@ import { Navigate } from 'react-router-dom'
 import { Trophy } from 'lucide-react'
 import { useAuth } from '../hooks/useAuth'
 import { useFinalTest } from '../hooks/useFinalTest'
+import { toCatalan } from '../utils/catalan'
 import ScaleInput from '../components/ui/ScaleInput'
 import LoadingSpinner from '../components/ui/LoadingSpinner'
 import {
@@ -34,7 +35,7 @@ function OptionPills({ options, value, onChange }) {
                 : 'border-slate-200 bg-slate-50 text-slate-600 hover:bg-slate-100',
             ].join(' ')}
           >
-            {option}
+            {toCatalan(option)}
           </button>
         )
       })}
@@ -64,7 +65,7 @@ function Question({ question, value, onChange }) {
           value={value ?? ''}
           onChange={(e) => onChange(e.target.value)}
           rows={4}
-          placeholder="Escribe aquí tu respuesta…"
+          placeholder="Escriu aquí la teva resposta…"
           className="w-full rounded-xl border border-slate-200 bg-slate-50 px-3 py-2.5 text-sm text-slate-900 outline-none transition focus:border-violet-400 focus:bg-white focus:ring-2 focus:ring-violet-100"
         />
       </div>
@@ -100,7 +101,7 @@ export default function FinalTest() {
   if (finalTestActive === null || finalTestCompleted === null) {
     return (
       <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-violet-50 via-white to-emerald-50">
-        <LoadingSpinner label="Cargando…" />
+        <LoadingSpinner label="Carregant…" />
       </div>
     )
   }
@@ -118,7 +119,7 @@ export default function FinalTest() {
     e.preventDefault()
 
     if (!allAnswered) {
-      setError('Responde todas las preguntas antes de enviar. El comentario es opcional.')
+      setError('Respon totes les preguntes abans d\'enviar. El comentari és opcional.')
       return
     }
 
@@ -130,8 +131,8 @@ export default function FinalTest() {
     if (submitError) {
       setError(
         submitError.code === '23505'
-          ? 'Esta encuesta ya estaba completada.'
-          : 'No se ha podido guardar la encuesta. Inténtalo de nuevo.',
+          ? 'Aquesta enquesta ja estava completada.'
+          : 'No s\'ha pogut desar l\'enquesta. Torna-ho a provar.',
       )
     }
     // Si va bien, refreshFinalTest() actualiza el estado y el <Navigate> redirige.
@@ -145,12 +146,10 @@ export default function FinalTest() {
             <Trophy className="h-6 w-6" />
           </div>
           <h1 className="text-2xl font-bold text-slate-900">
-            {firstName ? `¡Ya casi está, ${firstName}!` : '¡Ya casi está!'}
+            {firstName ? `Ja gairebé està, ${firstName}!` : 'Ja gairebé està!'}
           </h1>
           <p className="max-w-md text-sm text-slate-500">
-            Esta es la encuesta final del estudio. Compara cómo te sientes ahora, después de
-            usar la app, con cómo estabas al principio. Contesta con sinceridad: es el último
-            paso y el más importante para nuestras conclusiones.
+            Aquesta és l'enquesta final de l'estudi. Compara com et sents ara, després de fer servir l'app, amb com estaves al principi. Contesta amb sinceritat: és l'últim pas i el més important per a les nostres conclusions.
           </p>
         </div>
 
@@ -186,14 +185,14 @@ export default function FinalTest() {
 
           <div className="sticky bottom-4 rounded-2xl border border-slate-100 bg-white/90 p-4 shadow-lg shadow-slate-200/50 backdrop-blur">
             <p className="mb-2 text-center text-xs text-slate-400">
-              {answeredRequired} de {FINAL_REQUIRED_KEYS.length} respondidas
+              {answeredRequired} de {FINAL_REQUIRED_KEYS.length} respostes
             </p>
             <button
               type="submit"
               disabled={submitting || !allAnswered}
               className="w-full rounded-xl bg-violet-600 py-3 text-sm font-semibold text-white shadow-lg shadow-violet-200 transition hover:bg-violet-700 disabled:cursor-not-allowed disabled:opacity-60"
             >
-              {submitting ? 'Enviando…' : 'Enviar encuesta final'}
+              {submitting ? 'Enviant…' : 'Enviar l\'enquesta final'}
             </button>
           </div>
         </form>

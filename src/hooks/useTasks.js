@@ -27,7 +27,7 @@ export function useTasks() {
       .order('created_at', { ascending: true })
 
     if (error) {
-      setError('No se han podido cargar tus tareas.')
+      setError('No s\'han pogut carregar les teves tasques.')
     } else {
       setTasks(data || [])
     }
@@ -60,7 +60,7 @@ export function useTasks() {
 
   async function addTask({ title, description, subject, dueDate, priority }) {
     const cleanTitle = title.trim()
-    if (!user || !cleanTitle) return { error: new Error('Título vacío') }
+    if (!user || !cleanTitle) return { error: new Error('Títol buit') }
 
     const { data, error } = await supabase
       .from('tasks')
@@ -84,7 +84,7 @@ export function useTasks() {
 
   async function updateTask(task, { title, description, subject, dueDate, priority }) {
     const cleanTitle = title.trim()
-    if (!cleanTitle) return { error: new Error('Título vacío') }
+    if (!cleanTitle) return { error: new Error('Títol buit') }
 
     const patch = {
       title: cleanTitle,

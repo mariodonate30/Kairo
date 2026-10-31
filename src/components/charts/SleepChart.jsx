@@ -28,7 +28,7 @@ export default function SleepChart({ data }) {
           cursor={{ fill: '#f8fafc' }}
           contentStyle={TOOLTIP_STYLE}
           labelStyle={TOOLTIP_LABEL_STYLE}
-          formatter={(value) => [`${value} h`, 'Sueño']}
+          formatter={(value) => [`${value} h`, 'Son']}
         />
         <Bar dataKey="sleep_hours" fill="#6366f1" radius={[6, 6, 0, 0]} maxBarSize={44} />
       </BarChart>

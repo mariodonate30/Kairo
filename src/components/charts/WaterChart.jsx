@@ -34,7 +34,7 @@ export default function WaterChart({ data }) {
           cursor={{ fill: '#f8fafc' }}
           contentStyle={TOOLTIP_STYLE}
           labelStyle={TOOLTIP_LABEL_STYLE}
-          formatter={(value) => [`${value} vasos`, 'Agua']}
+          formatter={(value) => [`${value} gots`, 'Aigua']}
         />
         <Bar dataKey="water_glasses" fill="#0ea5e9" radius={[6, 6, 0, 0]} maxBarSize={44} />
       </BarChart>

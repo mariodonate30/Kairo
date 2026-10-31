@@ -40,7 +40,7 @@ function AchievementToast({ achievement, onDismiss }) {
 
       <div className="min-w-0 flex-1">
         <p className="text-[11px] font-bold uppercase tracking-wide text-amber-600">
-          ¡Logro desbloqueado!
+          Assoliment desbloquejat!
         </p>
         <p className="mt-0.5 truncate text-sm font-semibold text-slate-900">
           {achievement.title}
@@ -53,7 +53,7 @@ function AchievementToast({ achievement, onDismiss }) {
       <button
         type="button"
         onClick={() => setLeaving(true)}
-        aria-label="Cerrar"
+        aria-label="Tancar"
         className="shrink-0 rounded-lg p-1 text-slate-300 transition hover:bg-slate-50 hover:text-slate-500"
       >
         <X className="h-4 w-4" />

@@ -33,7 +33,7 @@ export function CheckinProvider({ children }) {
       .maybeSingle()
 
     if (loadError) {
-      setError('No se ha podido cargar el check-in de hoy.')
+      setError('No s\'ha pogut carregar el check-in d\'avui.')
     } else {
       setCheckin(data)
     }
@@ -48,7 +48,7 @@ export function CheckinProvider({ children }) {
   const submitCheckin = useCallback(
     async (values) => {
       if (!user) {
-        return { data: null, error: new Error('No hay sesión activa.') }
+        return { data: null, error: new Error('No hi ha cap sessió activa.') }
       }
 
       const { data, error: submitError } = await supabase

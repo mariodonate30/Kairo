@@ -71,7 +71,7 @@ export function useGoals() {
       .order('created_at', { ascending: true })
 
     if (error) {
-      setError('No se han podido cargar tus objetivos.')
+      setError('No s\'han pogut carregar els teus objectius.')
     } else {
       setGoals(data || [])
     }
@@ -107,7 +107,7 @@ export function useGoals() {
     const goalText = text.trim()
     if (!user || !goalText) return { error: null }
     if (todayGoals.length >= MAX_GOALS_PER_DAY) {
-      return { error: new Error('Máximo de objetivos alcanzado.') }
+      return { error: new Error('S\'ha arribat al màxim d\'objectius.') }
     }
 
     const nextSortOrder = todayGoals.length + 1

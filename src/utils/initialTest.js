@@ -15,12 +15,12 @@
 
 // Escala de acuerdo 1-5 reutilizando ScaleInput con dígitos como "emojis".
 export const SCALE_DIGITS = ['1', '2', '3', '4', '5']
-export const SCALE_LOW_LABEL = 'Muy en desacuerdo'
-export const SCALE_HIGH_LABEL = 'Muy de acuerdo'
+export const SCALE_LOW_LABEL = 'Molt en desacord'
+export const SCALE_HIGH_LABEL = 'Molt d\'acord'
 
 export const GENDER_OPTIONS = [
-  { value: 'chico', label: 'Chico' },
-  { value: 'chica', label: 'Chica' },
+  { value: 'chico', label: 'Noi' },
+  { value: 'chica', label: 'Noia' },
 ]
 
 export const GRADE_OPTIONS = ['<5', '5–6', '6–7', '7–8', '8–9', '9–10']
@@ -34,20 +34,20 @@ export const SOCIAL_HOURS_OPTIONS = ['<1 h', '1–2 h', '2–4 h', '4–6 h', '+
 export const INITIAL_TEST_BLOCKS = [
   {
     key: 'contexto',
-    title: 'Sobre ti',
-    description: 'Dos datos para poder analizar los resultados. El género es opcional.',
+    title: 'Sobre tu',
+    description: 'Dues dades per poder analitzar els resultats. El gènere és opcional.',
     questions: [
       {
         key: 'gender',
         type: 'gender',
-        text: 'Género (opcional)',
+        text: 'Gènere (opcional)',
         optional: true,
         hypotheses: [],
       },
       {
         key: 'grade_last_year',
         type: 'grade',
-        text: 'Nota media aproximada del curso pasado',
+        text: 'Nota mitjana aproximada del curs passat',
         hypotheses: ['H1.1', 'H3.2'],
       },
     ],
@@ -57,22 +57,22 @@ export const INITIAL_TEST_BLOCKS = [
     // Se responde en escala 1-4 (sin punto neutro), como en el formulario de la
     // Fase 1. Ítems inversos: rse_03, rse_05, rse_08, rse_09, rse_10.
     key: 'autoestima',
-    title: 'Cómo te ves a ti mismo/a',
-    description: 'Escala 1-4: del 1 (muy en desacuerdo) al 4 (muy de acuerdo).',
+    title: 'Com et veus a tu mateix/a',
+    description: 'Escala 1-4: de l\'1 (molt en desacord) al 4 (molt d\'acord).',
     hypotheses: ['H1.1'],
     questions: [
       {
         key: 'rse_01',
         type: 'scale',
         scaleMax: 4,
-        text: 'Siento que soy una persona digna de aprecio, al menos tanto como las demás.',
+        text: 'Sento que soc una persona digna d\'estima, almenys tant com les altres.',
         hypotheses: ['H1.1'],
       },
       {
         key: 'rse_02',
         type: 'scale',
         scaleMax: 4,
-        text: 'Creo que tengo varias cualidades buenas.',
+        text: 'Crec que tinc diverses qualitats bones.',
         hypotheses: ['H1.1'],
       },
       {
@@ -80,14 +80,14 @@ export const INITIAL_TEST_BLOCKS = [
         type: 'scale',
         scaleMax: 4,
         reverse: true,
-        text: 'En general, me inclino a pensar que soy un fracaso.',
+        text: 'En general, tendeixo a pensar que soc un fracàs.',
         hypotheses: ['H1.1'],
       },
       {
         key: 'rse_04',
         type: 'scale',
         scaleMax: 4,
-        text: 'Soy capaz de hacer las cosas tan bien como la mayoría de la gente.',
+        text: 'Soc capaç de fer les coses tan bé com la majoria de la gent.',
         hypotheses: ['H1.1'],
       },
       {
@@ -95,21 +95,21 @@ export const INITIAL_TEST_BLOCKS = [
         type: 'scale',
         scaleMax: 4,
         reverse: true,
-        text: 'Siento que no tengo muchos motivos para sentirme orgulloso/a de mí.',
+        text: 'Sento que no tinc gaires motius per sentir-me orgullós/osa de mi.',
         hypotheses: ['H1.1'],
       },
       {
         key: 'rse_06',
         type: 'scale',
         scaleMax: 4,
-        text: 'Tengo una actitud positiva hacia mí mismo/a.',
+        text: 'Tinc una actitud positiva cap a mi mateix/a.',
         hypotheses: ['H1.1'],
       },
       {
         key: 'rse_07',
         type: 'scale',
         scaleMax: 4,
-        text: 'En general, estoy satisfecho/a conmigo mismo/a.',
+        text: 'En general, estic satisfet/a amb mi mateix/a.',
         hypotheses: ['H1.1'],
       },
       {
@@ -117,7 +117,7 @@ export const INITIAL_TEST_BLOCKS = [
         type: 'scale',
         scaleMax: 4,
         reverse: true,
-        text: 'Me gustaría poder tener más respeto por mí mismo/a.',
+        text: 'M\'agradaria poder tenir més respecte per mi mateix/a.',
         hypotheses: ['H1.1'],
       },
       {
@@ -125,7 +125,7 @@ export const INITIAL_TEST_BLOCKS = [
         type: 'scale',
         scaleMax: 4,
         reverse: true,
-        text: 'A veces me siento verdaderamente inútil.',
+        text: 'De vegades em sento veritablement inútil.',
         hypotheses: ['H1.1'],
       },
       {
@@ -133,134 +133,134 @@ export const INITIAL_TEST_BLOCKS = [
         type: 'scale',
         scaleMax: 4,
         reverse: true,
-        text: 'A veces pienso que no sirvo para nada.',
+        text: 'De vegades penso que no serveixo per a res.',
         hypotheses: ['H1.1'],
       },
     ],
   },
   {
     key: 'fracaso_ansiedad',
-    title: 'Ante los exámenes y los suspensos',
-    description: 'Indica cuánto estás de acuerdo con cada frase.',
+    title: 'Davant dels exàmens i els suspensos',
+    description: 'Indica fins a quin punt estàs d\'acord amb cada frase.',
     hypotheses: ['H1.1', 'H1.2'],
     questions: [
       {
         key: 'fail_temporary',
         type: 'scale',
-        text: 'Cuando suspendo, lo veo como algo puntual que puedo mejorar.',
+        text: 'Quan suspenc, ho veig com una cosa puntual que puc millorar.',
         hypotheses: ['H1.1'],
       },
       {
         key: 'fail_worthless',
         type: 'scale',
         reverse: true,
-        text: 'Un suspenso me hace sentir que no valgo.',
+        text: 'Un suspens em fa sentir que no valc.',
         hypotheses: ['H1.1'],
       },
       {
         key: 'exam_nerves',
         type: 'scale',
-        text: 'Antes de un examen me pongo tan nervioso/a que me cuesta concentrarme.',
+        text: 'Abans d\'un examen em poso tan nerviós/osa que em costa concentrar-me.',
         hypotheses: ['H1.2'],
       },
       {
         key: 'exam_block',
         type: 'scale',
-        text: 'El miedo a sacar mala nota me bloquea.',
+        text: 'La por de treure mala nota em bloqueja.',
         hypotheses: ['H1.2'],
       },
     ],
   },
   {
     key: 'mentalidad',
-    title: 'Esfuerzo y capacidades',
-    description: 'Indica cuánto estás de acuerdo con cada frase.',
+    title: 'Esforç i capacitats',
+    description: 'Indica fins a quin punt estàs d\'acord amb cada frase.',
     hypotheses: ['H1.3'],
     questions: [
       {
         key: 'mind_fixed',
         type: 'scale',
         reverse: true,
-        text: 'La inteligencia es algo con lo que se nace y no se puede cambiar mucho.',
+        text: 'La intel·ligència és una cosa amb què es neix i no es pot canviar gaire.',
         hypotheses: ['H1.3'],
       },
       {
         key: 'mind_effort_improves',
         type: 'scale',
-        text: 'Con esfuerzo, cualquier persona puede mejorar mucho sus notas.',
+        text: 'Amb esforç, qualsevol persona pot millorar molt les seves notes.',
         hypotheses: ['H1.3'],
       },
       {
         key: 'mind_effort_over_talent',
         type: 'scale',
-        text: 'El esfuerzo diario importa más que el talento para tener éxito.',
+        text: 'L\'esforç diari importa més que el talent per tenir èxit.',
         hypotheses: ['H1.3'],
       },
     ],
   },
   {
     key: 'presion_amigos',
-    title: 'Tu grupo de amigos',
-    description: 'Indica cuánto estás de acuerdo con cada frase.',
+    title: 'El teu grup d\'amics',
+    description: 'Indica fins a quin punt estàs d\'acord amb cada frase.',
     hypotheses: ['H2.1'],
     questions: [
       {
         key: 'peer_criticism',
         type: 'scale',
-        text: 'Las críticas de mis amigos me afectan mucho.',
+        text: 'Les crítiques dels meus amics m\'afecten molt.',
         hypotheses: ['H2.1'],
       },
       {
         key: 'peer_negative_confidence',
         type: 'scale',
-        text: 'Cuando recibo comentarios negativos, pierdo confianza en mí mismo/a.',
+        text: 'Quan rebo comentaris negatius, perdo confiança en mi mateix/a.',
         hypotheses: ['H2.1'],
       },
     ],
   },
   {
     key: 'redes',
-    title: 'Redes sociales',
-    description: 'Sobre tu uso de las redes y cómo te hacen sentir.',
+    title: 'Xarxes socials',
+    description: 'Sobre el teu ús de les xarxes i com et fan sentir.',
     hypotheses: ['H2.2'],
     questions: [
       {
         key: 'social_hours',
         type: 'social_hours',
-        text: '¿Cuántas horas al día pasas en redes sociales?',
+        text: 'Quantes hores al dia passes a les xarxes socials?',
         hypotheses: ['H2.2'],
       },
       {
         key: 'social_compare',
         type: 'scale',
-        text: 'Comparo mi vida con la de personas que veo en redes.',
+        text: 'Comparo la meva vida amb la de persones que veig a les xarxes.',
         hypotheses: ['H2.2'],
       },
       {
         key: 'social_worse',
         type: 'scale',
-        text: 'Ver la vida "perfecta" de otros en redes me hace sentir peor conmigo mismo/a.',
+        text: 'Veure la vida «perfecta» dels altres a les xarxes em fa sentir pitjor amb mi mateix/a.',
         hypotheses: ['H2.2'],
       },
     ],
   },
   {
     key: 'habitos_estudio',
-    title: 'Tus hábitos de estudio',
-    description: 'Indica cuánto estás de acuerdo con cada frase.',
+    title: 'Els teus hàbits d\'estudi',
+    description: 'Indica fins a quin punt estàs d\'acord amb cada frase.',
     hypotheses: ['H3.2'],
     questions: [
       {
         key: 'study_planning',
         type: 'scale',
-        text: 'Planifico mi estudio con antelación en vez de dejarlo para el último momento.',
+        text: 'Planifico el meu estudi amb antelació en lloc de deixar-lo per a l\'últim moment.',
         hypotheses: ['H3.2'],
       },
       {
         key: 'study_phone_distract',
         type: 'scale',
         reverse: true,
-        text: 'Me distraigo con el móvil mientras estudio.',
+        text: 'Em distrec amb el mòbil mentre estudio.',
         hypotheses: ['H3.2'],
       },
     ],

@@ -7,7 +7,7 @@ export default function GuestRoute() {
   const { user, loading } = useAuth()
 
   if (loading) {
-    return <LoadingSpinner label="Cargando…" />
+    return <LoadingSpinner label="Carregant…" />
   }
 
   if (user) {

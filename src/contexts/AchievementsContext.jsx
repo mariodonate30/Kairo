@@ -2,6 +2,7 @@ import { createContext, useCallback, useEffect, useRef, useState } from 'react'
 import { useAuth } from '../hooks/useAuth'
 import { supabase } from '../lib/supabase'
 import { earnedKeys } from '../utils/achievements'
+import { translateAchievement } from '../utils/catalan'
 import { currentStreak, longestStreak } from '../utils/streaks'
 import AchievementToastStack from '../components/ui/AchievementToast'
 
@@ -46,7 +47,7 @@ export function AchievementsProvider({ children }) {
         .eq('user_id', user.id),
     ])
 
-    const cat = catRes.data || []
+    const cat = (catRes.data || []).map(translateAchievement)
     setCatalog(cat)
 
     const idToKey = new Map(cat.map((a) => [a.id, a.key]))
@@ -84,7 +85,7 @@ export function AchievementsProvider({ children }) {
       let cat = catalogRef.current
       if (!cat.length) {
         const { data } = await supabase.from('achievements').select('*')
-        cat = data || []
+        cat = (data || []).map(translateAchievement)
         setCatalog(cat)
       }
       const keyToAchievement = new Map(cat.map((a) => [a.key, a]))

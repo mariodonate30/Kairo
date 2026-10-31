@@ -20,20 +20,20 @@ import { useAuth } from '../../hooks/useAuth'
 import { useCheckin } from '../../hooks/useCheckin'
 
 const mainNavItems = [
-  { to: '/', label: 'Check-in diario', icon: ClipboardCheck, end: true },
-  { to: '/encuestas', label: 'Encuestas semanales', icon: ClipboardList },
-  { to: '/objetivos', label: 'Mis objetivos', icon: Target },
-  { to: '/calendario', label: 'Calendario de tareas', icon: CalendarDays },
-  { to: '/enfoque', label: 'Temporizador de enfoque', icon: Timer },
-  { to: '/meditacion', label: 'Meditación', icon: Wind },
-  { to: '/progreso', label: 'Mi progresión', icon: TrendingUp },
+  { to: '/', label: 'Check-in diari', icon: ClipboardCheck, end: true },
+  { to: '/encuestas', label: 'Enquestes setmanals', icon: ClipboardList },
+  { to: '/objetivos', label: 'Els meus objectius', icon: Target },
+  { to: '/calendario', label: 'Calendari de tasques', icon: CalendarDays },
+  { to: '/enfoque', label: 'Temporitzador de concentració', icon: Timer },
+  { to: '/meditacion', label: 'Meditació', icon: Wind },
+  { to: '/progreso', label: 'La meva progressió', icon: TrendingUp },
   { to: '/recursos', label: 'Recursos', icon: BookOpen },
 ]
 
 const secondaryNavItems = [
   { to: '/perfil', label: 'Perfil', icon: User },
-  { to: '/configuracion', label: 'Configuración', icon: Settings },
-  { to: '/privacidad', label: 'Políticas de privacidad', icon: ShieldCheck },
+  { to: '/configuracion', label: 'Configuració', icon: Settings },
+  { to: '/privacidad', label: 'Política de privacitat', icon: ShieldCheck },
 ]
 
 function linkClasses({ isActive }) {
@@ -56,7 +56,7 @@ function CheckinIndicator() {
     return (
       <span
         className="ml-auto flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-emerald-100 text-emerald-600"
-        title="Check-in de hoy completado"
+        title="Check-in d'avui completat"
       >
         <Check className="h-3 w-3" />
       </span>
@@ -64,7 +64,7 @@ function CheckinIndicator() {
   }
 
   return (
-    <span className="ml-auto flex shrink-0 items-center" title="Check-in de hoy pendiente">
+    <span className="ml-auto flex shrink-0 items-center" title="Check-in d'avui pendent">
       <span className="relative flex h-2.5 w-2.5">
         <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-amber-400 opacity-75" />
         <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-amber-500" />
@@ -116,7 +116,7 @@ export default function Sidebar({ isOpen, onClose }) {
             type="button"
             onClick={onClose}
             className="rounded-lg p-1.5 text-slate-400 hover:bg-slate-50 hover:text-slate-600 lg:hidden"
-            aria-label="Cerrar menú"
+            aria-label="Tancar menú"
           >
             <X className="h-5 w-5" />
           </button>
@@ -136,11 +136,11 @@ export default function Sidebar({ isOpen, onClose }) {
           {isAdmin && (
             <div className="mt-4 flex flex-col gap-1 border-t border-slate-100 pt-4">
               <p className="px-3 pb-1 text-xs font-semibold uppercase tracking-wide text-slate-400">
-                Administración
+                Administració
               </p>
               <NavLink to="/admin" onClick={onClose} className={linkClasses}>
                 <LayoutDashboard className="h-5 w-5 shrink-0" />
-                Panel de admin
+                Panell d'admin
               </NavLink>
             </div>
           )}
@@ -162,7 +162,7 @@ export default function Sidebar({ isOpen, onClose }) {
             </div>
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-medium text-slate-900">
-                {profile?.full_name || 'Estudiante'}
+                {profile?.full_name || 'Estudiant'}
               </p>
               <p className="truncate text-xs text-slate-400">{profile?.email}</p>
             </div>
@@ -173,7 +173,7 @@ export default function Sidebar({ isOpen, onClose }) {
             className="mt-1 flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-600 transition hover:bg-rose-50 hover:text-rose-600"
           >
             <LogOut className="h-5 w-5 shrink-0" />
-            Cerrar sesión
+            Tancar sessió
           </button>
         </div>
       </aside>

@@ -5,7 +5,7 @@ import { CheckinContext } from '../contexts/CheckinContext'
 export function useCheckin() {
   const context = useContext(CheckinContext)
   if (context === undefined) {
-    throw new Error('useCheckin debe usarse dentro de un CheckinProvider')
+    throw new Error('useCheckin s\'ha de fer servir dins d\'un CheckinProvider')
   }
   return context
 }

@@ -3,6 +3,7 @@ import { useAuth } from './useAuth'
 import { supabase } from '../lib/supabase'
 import { startOfWeek } from '../utils/dateHelpers'
 import { SURVEY_CATEGORIES } from '../utils/surveyCategories'
+import { translateQuestion } from '../utils/catalan'
 
 export { SURVEY_CATEGORIES }
 
@@ -53,9 +54,9 @@ export function useSurveys() {
     ])
 
     if (questionsResult.error || surveysResult.error) {
-      setError('No se han podido cargar las encuestas.')
+      setError('No s\'han pogut carregar les enquestes.')
     } else {
-      setQuestions(questionsResult.data || [])
+      setQuestions((questionsResult.data || []).map(translateQuestion))
       setSurveys(surveysResult.data || [])
     }
 
@@ -84,7 +85,7 @@ export function useSurveys() {
   // objeto { question_id: valor }.
   async function submitSurvey(responses) {
     if (!user) {
-      return { data: null, error: new Error('No hay sesión activa.') }
+      return { data: null, error: new Error('No hi ha cap sessió activa.') }
     }
 
     const { data, error } = await supabase
