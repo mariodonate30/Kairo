@@ -8,10 +8,31 @@ on:
     # Se ejecuta cada dia a las 06:00 UTC (08:00 en Espana peninsular en verano).
     # Formato cron: minuto hora dia-mes mes dia-semana
     - cron: '0 6 * * *'
+    # El dia 1 de cada mes a las 07:00 UTC hace ademas un commit automatico,
+    # porque GitHub desactiva los workflows programados si el repositorio
+    # pasa 60 dias sin actividad (y entonces el ping diario dejaria de ir).
+    - cron: '0 7 1 * *'
   # Permite lanzarlo manualmente desde la pestana "Actions" de GitHub.
   workflow_dispatch:
 
 jobs:
+  heartbeat:
+    if: github.event.schedule == '0 7 1 * *'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - name: Commit mensual para mantener el repositorio activo
+        run: |
+          date -u +"%Y-%m-%dT%H:%M:%SZ" > .github/keepalive.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add .github/keepalive.txt
+          git commit -m "Keep-alive mensual del repositorio"
+          git push
+
+
   ping:
     runs-on: ubuntu-latest
     steps:
