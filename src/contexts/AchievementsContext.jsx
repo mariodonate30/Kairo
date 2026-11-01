@@ -75,7 +75,8 @@ export function AchievementsProvider({ children }) {
   // Recalcula todas las estadísticas del usuario desde la base de datos,
   // desbloquea los logros recién conseguidos y actualiza la racha del perfil.
   // Es idempotente: se puede llamar tras cualquier acción sin duplicar nada.
-  const checkAchievements = useCallback(async () => {
+  // Con { silent: true } registra los logros sin mostrar toasts.
+  const checkAchievements = useCallback(async ({ silent = false } = {}) => {
     if (!user) return
     if (checkingRef.current) return
     checkingRef.current = true
@@ -183,7 +184,7 @@ export function AchievementsProvider({ children }) {
             for (const toast of newToasts) next[toast.key] = now
             return next
           })
-          enqueueToasts(newToasts)
+          if (!silent) enqueueToasts(newToasts)
         }
       }
 
@@ -210,8 +211,10 @@ export function AchievementsProvider({ children }) {
 
   // Al iniciar sesión, comprobamos los logros una vez para desbloquear de forma
   // retroactiva cualquiera ya conseguido (y recalcular la racha del perfil).
+  // El invitado empieza con datos de ejemplo que desbloquean muchos logros de
+  // golpe: esos se registran en silencio para no tapar la pantalla de toasts.
   useEffect(() => {
-    if (user) checkAchievements()
+    if (user) checkAchievements({ silent: Boolean(user.is_guest) })
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user])
 
