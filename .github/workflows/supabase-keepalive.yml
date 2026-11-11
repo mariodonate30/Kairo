@@ -39,13 +39,23 @@ jobs:
       - name: Ping a la base de datos de Supabase
         run: |
           echo "Enviando ping a Supabase para mantener el proyecto activo..."
-          HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" \
-            "${{ secrets.SUPABASE_URL }}/rest/v1/profiles?select=id&limit=1" \
+          # Llama a la funcion keep_alive() (migracion 0012), que hace una
+          # escritura real en la base de datos. Una lectura anonima vacia no
+          # basta: Supabase la consideraba "actividad insuficiente".
+          HTTP_CODE=$(curl -s -o /tmp/resp.txt -w "%{http_code}" -X POST \
+            "${{ secrets.SUPABASE_URL }}/rest/v1/rpc/keep_alive" \
             -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
-            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}")
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Content-Type: application/json" \
+            -d '{}')
           echo "Codigo de respuesta HTTP: $HTTP_CODE"
-          # 200 (ok) o 206 (contenido parcial) significan que el proyecto respondio.
-          if [ "$HTTP_CODE" = "200" ] || [ "$HTTP_CODE" = "206" ]; then
+          cat /tmp/resp.txt; echo
+          # Lectura extra a una tabla normal, por si acaso.
+          curl -s -o /dev/null \
+            "${{ secrets.SUPABASE_URL }}/rest/v1/survey_questions?select=id&limit=1" \
+            -H "apikey: ${{ secrets.SUPABASE_ANON_KEY }}" \
+            -H "Authorization: Bearer ${{ secrets.SUPABASE_ANON_KEY }}"
+          if [ "$HTTP_CODE" = "200" ]; then
             echo "Ping correcto: el proyecto esta activo."
           else
             echo "Aviso: respuesta inesperada ($HTTP_CODE). Revisa el estado del proyecto en Supabase."
